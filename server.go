@@ -13,7 +13,7 @@ import (
 
 //  check_api - Validates head block time.
 // ---------------------------------------------------------
-func check_api(host string, port int) (haproxy.HealthCheckStatus, string) {
+func check_api(host string, port int, block_time float64) (haproxy.HealthCheckStatus, string) {
 
 	info, err := eosapi.GetInfo(host, port)
 	if err != nil {
@@ -25,10 +25,10 @@ func check_api(host string, port int) (haproxy.HealthCheckStatus, string) {
 	now  := time.Now().In(time.UTC)
 	diff := now.Sub(info.HeadBlockTime).Seconds()
 
-	if diff > 10.0 {
+	if diff > block_time {
 		return haproxy.HealthCheckDown,
 			fmt.Sprintf("Taking offline because head block is lagging %.0f seconds", diff)
-	} else if diff < -10.0 {
+	} else if diff < -block_time {
 		return haproxy.HealthCheckDown,
 			fmt.Sprintf("Taking offline because head block is %.0f seconds into the future", diff)
 	}
@@ -74,6 +74,7 @@ func main() {
 	server.OnNewMessage(func(c *tcp_server.Client, message string) {
 		var host string
 		var port int = 80
+		var block_time int = 10
 
 		// Parse host + port.
 		split := strings.Split(strings.TrimSpace(message), ":")
@@ -85,11 +86,17 @@ func main() {
 				port = int(p)
 			}
 		}
+		if len(split) > 2 {
+			p, err := strconv.ParseInt(split[2], 10, 32)
+			if err == nil {
+				block_time = int(p)
+			}
+		}
 
 		// Check api.
-		status, msg := check_api(host, port)
+		status, msg := check_api(host, port, float64(block_time))
 
-		fmt.Printf("- %s:%d: %s, %s\n", host, port, status, msg)
+		fmt.Printf("- %s:%d (%d blocks): %s, %s\n", host, port, block_time / 2, status, msg)
 
 		// Report status to HAproxy
 		c.Send(fmt.Sprintln(status))
