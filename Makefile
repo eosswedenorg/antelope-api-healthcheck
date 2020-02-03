@@ -4,7 +4,7 @@ GOCCFLAGS 	= -v
 GOLDFLAGS   =
 PREFIX		= /usr/local
 
-PROGRAM_NAME=eos-api-healthcheck
+PROGRAM_NAME=eosio-api-healthcheck
 SOURCES=server.go
 DEPENDANCIES= github.com/firstrow/tcp_server \
 	github.com/liamylian/jsontime/v2 \
