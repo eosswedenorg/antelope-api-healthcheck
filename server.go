@@ -67,7 +67,7 @@ func main() {
 
 	// TCP Client connect.
     server.OnNewClient(func(c *tcp_server.Client) {
-        fmt.Println("# Client connected")
+        //fmt.Println("# Client connected")
     });
 
 	// TCP Client sends message.
@@ -98,7 +98,7 @@ func main() {
 
 	// TCP Client disconnect.
 	server.OnClientConnectionClosed(func(c *tcp_server.Client, err error) {
-		fmt.Println("# Client disconnected")
+		//fmt.Println("# Client disconnected")
 	});
 
     server.Listen()
