@@ -2,7 +2,7 @@
 
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-PACKAGE_DESCRIPTION="HAproxy healthcheck program for EOS API."
+PACKAGE_DESCRIPTION="HAproxy healthcheck program for EOSIO API."
 PACKAGE_TMPDIR="pack"
 
 # Default to 1 if no release is set.
