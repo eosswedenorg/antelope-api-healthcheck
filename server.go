@@ -89,7 +89,7 @@ func main() {
 		// Check api.
 		status, msg := check_api(host, port)
 
-		fmt.Printf("API HealthCheck: %s, %s\n", status, msg)
+		fmt.Printf("- %s:%d: %s, %s\n", host, port, status, msg)
 
 		// Report status to HAproxy
 		c.Send(fmt.Sprintln(status))
