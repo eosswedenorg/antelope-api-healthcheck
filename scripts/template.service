@@ -3,11 +3,12 @@ Description={{ DESCRIPTION }}
 After=network.target
 
 [Service]
+EnvironmentFile=-/etc/{{ PACKAGE_NAME }}/env
 Type=simple
 # Another Type: forking
 #User=nanodano
 #WorkingDirectory=/home/nanodano
-ExecStart={{ PROGRAM }}
+ExecStart={{ PROGRAM }} $OPTS
 Restart=on-failure
 # Other restart options: always, on-abort, etc
 

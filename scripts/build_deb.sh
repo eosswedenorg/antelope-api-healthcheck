@@ -30,9 +30,16 @@ cat ${BASE_DIR}/${PACKAGE_TMPDIR}/DEBIAN/control
 # Create service file
 mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/etc/systemd/system
 cat ${BASE_DIR}/template.service \
+	| sed "s~{{ PACKAGE_NAME }}~${PACKAGE_NAME}~" \
 	| sed "s~{{ DESCRIPTION }}~${PACKAGE_DESCRIPTION}~" \
 	| sed "s~{{ PROGRAM }}~/${PACKAGE_PREFIX}/bin/${PACKAGE_NAME}~" \
 	> ${BASE_DIR}/${PACKAGE_TMPDIR}/etc/systemd/system/${PACKAGE_NAME}.service
+
+# Cerate config file
+mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/etc/${PACKAGE_NAME}
+cat ${BASE_DIR}/config \
+	| sed "s~{{ PACKAGE_NAME }}~${PACKAGE_NAME}~" \
+	> ${BASE_DIR}/${PACKAGE_TMPDIR}/etc/${PACKAGE_NAME}/env
 
 # Copy program
 mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_PREFIX}/bin
