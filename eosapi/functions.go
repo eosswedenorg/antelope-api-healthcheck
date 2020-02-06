@@ -17,14 +17,7 @@ func init() {
 	v2.SetDefaultTimeFormat("2006-01-02T15:04:05", time.UTC);
 }
 
-//  GetInfo - Fetches get_info from API
-// ---------------------------------------------------------
-func GetInfo(host string, port int) (Info, error) {
-
-	var info Info;
-
-	// Format url.
-	url := fmt.Sprintf("http://%s:%d/v1/chain/get_info", host, port);
+func send(method string, host string, port int, uri string) (*req.Resp, error) {
 
 	// Go's net.http (that `req` uses) sends the port in the host header.
 	// nodeos api does not like that, so we need to provide our
@@ -33,12 +26,34 @@ func GetInfo(host string, port int) (Info, error) {
 		"Host": host,
 	}
 
-	// Send HTTP Get request.
-	r, err := req.Get(url, headers)
+	r := req.New()
+	return r.Do(method, fmt.Sprintf("http://%s:%d%s", host, port, uri), headers);
+}
+
+//  GetInfo - Fetches get_info from API
+// ---------------------------------------------------------
+func GetInfo(host string, port int) (Info, error) {
+
+	var info Info;
+
+	r, err := send("GET", host, port, "/v1/chain/get_info");
 	resp := r.Response()
 	body, _ := ioutil.ReadAll(resp.Body);
 
 	// Parse json
 	err = json.Unmarshal(body, &info);
 	return info, err;
+}
+
+func GetHealth(host string, port int) (Health, error) {
+
+	var health Health;
+
+	r, err := send("GET", host, port, "/v2/health");
+	resp := r.Response()
+	body, _ := ioutil.ReadAll(resp.Body);
+
+	// Parse json
+	err = json.Unmarshal(body, &health);
+	return health, err;
 }
