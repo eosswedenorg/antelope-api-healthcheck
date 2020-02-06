@@ -35,6 +35,49 @@ func check_api(host string, port int, block_time float64) (haproxy.HealthCheckSt
 	return haproxy.HealthCheckUp, "OK"
 }
 
+//  check_api_v2 (hyperion)
+//    Validates block num diff between
+//    nodeos and elasticsearch
+// ---------------------------------------------------------
+func check_api_v2(host string, port int, offset int64) (haproxy.HealthCheckStatus, string) {
+
+	health, err := eosapi.GetHealth(host, port)
+	if err != nil {
+		msg := fmt.Sprintf("%s", err);
+		return haproxy.HealthCheckFailed, msg
+	}
+
+	// Fetch elasticsearch and nodeos block numbers from json.
+	var es_block int64 = 0
+	var node_block int64 = 0
+
+	for _, v := range health.Health {
+		if v.Name == "Elasticsearch" {
+			es_block = (int64) (v.Data["last_indexed_block"].(float64))
+		} else if v.Name == "NodeosRPC" {
+			node_block = (int64) (v.Data["head_block_num"].(float64))
+		}
+	}
+
+	// Error out if ether or both are zero.
+	if es_block == 0 || node_block == 0 {
+		msg := fmt.Sprintf("Failed to get Elasticsearch and/or nodeos " +
+			"block numbers (es: %d, eos: %d)", es_block, node_block)
+		return haproxy.HealthCheckFailed, msg
+	}
+
+	// Check if ES is behind or in the future.
+	diff := node_block - es_block;
+	if diff > offset {
+		return haproxy.HealthCheckDown,
+			fmt.Sprintf("Taking offline because Elastic is %d blocks behind", diff)
+	} else if diff < -offset {
+		return haproxy.HealthCheckDown,
+			fmt.Sprintf("Taking offline because Elastic is %d blocks into the future", -1 * diff)
+	}
+	return haproxy.HealthCheckUp, "OK"
+}
+
 //  argv_listen_addr
 //    Parse listen address from command line.
 // ---------------------------------------------------------
@@ -75,6 +118,7 @@ func main() {
 		var host string
 		var port int = 80
 		var block_time int = 10
+		var v2 bool = false;
 
 		// Parse host + port.
 		split := strings.Split(strings.TrimSpace(message), ":")
@@ -92,9 +136,22 @@ func main() {
 				block_time = int(p)
 			}
 		}
+		if len(split) > 3 {
+			p, err := strconv.ParseInt(split[3], 10, 32)
+			if err == nil {
+				v2 = p != 0;
+			}
+		}
 
 		// Check api.
-		status, msg := check_api(host, port, float64(block_time))
+		var status haproxy.HealthCheckStatus
+		var msg string
+
+		if v2 {
+			status, msg = check_api_v2(host, port, int64(block_time / 2))
+		} else {
+			status, msg = check_api(host, port, float64(block_time))
+		}
 
 		fmt.Printf("- %s:%d (%d blocks): %s, %s\n", host, port, block_time / 2, status, msg)
 
