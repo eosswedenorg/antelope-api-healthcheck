@@ -2,6 +2,7 @@
 
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+PACKAGE_SHAREDIR=${PACKAGE_PREFIX}/share/${PACKAGE_NAME}
 PACKAGE_DESCRIPTION="HAproxy healthcheck program for EOSIO API."
 PACKAGE_TMPDIR="pack"
 
@@ -44,5 +45,9 @@ cat ${BASE_DIR}/config \
 # Copy program
 mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_PREFIX}/bin
 cp ${BASE_DIR}/../${PACKAGE_PROGRAM} ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_PREFIX}/bin/${PACKAGE_NAME}
+
+# Copy files.
+mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_SHAREDIR}
+cp ${BASE_DIR}/../README.md ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_SHAREDIR}
 
 fakeroot dpkg-deb --build ${BASE_DIR}/${PACKAGE_TMPDIR} ${BASE_DIR}/${PACKAGE_FULLNAME}.deb
