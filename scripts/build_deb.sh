@@ -2,6 +2,9 @@
 
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+PACKAGE_BINDIR=${PACKAGE_PREFIX}/bin
+PACKAGE_ETCDIR=etc/${PACKAGE_NAME}
+PACKAGE_SYSUNITDIR=etc/systemd/system
 PACKAGE_SHAREDIR=${PACKAGE_PREFIX}/share/${PACKAGE_NAME}
 PACKAGE_DESCRIPTION="HAproxy healthcheck program for EOSIO API."
 PACKAGE_TMPDIR="pack"
@@ -29,22 +32,22 @@ Description: ${PACKAGE_DESCRIPTION}" &> ${BASE_DIR}/${PACKAGE_TMPDIR}/DEBIAN/con
 cat ${BASE_DIR}/${PACKAGE_TMPDIR}/DEBIAN/control
 
 # Create service file
-mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/etc/systemd/system
+mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_SYSUNITDIR}
 cat ${BASE_DIR}/template.service \
 	| sed "s~{{ PACKAGE_NAME }}~${PACKAGE_NAME}~" \
 	| sed "s~{{ DESCRIPTION }}~${PACKAGE_DESCRIPTION}~" \
 	| sed "s~{{ PROGRAM }}~/${PACKAGE_PREFIX}/bin/${PACKAGE_NAME}~" \
-	> ${BASE_DIR}/${PACKAGE_TMPDIR}/etc/systemd/system/${PACKAGE_NAME}.service
+	> ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_SYSUNITDIR}/${PACKAGE_NAME}.service
 
 # Cerate config file
-mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/etc/${PACKAGE_NAME}
+mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_ETCDIR}
 cat ${BASE_DIR}/config \
 	| sed "s~{{ PACKAGE_NAME }}~${PACKAGE_NAME}~" \
-	> ${BASE_DIR}/${PACKAGE_TMPDIR}/etc/${PACKAGE_NAME}/env
+	> ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_ETCDIR}/env
 
 # Copy program
-mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_PREFIX}/bin
-cp ${BASE_DIR}/../${PACKAGE_PROGRAM} ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_PREFIX}/bin/${PACKAGE_NAME}
+mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_BINDIR}
+cp ${BASE_DIR}/../${PACKAGE_PROGRAM} ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_BINDIR}/${PACKAGE_NAME}
 
 # Copy files.
 mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_SHAREDIR}
