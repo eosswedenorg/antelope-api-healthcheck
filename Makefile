@@ -21,7 +21,7 @@ deps:
 
 package_deb: build
 	export PACKAGE_NAME="$(PROGRAM_NAME)" \
-	export PACKAGE_VERSION="0.1.1" \
+	export PACKAGE_VERSION="0.1.2" \
 	export PACKAGE_PREFIX=$(PREFIX:/%=%) \
 	export PACKAGE_PROGRAM="build/$(PROGRAM_NAME)" \
 	&& ./scripts/build_deb.sh
