@@ -151,8 +151,12 @@ func main() {
 			status, msg = check_api(host, port, float64(block_time))
 		}
 
-		fmt.Printf("[Status %s] %s:%d (%d blocks): %s, %s\n",
-			 version, host, port, block_time / 2, status, msg)
+		fmt.Printf("[Status %s] %s:%d (%d blocks): %s\n",
+			 version, host, port, block_time / 2, status)
+
+		if status != haproxy.HealthCheckUp && len(msg) > 0 {
+			fmt.Println(msg)
+		}
 
 		// Report status to HAproxy
 		c.Send(fmt.Sprintln(status))
