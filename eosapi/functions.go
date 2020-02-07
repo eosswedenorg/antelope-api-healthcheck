@@ -37,11 +37,13 @@ func GetInfo(host string, port int) (Info, error) {
 	var info Info;
 
 	r, err := send("GET", host, port, "/v1/chain/get_info");
-	resp := r.Response()
-	body, _ := ioutil.ReadAll(resp.Body);
+	if err == nil {
+		resp := r.Response()
+		body, _ := ioutil.ReadAll(resp.Body);
 
-	// Parse json
-	err = json.Unmarshal(body, &info);
+		// Parse json
+		err = json.Unmarshal(body, &info);
+	}
 	return info, err;
 }
 
@@ -50,10 +52,12 @@ func GetHealth(host string, port int) (Health, error) {
 	var health Health;
 
 	r, err := send("GET", host, port, "/v2/health");
-	resp := r.Response()
-	body, _ := ioutil.ReadAll(resp.Body);
+	if err == nil {
+		resp := r.Response()
+		body, _ := ioutil.ReadAll(resp.Body);
 
-	// Parse json
-	err = json.Unmarshal(body, &health);
+		// Parse json
+		err = json.Unmarshal(body, &health);
+	}
 	return health, err;
 }
