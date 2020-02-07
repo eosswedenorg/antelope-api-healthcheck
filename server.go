@@ -118,7 +118,7 @@ func main() {
 		var host string
 		var port int = 80
 		var block_time int = 10
-		var v2 bool = false;
+		var version string = "v1"
 
 		// Parse host + port.
 		split := strings.Split(strings.TrimSpace(message), ":")
@@ -137,17 +137,14 @@ func main() {
 			}
 		}
 		if len(split) > 3 {
-			p, err := strconv.ParseInt(split[3], 10, 32)
-			if err == nil {
-				v2 = p != 0;
-			}
+			version = split[3]
 		}
 
 		// Check api.
 		var status haproxy.HealthCheckStatus
 		var msg string
 
-		if v2 {
+		if version == "v2" {
 			status, msg = check_api_v2(host, port, int64(block_time / 2))
 		} else {
 			status, msg = check_api(host, port, float64(block_time))
