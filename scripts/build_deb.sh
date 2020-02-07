@@ -9,12 +9,23 @@ PACKAGE_SHAREDIR=${PACKAGE_PREFIX}/share/${PACKAGE_NAME}
 PACKAGE_DESCRIPTION="HAproxy healthcheck program for EOSIO API."
 PACKAGE_TMPDIR="pack"
 
+if [[ -f /etc/upstream-release/lsb-release ]]; then
+	source /etc/upstream-release/lsb-release
+elif [[ -f /etc/lsb-release ]]; then
+	source /etc/lsb-release
+else
+	echo "ERROR: could not determine debian release."
+	exit 1
+fi
+
+DISTRIB_ID=$(echo $DISTRIB_ID | tr '[:upper:]' '[:lower:]')
+
 # Default to 1 if no release is set.
 if [[ -z $RELEASE ]]; then
   RELEASE="1"
 fi
 
-PACKAGE_FULLNAME="${PACKAGE_NAME}_${PACKAGE_VERSION}-${RELEASE}_amd64"
+PACKAGE_FULLNAME="${PACKAGE_NAME}_${PACKAGE_VERSION}-${RELEASE}-${DISTRIB_ID}-${DISTRIB_RELEASE}_amd64"
 
 rm -fr ${BASE_DIR}/${PACKAGE_TMPDIR}
 
