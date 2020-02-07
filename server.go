@@ -6,6 +6,7 @@ import (
 	"time"
 	"strings"
 	"strconv"
+	"./log"
 	"./haproxy"
 	"./eosapi"
     "github.com/firstrow/tcp_server"
@@ -151,11 +152,11 @@ func main() {
 			status, msg = check_api(host, port, float64(block_time))
 		}
 
-		fmt.Printf("[Status %s] %s:%d (%d blocks): %s\n",
+		log.Info("Status %s - %s:%d (%d blocks): %s",
 			 version, host, port, block_time / 2, status)
 
 		if status != haproxy.HealthCheckUp && len(msg) > 0 {
-			fmt.Println(msg)
+			log.Warning(msg)
 		}
 
 		// Report status to HAproxy
