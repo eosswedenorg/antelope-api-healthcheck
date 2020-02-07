@@ -147,10 +147,12 @@ func main() {
 		if version == "v2" {
 			status, msg = check_api_v2(host, port, int64(block_time / 2))
 		} else {
+			version = "v1"
 			status, msg = check_api(host, port, float64(block_time))
 		}
 
-		fmt.Printf("- %s:%d (%d blocks): %s, %s\n", host, port, block_time / 2, status, msg)
+		fmt.Printf("[Status %s] %s:%d (%d blocks): %s, %s\n",
+			 version, host, port, block_time / 2, status, msg)
 
 		// Report status to HAproxy
 		c.Send(fmt.Sprintln(status))
