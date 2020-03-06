@@ -8,7 +8,7 @@ The protocol is simple and has 4 rules.
 
 1. Data is transmitted in `packets` encoded in ascii and ends with newline `\n`.
 2. There are two types of packages: `Request` and `Response`. Each `Request` has exactly one `Response`.
-3. Each parameter inside a `Request` is separated by `:`
+3. Each parameter inside a `Request` is separated by `|`
 4. Each response contains exactly one `status code` (see below)
 
 
