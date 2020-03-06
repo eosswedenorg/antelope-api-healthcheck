@@ -3,25 +3,25 @@ package eosapi;
 
 import (
 	"time"
-	"io/ioutil"
 	"net/url"
+	"io/ioutil"
 	"github.com/imroc/req"
 	"github.com/liamylian/jsontime/v2"
 )
 
-var json = v2.ConfigWithCustomTimeFormat;
+var json = v2.ConfigWithCustomTimeFormat
 
 func init() {
 
 	// EOS Api does not specify timezone in timestamps (they are always UTC tho).
-	v2.SetDefaultTimeFormat("2006-01-02T15:04:05", time.UTC);
+	v2.SetDefaultTimeFormat("2006-01-02T15:04:05", time.UTC)
 }
 
 func send(method string, api_url string) (*req.Resp, error) {
 
 	u, err := url.Parse(api_url)
     if err != nil {
-        return nil, err;
+        return nil, err
     }
 
 	// Go's net.http (that `req` uses) sends the port in the host header.
@@ -39,30 +39,30 @@ func send(method string, api_url string) (*req.Resp, error) {
 // ---------------------------------------------------------
 func GetInfo(url string) (Info, error) {
 
-	var info Info;
+	var info Info
 
-	r, err := send("GET", url + "/v1/chain/get_info");
+	r, err := send("GET", url + "/v1/chain/get_info")
 	if err == nil {
 		resp := r.Response()
-		body, _ := ioutil.ReadAll(resp.Body);
+		body, _ := ioutil.ReadAll(resp.Body)
 
 		// Parse json
-		err = json.Unmarshal(body, &info);
+		err = json.Unmarshal(body, &info)
 	}
-	return info, err;
+	return info, err
 }
 
 func GetHealth(url string) (Health, error) {
 
 	var health Health;
 
-	r, err := send("GET", url + "/v2/health");
+	r, err := send("GET", url + "/v2/health")
 	if err == nil {
 		resp := r.Response()
-		body, _ := ioutil.ReadAll(resp.Body);
+		body, _ := ioutil.ReadAll(resp.Body)
 
 		// Parse json
-		err = json.Unmarshal(body, &health);
+		err = json.Unmarshal(body, &health)
 	}
-	return health, err;
+	return health, err
 }
