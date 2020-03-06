@@ -10,6 +10,7 @@ type Info struct {
 	HeadBlockTime 	time.Time 	`json:"head_block_time"`
 }
 
+// Service struct from /v2/health
 type Service struct {
 	Name	string 				   `json:"service"`
 	Status  string  			   `json:"status"`
@@ -17,6 +18,7 @@ type Service struct {
 	Time    int64 				   `json:"time"` // unix timestamp.
 }
 
+// /v2/health format (not all fields).
 type Health struct {
 	VersionHash 	string 		`json:"version_hash"`
 	Health          []Service 	`json:"health"`
