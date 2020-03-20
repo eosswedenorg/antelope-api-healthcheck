@@ -2,6 +2,7 @@
 package eosapi;
 
 import (
+	"strings"
 	"time"
 	"net/url"
 	"io/ioutil"
@@ -28,7 +29,7 @@ func send(method string, api_url string) (*req.Resp, error) {
 	// nodeos api does not like that, so we need to provide our
 	// own Host header with just the host.
 	headers := req.Header{
-		"Host": u.Host,
+		"Host": strings.Split(u.Host, ":")[0],
 	}
 
 	r := req.New()
