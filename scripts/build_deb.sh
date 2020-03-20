@@ -5,6 +5,8 @@ BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 PACKAGE_BINDIR=${PACKAGE_PREFIX}/bin
 PACKAGE_ETCDIR=etc/${PACKAGE_NAME}
 PACKAGE_SYSUNITDIR=etc/systemd/system
+PACKAGE_RSYSLOGDIR=etc/rsyslog.d
+PACKAGE_LOGDIR=/var/log
 PACKAGE_SHAREDIR=${PACKAGE_PREFIX}/share/${PACKAGE_NAME}
 PACKAGE_DESCRIPTION="HAproxy healthcheck program for EOSIO API."
 PACKAGE_TMPDIR="pack"
@@ -49,6 +51,13 @@ cat ${BASE_DIR}/template.service \
 	| sed "s~{{ DESCRIPTION }}~${PACKAGE_DESCRIPTION}~" \
 	| sed "s~{{ PROGRAM }}~/${PACKAGE_PREFIX}/bin/${PACKAGE_NAME}~" \
 	> ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_SYSUNITDIR}/${PACKAGE_NAME}.service
+
+# Create rsyslog file
+mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_RSYSLOGDIR}
+cat ${BASE_DIR}/rsyslog-template.conf \
+	| sed "s~{{ PROGRAM }}~${PACKAGE_NAME}~" \
+	| sed "s~{{ LOG_FILE }}~${PACKAGE_LOGDIR}/${PACKAGE_NAME}.log~" \
+	> ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_RSYSLOGDIR}/49-${PACKAGE_NAME}.conf
 
 # Cerate config file
 mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_ETCDIR}
