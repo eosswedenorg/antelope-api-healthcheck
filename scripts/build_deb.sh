@@ -6,7 +6,9 @@ PACKAGE_BINDIR=${PACKAGE_PREFIX}/bin
 PACKAGE_ETCDIR=etc/${PACKAGE_NAME}
 PACKAGE_SYSUNITDIR=etc/systemd/system
 PACKAGE_RSYSLOGDIR=etc/rsyslog.d
+PACKAGE_LOGROTATEDIR=etc/logrotate.d
 PACKAGE_LOGDIR=/var/log
+PACKAGE_LOGFILE=${PACKAGE_LOGDIR}/${PACKAGE_NAME}.log
 PACKAGE_SHAREDIR=${PACKAGE_PREFIX}/share/${PACKAGE_NAME}
 PACKAGE_DESCRIPTION="HAproxy healthcheck program for EOSIO API."
 PACKAGE_TMPDIR="pack"
@@ -56,8 +58,15 @@ cat ${BASE_DIR}/template.service \
 mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_RSYSLOGDIR}
 cat ${BASE_DIR}/rsyslog-template.conf \
 	| sed "s~{{ PROGRAM }}~${PACKAGE_NAME}~" \
-	| sed "s~{{ LOG_FILE }}~${PACKAGE_LOGDIR}/${PACKAGE_NAME}.log~" \
+	| sed "s~{{ LOG_FILE }}~${PACKAGE_LOGFILE}~" \
 	> ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_RSYSLOGDIR}/49-${PACKAGE_NAME}.conf
+
+# Create logrotate file
+mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_LOGROTATEDIR}
+cat ${BASE_DIR}/logrotate-template.conf \
+	| sed "s~{{ LOG_FILE }}~${PACKAGE_LOGFILE}~" \
+	> ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_LOGROTATEDIR}/${PACKAGE_NAME}.conf
+chmod 644 ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_LOGROTATEDIR}/${PACKAGE_NAME}.conf
 
 # Cerate config file
 mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_ETCDIR}
