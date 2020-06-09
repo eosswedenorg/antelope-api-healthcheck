@@ -1,0 +1,47 @@
+#!/bin/sh
+
+#
+# Add the following lines to /etc/rc.conf to configure eosio_api_healthcheck:
+#
+#  eosio_api_healthcheck_args : arguments to the command.
+#
+#  eosio_api_healthcheck_logfile : file to log to (default /var/log/${name}.log)
+#
+
+# PROVIDE: {{ RC_NAME }}
+# REQUIRE: netif FILESYSTEMS
+
+. /etc/rc.subr
+
+name="{{ RC_NAME }}"
+desc="{{ DESCRIPTION }}"
+command="{{ PROGRAM }}"
+command_args="${eosio_api_healthcheck_args}"
+logfile="${eosio_api_healthcheck_logfile:-/var/log/${name}.log}"
+pidfile="/var/run/${name}.pid"
+
+start_cmd="${name}_start"
+stop_cmd="${name}_stop"
+
+eosio_api_healthcheck_start()
+{
+	echo "Starting ${name}"
+	${command} ${command_args} >${logfile} 2>&1 &
+	echo $! > ${pidfile}
+}
+
+eosio_api_healthcheck_stop()
+{
+	rc_pid=$(check_pidfile ${pidfile} ${command})
+	if $rc_pid; then
+		rc_pid=$(cat ${pidfile})
+		kill -$sig_stop $rc_pid
+		wait_for_pids $rc_pid
+	else
+		_run_rc_notrunning
+		return 1
+	fi
+}
+
+load_rc_config $name
+run_rc_command "$1"
