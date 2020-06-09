@@ -24,7 +24,7 @@ package_deb: build
 	export PACKAGE_VERSION="0.3.1" \
 	export PACKAGE_PREFIX=$(PREFIX:/%=%) \
 	export PACKAGE_PROGRAM="build/$(PROGRAM_NAME)" \
-	&& ./scripts/build_deb.sh
+	&& ./scripts/build.sh deb
 
 clean:
 	$(GO) clean

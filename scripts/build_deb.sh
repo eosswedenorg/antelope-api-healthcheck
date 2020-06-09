@@ -1,17 +1,6 @@
 #!/usr/bin/env bash
 
-BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-
-PACKAGE_BINDIR=${PACKAGE_PREFIX}/bin
-PACKAGE_ETCDIR=etc/${PACKAGE_NAME}
-PACKAGE_SYSUNITDIR=etc/systemd/system
-PACKAGE_RSYSLOGDIR=etc/rsyslog.d
-PACKAGE_LOGROTATEDIR=etc/logrotate.d
-PACKAGE_LOGDIR=/var/log
-PACKAGE_LOGFILE=${PACKAGE_LOGDIR}/${PACKAGE_NAME}.log
-PACKAGE_SHAREDIR=${PACKAGE_PREFIX}/share/${PACKAGE_NAME}
-PACKAGE_DESCRIPTION="HAproxy healthcheck program for EOSIO API."
-PACKAGE_TMPDIR="pack"
+PACKAGE_TMPDIR="${PACKAGE_TMPDIR}/debian"
 
 if [[ -f /etc/upstream-release/lsb-release ]]; then
 	source /etc/upstream-release/lsb-release
