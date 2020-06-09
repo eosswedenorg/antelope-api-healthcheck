@@ -31,6 +31,9 @@ package : package_info build
 package_deb: package
 	./scripts/build.sh deb
 
+package_freebsd: package
+	./scripts/build.sh freebsd
+
 clean:
 	$(GO) clean
 	$(RM) -rf build/

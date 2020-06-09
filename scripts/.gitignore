@@ -1,3 +1,5 @@
 pack/
 info
 *.deb
+*.tar
+*.tar.*
