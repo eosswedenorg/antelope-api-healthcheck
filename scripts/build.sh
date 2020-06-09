@@ -7,7 +7,9 @@
 export BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Info
-export PACKAGE_DESCRIPTION="HAproxy healthcheck program for EOSIO API."
+set -o allexport
+source ${BASE_DIR}/info
+set +o allexport
 
 # Directories.
 export PACKAGE_BINDIR=${PACKAGE_PREFIX}/bin
