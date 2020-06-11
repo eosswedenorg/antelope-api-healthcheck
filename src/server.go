@@ -6,6 +6,7 @@ import (
 	"strings"
 	"strconv"
 	"./log"
+	"./pid"
 	"./haproxy"
 	"./eosapi"
     "github.com/firstrow/tcp_server"
@@ -116,8 +117,14 @@ func main() {
 	getopt.FlagLong(&pidFile, "pid", 'p', "Path to pid file", "file")
 	getopt.Parse()
 
+	log.Info("Process is starting with PID: %d", pid.Get())
+
 	if len(pidFile) > 0 {
 		log.Info("Writing pidfile: %s", pidFile)
+		_, err := pid.Save(pidFile)
+		if err != nil {
+			log.Error("Failed to write pidfile: %v", err)
+		}
 	}
 
     server := tcp_server.New(argv_listen_addr())
