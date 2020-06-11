@@ -8,7 +8,8 @@ PROGRAM_NAME=eosio-api-healthcheck
 SOURCES=src/server.go
 DEPENDANCIES= github.com/firstrow/tcp_server \
 	github.com/liamylian/jsontime/v2 \
-	github.com/imroc/req
+	github.com/imroc/req \
+	github.com/pborman/getopt/v2
 
 all: build
 build: build/$(PROGRAM_NAME)

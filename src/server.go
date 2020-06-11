@@ -1,7 +1,6 @@
 package main
 
 import (
-	"os"
     "fmt"
 	"time"
 	"strings"
@@ -10,6 +9,7 @@ import (
 	"./haproxy"
 	"./eosapi"
     "github.com/firstrow/tcp_server"
+	"github.com/pborman/getopt/v2"
 )
 
 //  check_api - Validates head block time.
@@ -79,6 +79,11 @@ func check_api_v2(url string, offset int64) (haproxy.HealthCheckStatus, string) 
 	return haproxy.HealthCheckUp, "OK"
 }
 
+//  Command line flags
+// ---------------------------------------------------------
+
+var pidFile string
+
 //  argv_listen_addr
 //    Parse listen address from command line.
 // ---------------------------------------------------------
@@ -86,7 +91,7 @@ func argv_listen_addr() string {
 
 	var addr string
 
-	argv := os.Args[1:]
+	argv := getopt.Args()
 	if len(argv) > 0 {
 		addr = argv[0]
 	} else {
@@ -106,6 +111,14 @@ func argv_listen_addr() string {
 //  main
 // ---------------------------------------------------------
 func main() {
+
+	// Command line parsing
+	getopt.FlagLong(&pidFile, "pid", 'p', "Path to pid file", "file")
+	getopt.Parse()
+
+	if len(pidFile) > 0 {
+		log.Info("Writing pidfile: %s", pidFile)
+	}
 
     server := tcp_server.New(argv_listen_addr())
 
