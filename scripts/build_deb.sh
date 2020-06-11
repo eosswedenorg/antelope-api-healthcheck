@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 PACKAGE_TMPDIR="${PACKAGE_TMPDIR}/debian"
+PACKAGE_SYSUNITDIR=etc/systemd/system
+PACKAGE_RSYSLOGDIR=etc/rsyslog.d
+PACKAGE_LOGROTATEDIR=etc/logrotate.d
 
 if [[ -f /etc/upstream-release/lsb-release ]]; then
 	source /etc/upstream-release/lsb-release

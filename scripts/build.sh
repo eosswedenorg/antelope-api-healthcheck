@@ -15,9 +15,6 @@ set +o allexport
 # Directories.
 export PACKAGE_BINDIR=${PACKAGE_PREFIX}/bin
 export PACKAGE_ETCDIR=etc/${PACKAGE_NAME}
-export PACKAGE_SYSUNITDIR=etc/systemd/system
-export PACKAGE_RSYSLOGDIR=etc/rsyslog.d
-export PACKAGE_LOGROTATEDIR=etc/logrotate.d
 export PACKAGE_LOGDIR=/var/log
 export PACKAGE_LOGFILE=${PACKAGE_LOGDIR}/${PACKAGE_NAME}.log
 export PACKAGE_SHAREDIR=${PACKAGE_PREFIX}/share/${PACKAGE_NAME}
