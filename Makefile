@@ -14,7 +14,7 @@ all: build
 build: build/$(PROGRAM_NAME)
 
 build/$(PROGRAM_NAME) : $(SOURCES)
-	$(GO) build -o $@ $(GOCCFLAGS) $(GOLDFLAGS) $<
+	$(GO) build -o $@ $(GOCCFLAGS) $(GOLDFLAGS) $^
 
 deps:
 	$(GO) get $(DEPENDANCIES)
