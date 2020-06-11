@@ -3,6 +3,7 @@
 
 PACKAGE_TMPDIR="${PACKAGE_TMPDIR}/freebsd"
 PACKAGE_RCDIR=/etc/rc.d
+PACKAGE_NEWSYSLOGDIR=etc/newsyslog.conf.d
 
 ############################
 #  Create rc file          #
@@ -19,13 +20,13 @@ cat ${BASE_DIR}/rc.template \
 	> ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_RCDIR}/${RC_NAME}
 
 ############################
-#  Create logrotate config #
+#  Create newsyslog config #
 ############################
 
-mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_LOGROTATEDIR}
-cat ${BASE_DIR}/logrotate-template.conf \
+mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_NEWSYSLOGDIR}
+cat ${TEMPLATE_DIR}/newsyslog.conf \
 	| sed "s~{{ LOG_FILE }}~${PACKAGE_LOGFILE}~" \
-	> ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_LOGROTATEDIR}/${PACKAGE_NAME}
+	> ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_NEWSYSLOGDIR}/${PACKAGE_NAME}.conf
 
 
 ############################
