@@ -19,14 +19,14 @@ build/$(PROGRAM_NAME) : $(SOURCES)
 deps:
 	$(GO) get $(DEPENDANCIES)
 
-package_info : scripts/info
+scripts/info :
 	echo PACKAGE_NAME=\"$(PROGRAM_NAME)\" "\n"\
 	PACKAGE_DESCRIPTION=\"HAproxy healthcheck program for EOSIO API.\" "\n"\
 	PACKAGE_VERSION=\"0.3.1\" "\n"\
 	PACKAGE_PREFIX=\"$(PREFIX:/%=%)\" "\n"\
-	PACKAGE_PROGRAM=\"build/$(PROGRAM_NAME)\" > $<
+	PACKAGE_PROGRAM=\"build/$(PROGRAM_NAME)\" > $@
 
-package : package_info build
+package : scripts/info build
 
 package_deb: package
 	./scripts/build.sh deb
