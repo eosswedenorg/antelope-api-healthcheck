@@ -13,7 +13,7 @@ PACKAGE_NEWSYSLOGDIR=etc/newsyslog.conf.d
 RC_NAME=$(echo ${PACKAGE_NAME} | sed "s~-~_~g")
 
 mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_RCDIR}
-cat ${BASE_DIR}/rc.template \
+cat ${TEMPLATE_DIR}/rc.conf \
 	| sed "s~{{ RC_NAME }}~${RC_NAME}~g" \
 	| sed "s~{{ DESCRIPTION }}~${PACKAGE_DESCRIPTION}~" \
 	| sed "s~{{ PROGRAM }}~/${PACKAGE_BINDIR}/${PACKAGE_NAME}~" \

@@ -37,7 +37,7 @@ cat ${BASE_DIR}/${PACKAGE_TMPDIR}/DEBIAN/control
 
 # Create service file
 mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_SYSUNITDIR}
-cat ${BASE_DIR}/template.service \
+cat ${TEMPLATE_DIR}/sysunit.service \
 	| sed "s~{{ PACKAGE_NAME }}~${PACKAGE_NAME}~" \
 	| sed "s~{{ DESCRIPTION }}~${PACKAGE_DESCRIPTION}~" \
 	| sed "s~{{ PROGRAM }}~/${PACKAGE_PREFIX}/bin/${PACKAGE_NAME}~" \
@@ -45,21 +45,21 @@ cat ${BASE_DIR}/template.service \
 
 # Create rsyslog file
 mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_RSYSLOGDIR}
-cat ${BASE_DIR}/rsyslog-template.conf \
+cat ${TEMPLATE_DIR}/rsyslog.conf \
 	| sed "s~{{ PROGRAM }}~${PACKAGE_NAME}~" \
 	| sed "s~{{ LOG_FILE }}~${PACKAGE_LOGFILE}~" \
 	> ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_RSYSLOGDIR}/49-${PACKAGE_NAME}.conf
 
 # Create logrotate file
 mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_LOGROTATEDIR}
-cat ${BASE_DIR}/logrotate-template.conf \
+cat ${TEMPLATE_DIR}/logrotate.conf \
 	| sed "s~{{ LOG_FILE }}~${PACKAGE_LOGFILE}~" \
 	> ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_LOGROTATEDIR}/${PACKAGE_NAME}.conf
 chmod 644 ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_LOGROTATEDIR}/${PACKAGE_NAME}.conf
 
 # Cerate config file
 mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_ETCDIR}
-cat ${BASE_DIR}/config \
+cat ${TEMPLATE_DIR}/config \
 	| sed "s~{{ PACKAGE_NAME }}~${PACKAGE_NAME}~" \
 	> ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_ETCDIR}/env
 
