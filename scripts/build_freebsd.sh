@@ -19,6 +19,9 @@ cat ${TEMPLATE_DIR}/rc.conf \
 	| sed "s~{{ PROGRAM }}~/${PACKAGE_BINDIR}/${PACKAGE_NAME}~" \
 	> ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_RCDIR}/${RC_NAME}
 
+# Must be executable.
+chmod 755 ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_RCDIR}/${RC_NAME}
+
 ############################
 #  Create newsyslog config #
 ############################
