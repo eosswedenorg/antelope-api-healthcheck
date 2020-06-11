@@ -5,6 +5,7 @@
 ############################
 
 export BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+export TEMPLATE_DIR=${BASE_DIR}/templates
 
 # Info
 set -o allexport
