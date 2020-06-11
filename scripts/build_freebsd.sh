@@ -19,6 +19,16 @@ cat ${BASE_DIR}/rc.template \
 	> ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_RCDIR}/${RC_NAME}
 
 ############################
+#  Create logrotate config #
+############################
+
+mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_LOGROTATEDIR}
+cat ${BASE_DIR}/logrotate-template.conf \
+	| sed "s~{{ LOG_FILE }}~${PACKAGE_LOGFILE}~" \
+	> ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_LOGROTATEDIR}/${PACKAGE_NAME}
+
+
+############################
 #  Copy binary             #
 ############################
 
