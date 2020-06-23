@@ -23,7 +23,7 @@ deps:
 scripts/info :
 	echo PACKAGE_NAME=\"$(PROGRAM_NAME)\" "\n"\
 	PACKAGE_DESCRIPTION=\"HAproxy healthcheck program for EOSIO API.\" "\n"\
-	PACKAGE_VERSION=\"0.3.2\" "\n"\
+	PACKAGE_VERSION=\"0.3.3\" "\n"\
 	PACKAGE_PREFIX=\"$(PREFIX:/%=%)\" "\n"\
 	PACKAGE_PROGRAM=\"build/$(PROGRAM_NAME)\" > $@
 
