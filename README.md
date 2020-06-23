@@ -17,12 +17,11 @@ The protocol is simple and has 4 rules.
 The following parameters are supported in a request and are ordered from
 first to last below:
 
-| # | Name       | Required | Description                                                                   |
-| - | ---------- | -------- | ----------------------------------------------------------------------------- |
-| 1 | Host       | Yes      | IP/Hostname to the api.                                                       |
-| 2 | Port       | No       | Port number to the api (default `80`)                                         |
-| 3 | num_blocks | No       | Number of blocks the api can drift before reported `down` (default 10)        |
-| 4 | version    | No       | API Version to check against, `v1` = standard, `v2` = Hyperion (default `v1`) |
+| # | Name       | Required                | Description                                                    |
+| - | ---------- | ----------------------- | -------------------------------------------------------------- |
+| 1 | url        | Yes (port default `80`) | http url to the api. `http(s)://<ip-or-domain>(:<port>)`       |
+| 2 | num_blocks | No (default `10`)       | Number of blocks the api can drift before reported `down`      |
+| 3 | version    | No (default `v1`)       | API Version to check against, `v1` = standard, `v2` = Hyperion |
 
 ### Response
 
