@@ -154,6 +154,10 @@ func main() {
 			version = split[2]
 		}
 
+		if len(split) > 3 {
+			params.Host = split[3]
+		}
+
 		// Check api.
 		var status haproxy.HealthCheckStatus
 		var msg string
