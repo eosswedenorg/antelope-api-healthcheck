@@ -135,30 +135,38 @@ func main() {
     });
 
 	// TCP Client sends message.
-	server.OnNewMessage(func(c *tcp_server.Client, message string) {
+	server.OnNewMessage(func(c *tcp_server.Client, args string) {
 		params := eosapi.ReqParams{}
 		var block_time int = 10
 		var version string = "v1"
 
-		// Parse host + port.
-		split := strings.Split(strings.TrimSpace(message), "|")
+		// Parse arguments.
+		// -------------------
+		split := strings.Split(strings.TrimSpace(args), "|")
 
+		// 1. url (scheme + ip/domain + port)
 		params.Url = split[0]
+
+		// 2. Block time.
 		if len(split) > 1 {
 			p, err := strconv.ParseInt(split[1], 10, 32)
 			if err == nil {
 				block_time = int(p)
 			}
 		}
+
+		// 3. Version
 		if len(split) > 2 {
 			version = split[2]
 		}
 
+		// 4. Host
 		if len(split) > 3 {
 			params.Host = split[3]
 		}
 
 		// Check api.
+		// -------------------
 		var status haproxy.HealthCheckStatus
 		var msg string
 
