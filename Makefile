@@ -1,7 +1,7 @@
 
 GO			= go
 GOCCFLAGS 	= -v
-GOLDFLAGS   =
+GOLDFLAGS   = -ldflags="-s -w"
 PREFIX		= /usr/local
 
 PROGRAM_NAME=eosio-api-healthcheck
