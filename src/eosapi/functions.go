@@ -10,6 +10,11 @@ import (
 	"github.com/liamylian/jsontime/v2"
 )
 
+type ReqParams struct {
+	Url string
+	Host string
+}
+
 var json = v2.ConfigWithCustomTimeFormat
 
 func init() {
@@ -18,31 +23,35 @@ func init() {
 	v2.SetDefaultTimeFormat("2006-01-02T15:04:05", time.UTC)
 }
 
-func send(method string, api_url string) (*req.Resp, error) {
+func send(p ReqParams, method string, path string) (*req.Resp, error) {
 
-	u, err := url.Parse(api_url)
-    if err != nil {
-        return nil, err
-    }
+	host := p.Host
+	if len(host) < 1 {
+		u, err := url.Parse(p.Url)
+		if err != nil {
+	        return nil, err
+	    }
+		host = strings.Split(u.Host, ":")[0]
+	}
 
 	// Go's net.http (that `req` uses) sends the port in the host header.
 	// nodeos api does not like that, so we need to provide our
 	// own Host header with just the host.
 	headers := req.Header{
-		"Host": strings.Split(u.Host, ":")[0],
+		"Host": host,
 	}
 
 	r := req.New()
-	return r.Do(method, api_url, headers)
+	return r.Do(method, p.Url + path, headers)
 }
 
 //  GetInfo - Fetches get_info from API
 // ---------------------------------------------------------
-func GetInfo(url string) (Info, error) {
+func GetInfo(params ReqParams) (Info, error) {
 
 	var info Info
 
-	r, err := send("GET", url + "/v1/chain/get_info")
+	r, err := send(params, "GET", "/v1/chain/get_info")
 	if err == nil {
 		resp := r.Response()
 		body, _ := ioutil.ReadAll(resp.Body)
@@ -53,11 +62,11 @@ func GetInfo(url string) (Info, error) {
 	return info, err
 }
 
-func GetHealth(url string) (Health, error) {
+func GetHealth(params ReqParams) (Health, error) {
 
 	var health Health;
 
-	r, err := send("GET", url + "/v2/health")
+	r, err := send(params, "GET", "/v2/health")
 	if err == nil {
 		resp := r.Response()
 		body, _ := ioutil.ReadAll(resp.Body)

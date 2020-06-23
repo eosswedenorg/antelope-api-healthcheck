@@ -15,9 +15,9 @@ import (
 
 //  check_api - Validates head block time.
 // ---------------------------------------------------------
-func check_api(url string, block_time float64) (haproxy.HealthCheckStatus, string) {
+func check_api(p eosapi.ReqParams, block_time float64) (haproxy.HealthCheckStatus, string) {
 
-	info, err := eosapi.GetInfo(url)
+	info, err := eosapi.GetInfo(p)
 	if err != nil {
 		msg := fmt.Sprintf("%s", err);
 		return haproxy.HealthCheckFailed, msg
@@ -41,9 +41,9 @@ func check_api(url string, block_time float64) (haproxy.HealthCheckStatus, strin
 //    Validates block num diff between
 //    nodeos and elasticsearch
 // ---------------------------------------------------------
-func check_api_v2(url string, offset int64) (haproxy.HealthCheckStatus, string) {
+func check_api_v2(p eosapi.ReqParams, offset int64) (haproxy.HealthCheckStatus, string) {
 
-	health, err := eosapi.GetHealth(url)
+	health, err := eosapi.GetHealth(p)
 	if err != nil {
 		msg := fmt.Sprintf("%s", err);
 		return haproxy.HealthCheckFailed, msg
@@ -136,14 +136,14 @@ func main() {
 
 	// TCP Client sends message.
 	server.OnNewMessage(func(c *tcp_server.Client, message string) {
-		var url string
+		params := eosapi.ReqParams{}
 		var block_time int = 10
 		var version string = "v1"
 
 		// Parse host + port.
 		split := strings.Split(strings.TrimSpace(message), "|")
 
-		url = split[0]
+		params.Url = split[0]
 		if len(split) > 1 {
 			p, err := strconv.ParseInt(split[1], 10, 32)
 			if err == nil {
@@ -159,14 +159,14 @@ func main() {
 		var msg string
 
 		if version == "v2" {
-			status, msg = check_api_v2(url, int64(block_time / 2))
+			status, msg = check_api_v2(params, int64(block_time / 2))
 		} else {
 			version = "v1"
-			status, msg = check_api(url, float64(block_time))
+			status, msg = check_api(params, float64(block_time))
 		}
 
 		log.Info("Status %s - %s (%d blocks): %s",
-			 version, url, block_time / 2, status)
+			 version, params.Url, block_time / 2, status)
 
 		if status != haproxy.HealthCheckUp && len(msg) > 0 {
 			log.Warning(msg)
