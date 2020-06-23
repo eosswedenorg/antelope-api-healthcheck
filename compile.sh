@@ -62,6 +62,10 @@ done
 
 MESSAGE=""
 if [ ! -z "${GOOS}" ]; then
+	# Hack to select the right package :)
+	if [ "${MAKE_TARGET}" == "package_deb" ] && [ "${GOOS}" == "freebsd" ]; then
+		MAKE_TARGET="package_freebsd"
+	fi
 	MESSAGE="[\e[34m::\e[0m] Crosscompiling for: ${GOOS}"
 fi
 
