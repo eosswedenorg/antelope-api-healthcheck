@@ -9,6 +9,7 @@ import (
 	"./pid"
 	"./haproxy"
 	"./eosapi"
+	"./utils"
     "github.com/firstrow/tcp_server"
 	"github.com/pborman/getopt/v2"
 )
@@ -55,9 +56,9 @@ func check_api_v2(p eosapi.ReqParams, offset int64) (haproxy.HealthCheckStatus, 
 
 	for _, v := range health.Health {
 		if v.Name == "Elasticsearch" {
-			es_block = (int64) (v.Data["last_indexed_block"].(float64))
+			es_block = utils.JsonGetInt64(v.Data["last_indexed_block"])
 		} else if v.Name == "NodeosRPC" {
-			node_block = (int64) (v.Data["head_block_num"].(float64))
+			node_block = utils.JsonGetInt64(v.Data["head_block_num"])
 		}
 	}
 
