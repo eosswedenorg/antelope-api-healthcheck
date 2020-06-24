@@ -2,6 +2,10 @@
 
 This program implements EOSIO healthcheck for HAProxy over TCP.
 
+## Compiling
+
+You will need go-lang version `1.14` or later to compile the source.
+
 ## TCP Protocol
 
 The protocol is simple and has 4 rules.
