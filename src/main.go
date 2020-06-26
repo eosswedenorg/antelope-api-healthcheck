@@ -14,6 +14,12 @@ import (
 var logFile string
 var pidFile string
 
+//  Global variables
+// ---------------------------------------------------------
+
+// File descriptor to the current log file.
+var logfd *os.File
+
 //  argv_listen_addr
 //    Parse listen address from command line.
 // ---------------------------------------------------------
@@ -38,29 +44,36 @@ func argv_listen_addr() string {
 	return addr
 }
 
-func openlog(file string) *os.File {
+func setLogFile() {
 
+	// Open file
 	fd, err := os.OpenFile(logFile, os.O_APPEND | os.O_CREATE | os.O_WRONLY, 0644)
 	if err != nil {
 		log.Error(err.Error())
 	}
-	return fd
+
+	// Close old one (if open)
+	if logfd.Fd() < 0 {
+		logfd.Close()
+	}
+
+	// Update variable and set log writer.
+	logfd = fd
+	log.SetWriter(logfd)
 }
 
 //  main
 // ---------------------------------------------------------
 func main() {
 
-	var logfd *os.File
-
 	// Command line parsing
 	getopt.FlagLong(&logFile, "log", 'l', "Path to log file", "file")
 	getopt.FlagLong(&pidFile, "pid", 'p', "Path to pid file", "file")
 	getopt.Parse()
 
+	// Open logfile.
 	if len(logFile) > 0 {
-		logfd = openlog(logFile)
-		log.SetWriter(logfd)
+		setLogFile()
 	}
 
 	log.Info("Process is starting with PID: %d", pid.Get())
