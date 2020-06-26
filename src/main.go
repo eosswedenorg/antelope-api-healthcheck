@@ -3,6 +3,8 @@ package main
 
 import (
 	"os"
+	"os/signal"
+	"syscall"
 	"./log"
 	"./pid"
 	"github.com/pborman/getopt/v2"
@@ -62,6 +64,44 @@ func setLogFile() {
 	log.SetWriter(logfd)
 }
 
+//  signalEventLoop()
+//    Initialize event channel for OS signals
+//    and runs an event loop in a separate thread.
+// ---------------------------------------------------------
+func signalEventLoop() {
+
+	// Setup a channel
+	sig_ch := make(chan os.Signal, 1)
+
+	// subscribe to USR1 signal.
+	signal.Notify(sig_ch, syscall.SIGUSR1)
+
+	// Event loop (runs in a seperate thread)
+	go func() {
+		for {
+			// Block until we get a signal.
+			sig := <- sig_ch
+
+			switch sig {
+			// USR1 is sent when logfile is rotated.
+			case syscall.SIGUSR1 :
+				msg := "SIGUSR1 (Logfile was rotated): "
+
+				if logfd != nil {
+					setLogFile()
+					msg += "Filedescriptor was updated"
+				} else {
+					msg += "No Filedescriptor to update (most likely uses standard out/err streams)"
+				}
+
+				log.Info(msg)
+			default:
+				log.Warning("Unknown signal %s", sig)
+			}
+		}
+	}()
+}
+
 //  main
 // ---------------------------------------------------------
 func main() {
@@ -86,5 +126,9 @@ func main() {
 		}
 	}
 
+	// Run the signal event loop.
+	signalEventLoop()
+
+	// Start listening to TCP Connections
 	spawnTcpServer(argv_listen_addr());
 }
