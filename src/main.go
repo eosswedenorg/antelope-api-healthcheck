@@ -2,6 +2,7 @@
 package main
 
 import (
+	"os"
 	"./log"
 	"./pid"
 	"github.com/pborman/getopt/v2"
@@ -10,6 +11,7 @@ import (
 //  Command line flags
 // ---------------------------------------------------------
 
+var logFile string
 var pidFile string
 
 //  argv_listen_addr
@@ -36,13 +38,30 @@ func argv_listen_addr() string {
 	return addr
 }
 
+func openlog(file string) *os.File {
+
+	fd, err := os.OpenFile(logFile, os.O_APPEND | os.O_CREATE | os.O_WRONLY, 0644)
+	if err != nil {
+		log.Error(err.Error())
+	}
+	return fd
+}
+
 //  main
 // ---------------------------------------------------------
 func main() {
 
+	var logfd *os.File
+
 	// Command line parsing
+	getopt.FlagLong(&logFile, "log", 'l', "Path to log file", "file")
 	getopt.FlagLong(&pidFile, "pid", 'p', "Path to pid file", "file")
 	getopt.Parse()
+
+	if len(logFile) > 0 {
+		logfd = openlog(logFile)
+		log.SetWriter(logfd)
+	}
 
 	log.Info("Process is starting with PID: %d", pid.Get())
 
