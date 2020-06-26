@@ -5,7 +5,7 @@ GOLDFLAGS   = -ldflags="-s -w"
 PREFIX		= /usr/local
 
 PROGRAM_NAME=eosio-api-healthcheck
-SOURCES=src/server.go
+SOURCES=src/main.go src/server.go
 DEPENDANCIES= github.com/firstrow/tcp_server \
 	github.com/liamylian/jsontime/v2 \
 	github.com/imroc/req \

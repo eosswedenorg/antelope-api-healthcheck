@@ -6,12 +6,10 @@ import (
 	"strings"
 	"strconv"
 	"./log"
-	"./pid"
 	"./haproxy"
 	"./eosapi"
 	"./utils"
     "github.com/firstrow/tcp_server"
-	"github.com/pborman/getopt/v2"
 )
 
 //  check_api - Validates head block time.
@@ -81,35 +79,6 @@ func check_api_v2(p eosapi.ReqParams, offset int64) (haproxy.HealthCheckStatus, 
 	return haproxy.HealthCheckUp, "OK"
 }
 
-//  Command line flags
-// ---------------------------------------------------------
-
-var pidFile string
-
-//  argv_listen_addr
-//    Parse listen address from command line.
-// ---------------------------------------------------------
-func argv_listen_addr() string {
-
-	var addr string
-
-	argv := getopt.Args()
-	if len(argv) > 0 {
-		addr = argv[0]
-	} else {
-		addr = "127.0.0.1"
-	}
-
-	addr += ":"
-	if len(argv) > 1 {
-		addr += argv[1]
-	} else {
-		addr += "1337"
-	}
-
-	return addr
-}
-
 //  onTcpMessage callback function
 // ---------------------------------------------------------
 
@@ -167,38 +136,12 @@ func onTcpMessage(c *tcp_server.Client, args string) {
 	c.Close()
 }
 
-//  main
+//  spawnTcpServer
 // ---------------------------------------------------------
-func main() {
 
-	// Command line parsing
-	getopt.FlagLong(&pidFile, "pid", 'p', "Path to pid file", "file")
-	getopt.Parse()
+func spawnTcpServer(addr string) {
 
-	log.Info("Process is starting with PID: %d", pid.Get())
-
-	if len(pidFile) > 0 {
-		log.Info("Writing pidfile: %s", pidFile)
-		_, err := pid.Save(pidFile)
-		if err != nil {
-			log.Error("Failed to write pidfile: %v", err)
-		}
-	}
-
-    server := tcp_server.New(argv_listen_addr())
-
-	// TCP Client connect.
-    server.OnNewClient(func(c *tcp_server.Client) {
-        //fmt.Println("# Client connected")
-    });
-
-	// TCP Client sends message.
+	server := tcp_server.New(addr)
 	server.OnNewMessage(onTcpMessage);
-
-	// TCP Client disconnect.
-	server.OnClientConnectionClosed(func(c *tcp_server.Client, err error) {
-		//fmt.Println("# Client disconnected")
-	});
-
     server.Listen()
 }
