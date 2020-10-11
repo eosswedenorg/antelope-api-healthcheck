@@ -24,6 +24,12 @@ func check_api(p eosapi.ReqParams, block_time float64) (haproxy.HealthCheckStatu
 		return haproxy.HealthCheckFailed, msg
 	}
 
+	// Check HTTP Status Code
+	if info.HTTPStatusCode > 299 {
+		return haproxy.HealthCheckDown,
+			fmt.Sprintf("Taking offline because %v was received from backend", info.HTTPStatusCode)
+	}
+
 	// Validate head block.
 	now  := time.Now().In(time.UTC)
 	diff := now.Sub(info.HeadBlockTime).Seconds()
@@ -49,6 +55,12 @@ func check_api_v2(p eosapi.ReqParams, offset int64) (haproxy.HealthCheckStatus, 
 		msg := fmt.Sprintf("%s", err);
 		return haproxy.HealthCheckFailed, msg
 	}
+
+        // Check HTTP Status Code
+        if health.HTTPStatusCode > 299 {
+		return haproxy.HealthCheckDown,
+			fmt.Sprintf("Taking offline because %v was received from backend", health.HTTPStatusCode)
+        }
 
 	// Fetch elasticsearch and nodeos block numbers from json.
 	var es_block int64 = 0

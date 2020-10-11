@@ -8,6 +8,7 @@ type Info struct {
 	ServerVersion 	string 		`json:"server_version"`
 	HeadBlockNum 	int64 		`json:"head_block_num"`
 	HeadBlockTime 	time.Time 	`json:"head_block_time"`
+	HTTPStatusCode	int
 }
 
 // Service struct from /v2/health
@@ -22,4 +23,5 @@ type Service struct {
 type Health struct {
 	VersionHash 	string 		`json:"version_hash"`
 	Health          []Service 	`json:"health"`
+	HTTPStatusCode	int
 }
