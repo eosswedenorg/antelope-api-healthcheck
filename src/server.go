@@ -56,11 +56,11 @@ func check_api_v2(p eosapi.ReqParams, offset int64) (haproxy.HealthCheckStatus, 
 		return haproxy.HealthCheckFailed, msg
 	}
 
-        // Check HTTP Status Code
-        if health.HTTPStatusCode > 299 {
+    // Check HTTP Status Code
+    if health.HTTPStatusCode > 299 {
 		return haproxy.HealthCheckDown,
 			fmt.Sprintf("Taking offline because %v was received from backend", health.HTTPStatusCode)
-        }
+    }
 
 	// Fetch elasticsearch and nodeos block numbers from json.
 	var es_block int64 = 0
