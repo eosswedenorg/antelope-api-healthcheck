@@ -56,6 +56,9 @@ func GetInfo(params ReqParams) (Info, error) {
 		resp := r.Response()
 		body, _ := ioutil.ReadAll(resp.Body)
 
+		// Set HTTPStatusCode
+		info.HTTPStatusCode = resp.StatusCode
+
 		// Parse json
 		err = json.Unmarshal(body, &info)
 	}
@@ -70,6 +73,9 @@ func GetHealth(params ReqParams) (Health, error) {
 	if err == nil {
 		resp := r.Response()
 		body, _ := ioutil.ReadAll(resp.Body)
+
+        // Set HTTPStatusCode
+        health.HTTPStatusCode = resp.StatusCode
 
 		// Parse json
 		err = json.Unmarshal(body, &health)
