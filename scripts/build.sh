@@ -34,4 +34,6 @@ if [ ! -x $PKG_SCRIPT ]; then
 	exit 1
 fi
 
+echo -e "[\e[34m::\e[0m] Building package for: ${PKG_TYPE}"
+
 $PKG_SCRIPT
