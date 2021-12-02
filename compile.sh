@@ -5,7 +5,7 @@ SYSTEMS=( windows linux freebsd )
 ARCHS=( 386 amd64 amd64p32 arm arm64 ppc ppc64 )
 
 function usage() {
-	echo "Usage: ${0##*/} [ -h|--help ] [ --target <system> ] [ -a|--arch <arch> ] [ -p|--package ]"
+	echo "Usage: ${0##*/} [ -h|--help ] [ --target <system> ] [ -a|--arch <arch> ]"
 	echo ""
 	echo " Valid systems:"
 	for i in "${SYSTEMS[@]}"; do
@@ -20,7 +20,7 @@ function usage() {
 	exit 1
 }
 
-options=$(getopt -n "${0##*/}" -o "ht:a:p" -l "help,target:,arch:,package" -- "$@")
+options=$(getopt -n "${0##*/}" -o "ht:a:p" -l "help,target:,arch:" -- "$@")
 
 [ $? -eq 0 ] || usage
 
@@ -31,9 +31,6 @@ MAKE_TARGET="all"
 while true; do
 
 	case $1 in
-	-p|--package)
-		MAKE_TARGET="package_deb"
-		;;
 	-t|--target)
 		shift
 		REGEX=$(echo "${SYSTEMS[@]}" | sed 's/[[:space:]]/|/g')
@@ -62,10 +59,6 @@ done
 
 MESSAGE=""
 if [ ! -z "${GOOS}" ]; then
-	# Hack to select the right package :)
-	if [ "${MAKE_TARGET}" == "package_deb" ] && [ "${GOOS}" == "freebsd" ]; then
-		MAKE_TARGET="package_freebsd"
-	fi
 	MESSAGE="[\e[34m::\e[0m] Crosscompiling for: ${GOOS}"
 fi
 
