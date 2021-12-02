@@ -51,12 +51,19 @@ func openlog(file string) *os.File {
 // ---------------------------------------------------------
 func main() {
 
+	var version bool
 	var logfd *os.File
 
 	// Command line parsing
+	getopt.FlagLong(&version, "version", 'v', "Print version")
 	getopt.FlagLong(&logFile, "log", 'l', "Path to log file", "file")
 	getopt.FlagLong(&pidFile, "pid", 'p', "Path to pid file", "file")
 	getopt.Parse()
+
+	if version {
+		print("Version: v1.0\n")
+		return;
+	}
 
 	if len(logFile) > 0 {
 		logfd = openlog(logFile)
