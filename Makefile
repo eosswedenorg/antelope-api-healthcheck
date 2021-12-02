@@ -27,7 +27,7 @@ info-file :
 	PACKAGE_PREFIX=\"$(PREFIX:/%=%)\" "\n"\
 	PACKAGE_PROGRAM=\"build/$(PROGRAM_NAME)\" > scripts/info
 
-package : info-file build
+package : info-file
 
 package_deb: package
 	./scripts/build.sh deb
