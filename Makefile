@@ -27,12 +27,10 @@ info-file :
 	PACKAGE_PREFIX=\"$(PREFIX:/%=%)\" "\n"\
 	PACKAGE_PROGRAM=\"build/$(PROGRAM_NAME)\" > scripts/info
 
-package : info-file
-
-package_deb: package
+package_deb: info-file
 	./scripts/build.sh deb
 
-package_freebsd: package
+package_freebsd: info-file
 	./scripts/build.sh freebsd
 
 clean:
