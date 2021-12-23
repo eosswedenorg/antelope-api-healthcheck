@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"io/ioutil"
 	"github.com/imroc/req"
-	jsontime "github.com/liamylian/jsontime/v2"
+	jsontime "github.com/liamylian/jsontime/v2/v2"
 )
 
 type ReqParams struct {
