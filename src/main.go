@@ -3,8 +3,8 @@ package main
 
 import (
 	"os"
-	"./log"
-	"./pid"
+	"internal/pid"
+	"internal/log"
 	"github.com/pborman/getopt/v2"
 )
 

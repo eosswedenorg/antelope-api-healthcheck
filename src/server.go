@@ -5,10 +5,10 @@ import (
 	"time"
 	"strings"
 	"strconv"
-	"./log"
-	"./haproxy"
-	"./eosapi"
-	"./utils"
+	"internal/log"
+	"internal/haproxy"
+	"internal/eosapi"
+	"internal/utils"
     "github.com/firstrow/tcp_server"
 )
 
