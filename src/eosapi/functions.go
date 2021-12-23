@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"io/ioutil"
 	"github.com/imroc/req"
-	"github.com/liamylian/jsontime/v2"
+	jsontime "github.com/liamylian/jsontime/v2"
 )
 
 type ReqParams struct {
@@ -15,12 +15,12 @@ type ReqParams struct {
 	Host string
 }
 
-var json = v2.ConfigWithCustomTimeFormat
+var json = jsontime.ConfigWithCustomTimeFormat
 
 func init() {
 
 	// EOS Api does not specify timezone in timestamps (they are always UTC tho).
-	v2.SetDefaultTimeFormat("2006-01-02T15:04:05", time.UTC)
+	jsontime.SetDefaultTimeFormat("2006-01-02T15:04:05", time.UTC)
 }
 
 func send(p ReqParams, method string, path string) (*req.Resp, error) {
