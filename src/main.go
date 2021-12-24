@@ -3,8 +3,10 @@ package main
 
 import (
 	"os"
-	"internal/pid"
+	"os/signal"
+	"syscall"
 	"internal/log"
+	"internal/pid"
 	"github.com/pborman/getopt/v2"
 )
 
@@ -13,6 +15,12 @@ import (
 
 var logFile string
 var pidFile string
+
+//  Global variables
+// ---------------------------------------------------------
+
+// File descriptor to the current log file.
+var logfd *os.File
 
 //  argv_listen_addr
 //    Parse listen address from command line.
@@ -38,13 +46,62 @@ func argv_listen_addr() string {
 	return addr
 }
 
-func openlog(file string) *os.File {
+func setLogFile() {
 
+	// Open file
 	fd, err := os.OpenFile(logFile, os.O_APPEND | os.O_CREATE | os.O_WRONLY, 0644)
 	if err != nil {
 		log.Error(err.Error())
 	}
-	return fd
+
+	// Try close if old descriptor is defined.
+	if logfd != nil {
+		if err = logfd.Close(); err != nil {
+			log.Error(err.Error())
+		}
+	}
+
+	// Update variable and set log writer.
+	logfd = fd
+	log.SetWriter(logfd)
+}
+
+//  signalEventLoop()
+//    Initialize event channel for OS signals
+//    and runs an event loop in a separate thread.
+// ---------------------------------------------------------
+func signalEventLoop() {
+
+	// Setup a channel
+	sig_ch := make(chan os.Signal, 1)
+
+	// subscribe to SIGHUP signal.
+	signal.Notify(sig_ch, syscall.SIGHUP)
+
+	// Event loop (runs in a seperate thread)
+	go func() {
+		for {
+			// Block until we get a signal.
+			sig := <- sig_ch
+
+			switch sig {
+			// SIGHUP is sent when logfile is rotated.
+			case syscall.SIGHUP :
+				msg := "SIGHUP (Logfile was rotated): "
+
+				if logfd != nil {
+					setLogFile()
+					msg += "Filedescriptor was updated"
+				} else {
+					msg += "No Filedescriptor to update (most likely uses standard out/err streams)"
+				}
+
+				log.Info(msg)
+			default:
+				log.Warning("Unknown signal %s", sig)
+			}
+		}
+	}()
 }
 
 //  main
@@ -52,7 +109,6 @@ func openlog(file string) *os.File {
 func main() {
 
 	var version bool
-	var logfd *os.File
 
 	// Command line parsing
 	getopt.FlagLong(&version, "version", 'v', "Print version")
@@ -65,9 +121,9 @@ func main() {
 		return;
 	}
 
+	// Open logfile.
 	if len(logFile) > 0 {
-		logfd = openlog(logFile)
-		log.SetWriter(logfd)
+		setLogFile()
 	}
 
 	log.Info("Process is starting with PID: %d", pid.Get())
@@ -80,5 +136,9 @@ func main() {
 		}
 	}
 
+	// Run the signal event loop.
+	signalEventLoop()
+
+	// Start listening to TCP Connections
 	spawnTcpServer(argv_listen_addr());
 }
