@@ -75,8 +75,8 @@ func signalEventLoop() {
 	// Setup a channel
 	sig_ch := make(chan os.Signal, 1)
 
-	// subscribe to USR1 signal.
-	signal.Notify(sig_ch, syscall.SIGUSR1)
+	// subscribe to SIGHUP signal.
+	signal.Notify(sig_ch, syscall.SIGHUP)
 
 	// Event loop (runs in a seperate thread)
 	go func() {
@@ -85,9 +85,9 @@ func signalEventLoop() {
 			sig := <- sig_ch
 
 			switch sig {
-			// USR1 is sent when logfile is rotated.
-			case syscall.SIGUSR1 :
-				msg := "SIGUSR1 (Logfile was rotated): "
+			// SIGHUP is sent when logfile is rotated.
+			case syscall.SIGHUP :
+				msg := "SIGHUP (Logfile was rotated): "
 
 				if logfd != nil {
 					setLogFile()
