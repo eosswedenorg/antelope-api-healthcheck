@@ -19,6 +19,7 @@ mkdir -p ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_RCDIR}
 cat ${TEMPLATE_DIR}/rc.conf \
 	| sed "s~{{ RC_NAME }}~${RC_NAME}~g" \
 	| sed "s~{{ PID_FILE }}~${PID_FILE}~g" \
+	| sed "s~{{ LOG_FILE }}~${PACKAGE_LOGFILE}~" \
 	| sed "s~{{ DESCRIPTION }}~${PACKAGE_DESCRIPTION}~" \
 	| sed "s~{{ PROGRAM }}~/${PACKAGE_BINDIR}/${PACKAGE_NAME}~" \
 	> ${BASE_DIR}/${PACKAGE_TMPDIR}/${PACKAGE_RCDIR}/${RC_NAME}
