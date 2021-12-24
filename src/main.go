@@ -54,9 +54,11 @@ func setLogFile() {
 		log.Error(err.Error())
 	}
 
-	// Close old one (if open)
-	if logfd.Fd() < 0 {
-		logfd.Close()
+	// Try close if old descriptor is defined.
+	if logfd != nil {
+		if err = logfd.Close(); err != nil {
+			log.Error(err.Error())
+		}
 	}
 
 	// Update variable and set log writer.
