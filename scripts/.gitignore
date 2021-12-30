@@ -1,5 +1,6 @@
 pack/
 info
+pkg_info
 *.deb
 *.tar
 *.tar.*

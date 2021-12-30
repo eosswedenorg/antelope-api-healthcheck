@@ -19,9 +19,9 @@ BUILD_DIR=$2
 export BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 export TEMPLATE_DIR=${BASE_DIR}/templates
 
-# Info
+# Package info
 set -o allexport
-source ${BASE_DIR}/info
+source ${BASE_DIR}/pkg_info
 set +o allexport
 
 # Directories.

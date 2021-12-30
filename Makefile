@@ -25,7 +25,7 @@ info-file :
 	PACKAGE_DESCRIPTION=\"HAproxy healthcheck program for EOSIO API.\" "\n"\
 	PACKAGE_VERSION=\"1.0\" "\n"\
 	PACKAGE_PREFIX=\"$(PREFIX:/%=%)\" "\n"\
-	PACKAGE_PROGRAM=\"build/$(PROGRAM_NAME)\" > scripts/info
+	PACKAGE_PROGRAM=\"build/$(PROGRAM_NAME)\" > scripts/pkg_info
 
 package_deb: info-file
 	./scripts/build.sh deb $(realpath build)
