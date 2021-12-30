@@ -5,7 +5,7 @@ SYSTEMS=( windows linux freebsd )
 ARCHS=( 386 amd64 amd64p32 arm arm64 ppc ppc64 )
 
 function usage() {
-	echo "Usage: ${0##*/} [ -h|--help ] [ --target <system> ] [ -a|--arch <arch> ]"
+	echo "Usage: ${0##*/} [ -h|--help ] [ -t|--target <system> ] [ -a|--arch <arch> ]"
 	echo ""
 	echo " Valid systems:"
 	for i in "${SYSTEMS[@]}"; do
