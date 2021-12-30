@@ -1,0 +1,92 @@
+name: Package
+
+on:
+  release:
+    types: [ created ]
+
+jobs:
+  cross-compile:
+    strategy:
+      matrix:
+        os: [ linux, freebsd ]
+        arch: [ 386, amd64, arm, arm64 ]
+    name: Crosscompile - ${{matrix.os}}-${{matrix.arch}}
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: compile
+        id: compile
+        run: |
+          ./compile.sh --target ${{matrix.os}} -a ${{matrix.arch}}
+          FILE=$(find build -type f | head -1)
+          echo "::set-output name=filename::$FILE"
+          echo "::set-output name=name::$(basename $FILE)"
+          echo "::set-output name=mime::$(file -bi $FILE)"
+
+      - name: Upload
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_name: ${{ steps.compile.outputs.name }}-${{matrix.os}}-${{matrix.arch}}
+          asset_path: ${{ steps.compile.outputs.filename }}
+          asset_content_type: ${{ steps.compile.outputs.mime }}
+
+  package-ubuntu:
+    strategy:
+      matrix:
+        os: [ ubuntu-18.04, ubuntu-20.04 ]
+    name: Package - ${{matrix.os}}
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: compile
+        run: ./compile.sh
+
+      - name: Package
+        id: package
+        run: |
+          ./package.sh
+          FILE=$(ls build/*.deb | head -1)
+          echo "::set-output name=filename::$FILE"
+          echo "::set-output name=name::$(basename $FILE)"
+
+      - name: Upload
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_name: ${{ steps.package.outputs.name }}
+          asset_path: ${{ steps.package.outputs.filename }}
+          asset_content_type: application/x-deb
+
+  package-freebsd:
+    name: Package - FreeBSD
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: compile
+        run: ./compile.sh --target=freebsd
+
+      - name: Package
+        id: package
+        run: |
+          ./package.sh
+          FILE=$(ls build/*.tar.gz | head -1)
+          echo "::set-output name=filename::$FILE"
+          echo "::set-output name=name::$(basename $FILE)"
+
+      - name: Upload
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_name: ${{ steps.package.outputs.name }}
+          asset_path: ${{ steps.package.outputs.filename }}
+          asset_content_type: application/gzip
