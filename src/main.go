@@ -117,7 +117,7 @@ func main() {
 	getopt.Parse()
 
 	if version {
-		print("Version: v1.0\n")
+		print("Version: v1.1\n")
 		return;
 	}
 
