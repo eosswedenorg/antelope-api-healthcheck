@@ -65,13 +65,16 @@ jobs:
           asset_content_type: application/x-deb
 
   package-freebsd:
-    name: Package - FreeBSD
+    strategy:
+      matrix:
+        arch: [ 386, amd64, arm, arm64 ]
+    name: Package - FreeBSD (${{matrix.arch}})
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v1
 
       - name: compile
-        run: ./compile.sh --target=freebsd
+        run: ./compile.sh --target=freebsd -a ${{matrix.arch}}
 
       - name: Package
         id: package
