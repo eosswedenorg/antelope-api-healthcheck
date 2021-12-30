@@ -12,10 +12,13 @@ DEPENDANCIES= github.com/firstrow/tcp_server \
 	github.com/pborman/getopt/v2
 
 all: build
-build: build/$(PROGRAM_NAME)
+build: build/$(PROGRAM_NAME) build/.buildinfo
 
 build/$(PROGRAM_NAME) : $(SOURCES)
 	$(GO) build -o $@ $(GOCCFLAGS) $(GOLDFLAGS) $^
+
+build/.buildinfo:
+	$(GO) env > $@
 
 deps:
 	$(GO) get $(DEPENDANCIES)
