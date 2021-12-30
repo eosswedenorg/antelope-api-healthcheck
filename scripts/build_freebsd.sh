@@ -49,6 +49,6 @@ cp ${BASE_DIR}/../${PACKAGE_PROGRAM} ${PACKAGE_TMPDIR}/${PACKAGE_BINDIR}
 #  Create archive          #
 ############################
 
-TAR_FILENAME="${PACKAGE_NAME}-${PACKAGE_VERSION}-freebsd.tar.gz"
+TAR_FILENAME="${PACKAGE_NAME}-${PACKAGE_VERSION}-freebsd-${GOARCH}.tar.gz"
 
 tar -C ${PACKAGE_TMPDIR} --owner root --group root -zcvf ${BUILD_DIR}/${TAR_FILENAME} .
