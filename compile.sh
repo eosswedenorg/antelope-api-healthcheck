@@ -20,7 +20,7 @@ function usage() {
 	exit 1
 }
 
-options=$(getopt -n "${0##*/}" -o "ht:a:p" -l "help,target:,arch:" -- "$@")
+options=$(getopt -n "${0##*/}" -o "ht:a:" -l "help,target:,arch:" -- "$@")
 
 [ $? -eq 0 ] || usage
 
