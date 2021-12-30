@@ -1,6 +1,18 @@
 #!/bin/bash
 
 ############################
+#  Read cli args           #
+############################
+
+if [ $# -lt 2 ]; then
+    echo "$0 <pkg_type> <build_dir>"
+    exit 1
+fi
+
+PKG_TYPE=$1
+BUILD_DIR=$2
+
+############################
 #  Exported variables.     #
 ############################
 
@@ -18,14 +30,13 @@ export PACKAGE_ETCDIR=etc/${PACKAGE_NAME}
 export PACKAGE_LOGDIR=/var/log
 export PACKAGE_LOGFILE=${PACKAGE_LOGDIR}/${PACKAGE_NAME}.log
 export PACKAGE_SHAREDIR=${PACKAGE_PREFIX}/share/${PACKAGE_NAME}
-export PACKAGE_TMPDIR="pack"
+export PACKAGE_TMPDIR="${BUILD_DIR}/pkg_${PKG_TYPE}"
+export BUILD_DIR
 
-if [ $# -lt 1 ]; then
-	echo "$0 <pkg_type>"
-	exit 1
-fi
+############################
+#  Run script              #
+############################
 
-PKG_TYPE=$1
 PKG_SCRIPT="${BASE_DIR}/build_${PKG_TYPE}.sh"
 
 # Check and call script

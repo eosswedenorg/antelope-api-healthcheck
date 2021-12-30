@@ -28,10 +28,10 @@ info-file :
 	PACKAGE_PROGRAM=\"build/$(PROGRAM_NAME)\" > scripts/info
 
 package_deb: info-file
-	./scripts/build.sh deb
+	./scripts/build.sh deb $(realpath build)
 
 package_freebsd: info-file
-	./scripts/build.sh freebsd
+	./scripts/build.sh freebsd $(realpath build)
 
 clean:
 	$(GO) clean
