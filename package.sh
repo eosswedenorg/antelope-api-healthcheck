@@ -1,14 +1,14 @@
 #!/bin/bash
 
-BINARY=build/eosio-api-healthcheck
+BUILD_INFO=build/.buildinfo
 
-if [ ! -f "${BINARY}" ]; then
-	echo "Could not find '${BINARY}', You need to compile first."
+if [ ! -f "${BUILD_INFO}" ]; then
+	echo "Could not find '${BUILD_INFO}' file, You need to compile first."
 	exit 1
 fi
 
-# Bit of a hack to figure out if we need to package for FreeBSD or not.
-if [ -n "$(file $BINARY | grep 'FreeBSD')" ]; then
+TYPE=$(cat "${BUILD_INFO}" | sed -n 's/^GOOS=\"\(.*\)\"/\1/p')
+if [ "$TYPE" == "freebsd" ]; then
 	MAKE_TARGET="package_freebsd"
 else
 	MAKE_TARGET="package_deb"
