@@ -9,7 +9,7 @@ require (
 
 	github.com/eosswedenorg-go/pid v1.0.0
 	github.com/eosswedenorg-go/haproxy v0.0.0-20220101140534-fccfdd93a8cd
-	github.com/firstrow/tcp_server v0.1.0
+	github.com/eosswedenorg-go/tcp_server v0.1.0
 	github.com/pborman/getopt/v2 v2.1.0
 )
 

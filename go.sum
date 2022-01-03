@@ -5,8 +5,8 @@ github.com/eosswedenorg-go/haproxy v0.0.0-20220101140534-fccfdd93a8cd h1:e59v3Hn
 github.com/eosswedenorg-go/haproxy v0.0.0-20220101140534-fccfdd93a8cd/go.mod h1:l5DTEb0dcTZyATo2cuaYQPqwBRuzDw0UgupNo8SAgXo=
 github.com/eosswedenorg-go/pid v1.0.0 h1:k1ra19cgWBHnX5gWQq+eUhNHIjT7hdhsYGp+Ovfvd2U=
 github.com/eosswedenorg-go/pid v1.0.0/go.mod h1:c9nVBDmo8pa3dVjrZjDUN4/DT1ChmfuCWXt6lHsagRc=
-github.com/firstrow/tcp_server v0.1.0 h1:SeaKjoPUqSgwb8NLbXtcWEQS1H+QZ2hwPBBLd1TnGo4=
-github.com/firstrow/tcp_server v0.1.0/go.mod h1:Yw3e670k1AHRzhd+WrOEvXLCMh5NDH01Kc/o0QR1GVQ=
+github.com/eosswedenorg-go/tcp_server v0.1.0 h1:nbXJK4sPSGn3zGPGWR2vdmj+s/Ywp58k7dZ9fuYNZlI=
+github.com/eosswedenorg-go/tcp_server v0.1.0/go.mod h1:PZd1z/KzNlEpmKtW0Zu9dHJLs5PAMTNR3jPbMGWhZIw=
 github.com/google/gofuzz v1.0.0/go.mod h1:dBl0BpW6vV/+mYPU4Po3pmUjxk6FQPldtuIdl/M65Eg=
 github.com/imroc/req v0.3.2 h1:M/JkeU6RPmX+WYvT2vaaOL0K+q8ufL5LxwvJc4xeB4o=
 github.com/imroc/req v0.3.2/go.mod h1:F+NZ+2EFSo6EFXdeIbpfE9hcC233id70kf0byW97Caw=

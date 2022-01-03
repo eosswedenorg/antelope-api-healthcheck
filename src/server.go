@@ -9,7 +9,7 @@ import (
 	"internal/eosapi"
 	"internal/utils"
 	"github.com/eosswedenorg-go/haproxy"
-    "github.com/firstrow/tcp_server"
+    "github.com/eosswedenorg-go/tcp_server"
 )
 
 //  check_api - Validates head block time.
@@ -144,7 +144,7 @@ func onTcpMessage(c *tcp_server.Client, args string) {
 	}
 
 	// Report status to HAproxy
-	c.Send(fmt.Sprintln(status))
+	c.WriteString(fmt.Sprintln(status))
 	c.Close()
 }
 
@@ -154,6 +154,6 @@ func onTcpMessage(c *tcp_server.Client, args string) {
 func spawnTcpServer(addr string) {
 
 	server := tcp_server.New(addr)
-	server.OnNewMessage(onTcpMessage);
+	server.OnMessage(onTcpMessage)
     server.Listen()
 }
