@@ -5,8 +5,8 @@ import (
 	"time"
 	"strings"
 	"strconv"
-	"internal/eosapi"
 	"internal/utils"
+	"github.com/eosswedenorg-go/eosapi"
 	"github.com/eosswedenorg-go/haproxy"
     "github.com/eosswedenorg-go/tcp_server"
 )
