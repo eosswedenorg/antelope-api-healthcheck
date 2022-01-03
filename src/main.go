@@ -5,7 +5,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"internal/log"
+	log "github.com/inconshreveable/log15"
 	"github.com/eosswedenorg-go/pid"
 	"github.com/pborman/getopt/v2"
 )
@@ -21,6 +21,8 @@ var pidFile string
 
 // File descriptor to the current log file.
 var logfd *os.File
+
+var logger log.Logger
 
 //  argv_listen_addr
 //    Parse listen address from command line.
@@ -51,19 +53,19 @@ func setLogFile() {
 	// Open file
 	fd, err := os.OpenFile(logFile, os.O_APPEND | os.O_CREATE | os.O_WRONLY, 0644)
 	if err != nil {
-		log.Error(err.Error())
+		logger.Error(err.Error())
 	}
 
 	// Try close if old descriptor is defined.
 	if logfd != nil {
 		if err = logfd.Close(); err != nil {
-			log.Error(err.Error())
+			logger.Error(err.Error())
 		}
 	}
 
 	// Update variable and set log writer.
 	logfd = fd
-	log.SetWriter(logfd)
+	logger.SetHandler(log.StreamHandler(logfd, log.LogfmtFormat()))
 }
 
 //  signalEventLoop()
@@ -96,9 +98,9 @@ func signalEventLoop() {
 					msg += "No Filedescriptor to update (most likely uses standard out/err streams)"
 				}
 
-				log.Info(msg)
+				logger.Info(msg)
 			default:
-				log.Warning("Unknown signal %s", sig)
+				logger.Warn("Unknown signal", "signal", sig)
 			}
 		}
 	}()
@@ -110,6 +112,8 @@ func main() {
 
 	var version bool
 	var addr string;
+
+	logger = log.New()
 
 	// Command line parsing
 	getopt.FlagLong(&version, "version", 'v', "Print version")
@@ -127,13 +131,13 @@ func main() {
 		setLogFile()
 	}
 
-	log.Info("Process is starting with PID: %d", pid.Get())
+	logger.Info("Process is starting", "pid", pid.Get())
 
 	if len(pidFile) > 0 {
-		log.Info("Writing pidfile: %s", pidFile)
+		logger.Info("Writing pidfile", "file", pidFile)
 		err := pid.Save(pidFile)
 		if err != nil {
-			log.Error("Failed to write pidfile: %v", err)
+			logger.Error("Failed to write pidfile", "msg", err)
 		}
 	}
 
@@ -142,7 +146,7 @@ func main() {
 
 	addr = argv_listen_addr()
 
-	log.Info("Listening on: %s", addr)
+	logger.Info("TCP Server started", "addr", addr)
 
 	// Start listening to TCP Connections
 	spawnTcpServer(addr);

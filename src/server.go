@@ -5,7 +5,6 @@ import (
 	"time"
 	"strings"
 	"strconv"
-	"internal/log"
 	"internal/eosapi"
 	"internal/utils"
 	"github.com/eosswedenorg-go/haproxy"
@@ -136,11 +135,11 @@ func onTcpMessage(c *tcp_server.Client, args string) {
 		status, msg = check_api(params, float64(block_time))
 	}
 
-	log.Info("Status %s - %s (%d blocks): %s",
-		 version, params.Url, block_time / 2, status)
+	logger.Info("API Check", "version", version, "url", params.Url,
+		"block", block_time / 2, "status", status)
 
 	if status != haproxy.HealthCheckUp && len(msg) > 0 {
-		log.Warning(msg)
+		logger.Warn("API Check Failed", "message", msg)
 	}
 
 	// Report status to HAproxy
@@ -152,7 +151,6 @@ func onTcpMessage(c *tcp_server.Client, args string) {
 // ---------------------------------------------------------
 
 func spawnTcpServer(addr string) {
-
 	server := tcp_server.New(addr)
 	server.OnMessage(onTcpMessage)
     server.Listen()
