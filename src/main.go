@@ -109,6 +109,7 @@ func signalEventLoop() {
 func main() {
 
 	var version bool
+	var addr string;
 
 	// Command line parsing
 	getopt.FlagLong(&version, "version", 'v', "Print version")
@@ -139,6 +140,10 @@ func main() {
 	// Run the signal event loop.
 	signalEventLoop()
 
+	addr = argv_listen_addr()
+
+	log.Info("Listening on: %s", addr)
+
 	// Start listening to TCP Connections
-	spawnTcpServer(argv_listen_addr());
+	spawnTcpServer(addr);
 }
