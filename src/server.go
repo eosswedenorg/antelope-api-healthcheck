@@ -6,9 +6,9 @@ import (
 	"strings"
 	"strconv"
 	"internal/log"
-	"internal/haproxy"
 	"internal/eosapi"
 	"internal/utils"
+	"github.com/eosswedenorg-go/haproxy"
     "github.com/firstrow/tcp_server"
 )
 
