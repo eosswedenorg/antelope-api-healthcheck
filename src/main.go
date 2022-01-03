@@ -6,7 +6,7 @@ import (
 	"os/signal"
 	"syscall"
 	"internal/log"
-	"internal/pid"
+	"github.com/eosswedenorg-go/pid"
 	"github.com/pborman/getopt/v2"
 )
 
@@ -130,7 +130,7 @@ func main() {
 
 	if len(pidFile) > 0 {
 		log.Info("Writing pidfile: %s", pidFile)
-		_, err := pid.Save(pidFile)
+		err := pid.Save(pidFile)
 		if err != nil {
 			log.Error("Failed to write pidfile: %v", err)
 		}
