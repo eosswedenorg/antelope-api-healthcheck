@@ -111,15 +111,22 @@ func signalEventLoop() {
 func main() {
 
 	var version bool
+    var usage bool
 	var addr string;
 
 	logger = log.New()
 
 	// Command line parsing
+    getopt.FlagLong(&usage, "help", 'h', "Print this help text")
 	getopt.FlagLong(&version, "version", 'v', "Print version")
 	getopt.FlagLong(&logFile, "log", 'l', "Path to log file", "file")
 	getopt.FlagLong(&pidFile, "pid", 'p', "Path to pid file", "file")
 	getopt.Parse()
+
+    if usage {
+        getopt.Usage()
+        return
+    }
 
 	if version {
 		print("Version: v1.1\n")
