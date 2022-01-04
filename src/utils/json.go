@@ -9,9 +9,9 @@ package utils
 // ---------------------------------------------------------
 
 func JsonGetInt64(input interface{}) (int64) {
-	v, res := input.(float64)
-	if res {
-		return (int64) (v)
-	}
-	return 0
+    v, res := input.(float64)
+    if res {
+        return (int64) (v)
+    }
+    return 0
 }
