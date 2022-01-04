@@ -117,6 +117,7 @@ func main() {
 	logger = log.New()
 
 	// Command line parsing
+    getopt.SetParameters("[ip] [port]")
     getopt.FlagLong(&usage, "help", 'h', "Print this help text")
 	getopt.FlagLong(&version, "version", 'v', "Print version")
 	getopt.FlagLong(&logFile, "log", 'l', "Path to log file", "file")
