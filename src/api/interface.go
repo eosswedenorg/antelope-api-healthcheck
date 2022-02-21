@@ -8,7 +8,7 @@ import (
 type ApiInterface interface {
 
     // Returns Logging information
-    LogInfo() []interface{}
+    LogInfo() LogParams
 
     // Call api and validate it's status.
     Call() (haproxy.HealthCheckStatus, string)

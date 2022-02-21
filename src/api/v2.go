@@ -20,8 +20,8 @@ func NewEosioV2(params eosapi.ReqParams, offset int64) EosioV2 {
     }
 }
 
-func (e EosioV2) LogInfo() []interface{} {
-    return []interface{}{
+func (e EosioV2) LogInfo() LogParams {
+    return LogParams{
         "type", "eosio-v2",
         "url", e.params.Url,
         "host", e.params.Host,

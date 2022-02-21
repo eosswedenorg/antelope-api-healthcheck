@@ -20,8 +20,8 @@ func NewEosioV1(params eosapi.ReqParams, block_time float64) EosioV1 {
     }
 }
 
-func (e EosioV1) LogInfo() []interface{} {
-    return []interface{}{
+func (e EosioV1) LogInfo() LogParams {
+    return LogParams{
         "type", "eosio-v1",
         "url", e.params.Url,
         "host", e.params.Host,
