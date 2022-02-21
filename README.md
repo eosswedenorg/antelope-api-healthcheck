@@ -43,7 +43,7 @@ first to last below:
 | - | ---------- | ----------------------- | -------------------------------------------------------------- |
 | 1 | url        | Yes (port default `80`) | http url to the api. `http(s)://<ip-or-domain>(:<port>)`       |
 | 2 | num_blocks | No (default `10`)       | Number of blocks the api can drift before reported `down`      |
-| 3 | version    | No (default `v1`)       | API Version to check against, `v1` = standard, `v2` = Hyperion |
+| 3 | api        | No (default `v1`)       | Type of API to check against, `v1` = standard, `v2` = Hyperion |
 | 4 | host       | No (default from `url`) | Value to send in the `HTTP Host Header` to the API             |
 
 ### Response

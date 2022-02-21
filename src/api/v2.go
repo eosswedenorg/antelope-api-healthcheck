@@ -24,8 +24,6 @@ func (e EosioV2) Name() string {
     return "v2"
 }
 
-//  check_api - Validates head block time.
-// ---------------------------------------------------------
 func (e EosioV2) Call() (haproxy.HealthCheckStatus, string) {
 
     health, err := eosapi.GetHealth(e.params)
