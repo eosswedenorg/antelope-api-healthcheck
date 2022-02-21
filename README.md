@@ -39,12 +39,12 @@ The protocol is simple and has 4 rules.
 The following parameters are supported in a request and are ordered from
 first to last below:
 
-| # | Name       | Required                | Description                                                    |
-| - | ---------- | ----------------------- | -------------------------------------------------------------- |
-| 1 | api        | Yes                     | Type of API to check against, `v1` = standard, `v2` = Hyperion |
-| 2 | url        | Yes (port default `80`) | http url to the api. `http(s)://<ip-or-domain>(:<port>)`       |
-| 3 | num_blocks | No (default `10`)       | Number of blocks the api can drift before reported `down`      |
-| 4 | host       | No (default from `url`) | Value to send in the `HTTP Host Header` to the API             |
+| # | Name       | Required                | Description                                                                                     |
+| - | ---------- | ----------------------- | ----------------------------------------------------------------------------------------------- |
+| 1 | api        | Yes                     | Type of API to check against, `v1` = standard, `v2` = Hyperion, `contract` = eosio-contract-api |
+| 2 | url        | Yes (port default `80`) | http url to the api. `http(s)://<ip-or-domain>(:<port>)`                                        |
+| 3 | num_blocks | No (default `10`)       | Number of blocks the api can drift before reported `down`                                       |
+| 4 | host       | No (default from `url`) | Value to send in the `HTTP Host Header` to the API                                              |
 
 ### Response
 
