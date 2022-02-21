@@ -72,8 +72,9 @@ func onTcpMessage(c *tcp_server.Client, args string) {
 
     status, msg := healthCheckApi.Call()
 
-    logger.Info("API Check", "type", healthCheckApi.Name(), "url", a.url,
-        "block", a.block_time / 2, "status", status)
+    logger.Info("API Check", append([]interface{}{
+        "status", status},
+        healthCheckApi.LogInfo()...)...)
 
     if status != haproxy.HealthCheckUp && len(msg) > 0 {
         logger.Warn("API Check Failed", "message", msg)

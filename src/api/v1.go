@@ -20,8 +20,13 @@ func NewEosioV1(params eosapi.ReqParams, block_time float64) EosioV1 {
     }
 }
 
-func (e EosioV1) Name() string {
-    return "v1"
+func (e EosioV1) LogInfo() []interface{} {
+    return []interface{}{
+        "type", "eosio-v1",
+        "url", e.params.Url,
+        "host", e.params.Host,
+        "block_time", e.block_time,
+    }
 }
 
 func (e EosioV1) Call() (haproxy.HealthCheckStatus, string) {
