@@ -12,6 +12,8 @@ require (
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/pborman/getopt/v2 v2.1.0
 	internal/utils v1.0.0
+    internal/api v1.0.0
 )
 
 replace internal/utils => ./src/utils
+replace internal/api => ./src/api
