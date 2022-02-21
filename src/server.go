@@ -20,6 +20,8 @@ type arguments struct {
 func createApi(a *arguments) api.ApiInterface {
 
     switch a.api {
+    case "contract":
+        return api.NewEosioContract(a.url, float64(a.block_time))
     case "v2":
         return api.NewEosioV2(eosapi.ReqParams{Url: a.url, Host: a.host}, int64(a.block_time / 2))
     }
@@ -45,20 +47,27 @@ func onTcpMessage(c *tcp_server.Client, args string) {
     // -------------------
     split := strings.Split(strings.TrimSpace(args), "|")
 
-    // 1. url (scheme + ip/domain + port)
-    a.url = split[0]
+    if len(split) < 2 {
+        msg := "Invalid number of parameters in agent request"
 
-    // 2. Block time.
+        logger.Warn("Agent request error", "message", msg, "args", split)
+        c.WriteString(fmt.Sprintf("%s#%s\n", haproxy.HealthCheckFailed, msg))
+        c.Close()
+        return
+    }
+
+    // 1. Api
+    a.api = split[0]
+
+    // 2. url (scheme + ip/domain + port)
+    a.url = split[1]
+
+    // 3. Block time.
     if len(split) > 1 {
-        num, err := strconv.ParseInt(split[1], 10, 32)
+        num, err := strconv.ParseInt(split[2], 10, 32)
         if err == nil {
             a.block_time = int(num)
         }
-    }
-
-    // 3. Api
-    if len(split) > 2 {
-        a.api = split[2]
     }
 
     // 4. Host
