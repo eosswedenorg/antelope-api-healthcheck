@@ -21,12 +21,18 @@ func NewEosioV2(params eosapi.ReqParams, offset int64) EosioV2 {
 }
 
 func (e EosioV2) LogInfo() LogParams {
-    return LogParams{
+    p := LogParams{
         "type", "eosio-v2",
         "url", e.params.Url,
-        "host", e.params.Host,
-        "offset", e.offset,
     }
+
+    if len(e.params.Host) > 0 {
+        p.Add("host", e.params.Host)
+    }
+
+    p.Add("offset", e.offset)
+
+    return p
 }
 
 func (e EosioV2) Call() (haproxy.HealthCheckStatus, string) {
