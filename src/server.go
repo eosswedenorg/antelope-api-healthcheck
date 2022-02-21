@@ -17,16 +17,16 @@ type arguments struct {
     block_time int
 }
 
-func createApi(a *arguments) api.ApiInterface {
+func createApi(a *arguments) (api.ApiInterface, error) {
 
     switch a.api {
-    case "contract":
-        return api.NewEosioContract(a.url, float64(a.block_time))
+    case "v1":
+        return api.NewEosioV1(eosapi.ReqParams{Url: a.url, Host: a.host}, float64(a.block_time)), nil
     case "v2":
-        return api.NewEosioV2(eosapi.ReqParams{Url: a.url, Host: a.host}, int64(a.block_time / 2))
+        return api.NewEosioV2(eosapi.ReqParams{Url: a.url, Host: a.host}, int64(a.block_time / 2)), nil
     }
 
-    return api.NewEosioV1(eosapi.ReqParams{Url: a.url, Host: a.host}, float64(a.block_time))
+    return nil, fmt.Errorf("Invalid API '%s'", a.api)
 }
 
 //  onTcpMessage callback function
@@ -77,7 +77,13 @@ func onTcpMessage(c *tcp_server.Client, args string) {
 
     // Check api.
     // -------------------
-    healthCheckApi := createApi(&a)
+    healthCheckApi, err := createApi(&a)
+    if err != nil {
+        logger.Warn("Agent request error", "message", err)
+        c.WriteString(fmt.Sprintf("%s#%s\n", haproxy.HealthCheckFailed, err))
+        c.Close()
+        return
+    }
 
     status, msg := healthCheckApi.Call()
 
