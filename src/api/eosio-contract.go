@@ -55,7 +55,7 @@ func (e EosioContract) Call() (haproxy.HealthCheckStatus, string) {
     // Check redis
     if h.Data.Redis.Status != "OK" {
         return haproxy.HealthCheckDown,
-            fmt.Sprintf("Taking offline because Redis reported '%s'", h.Data.Postgres.Status)
+            fmt.Sprintf("Taking offline because Redis reported '%s'", h.Data.Redis.Status)
     }
 
     // Validate head block.
