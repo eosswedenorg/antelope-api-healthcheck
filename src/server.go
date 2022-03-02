@@ -6,7 +6,7 @@ import (
     "strconv"
     "github.com/eosswedenorg/eosio-api-healthcheck/src/api"
     "github.com/eosswedenorg-go/eosapi"
-    "github.com/eosswedenorg-go/haproxy"
+    "github.com/eosswedenorg-go/haproxy/agentcheck"
     "github.com/eosswedenorg-go/tcp_server"
 )
 
@@ -53,7 +53,9 @@ func onTcpMessage(c *tcp_server.Client, args string) {
         msg := "Invalid number of parameters in agent request"
 
         logger.Warn("Agent request error", "message", msg, "args", split)
-        c.WriteString(fmt.Sprintf("%s#%s\n", haproxy.HealthCheckFailed, msg))
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, msg)
+
+        c.WriteString(resp.String())
         c.Close()
         return
     }
@@ -82,7 +84,9 @@ func onTcpMessage(c *tcp_server.Client, args string) {
     healthCheckApi, err := createApi(&a)
     if err != nil {
         logger.Warn("Agent request error", "message", err)
-        c.WriteString(fmt.Sprintf("%s#%s\n", haproxy.HealthCheckFailed, err))
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, err.Error())
+
+        c.WriteString(resp.String())
         c.Close()
         return
     }
@@ -90,15 +94,15 @@ func onTcpMessage(c *tcp_server.Client, args string) {
     status, msg := healthCheckApi.Call()
 
     logger.Info("API Check", append([]interface{}{
-        "status", status},
+        "status", strings.TrimSpace(status.String())},
         healthCheckApi.LogInfo().ToSlice()...)...)
 
-    if status != haproxy.HealthCheckUp && len(msg) > 0 {
+    if msg != "OK" && len(msg) > 0 {
         logger.Warn("API Check Failed", "message", msg)
     }
 
     // Report status to HAproxy
-    c.WriteString(fmt.Sprintln(status))
+    c.WriteString(status.String())
     c.Close()
 }
 

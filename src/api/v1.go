@@ -4,7 +4,7 @@ package api
 import (
     "fmt"
     "time"
-    "github.com/eosswedenorg-go/haproxy"
+    "github.com/eosswedenorg-go/haproxy/agentcheck"
     "github.com/eosswedenorg-go/eosapi"
 )
 
@@ -35,18 +35,22 @@ func (e EosioV1) LogInfo() LogParams {
     return p
 }
 
-func (e EosioV1) Call() (haproxy.HealthCheckStatus, string) {
+func (e EosioV1) Call() (agentcheck.Response, string) {
 
     info, err := eosapi.GetInfo(e.params)
     if err != nil {
-        msg := fmt.Sprintf("%s", err);
-        return haproxy.HealthCheckFailed, msg
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "Failed to contact api")
+        return resp, err.Error()
     }
 
     // Check HTTP Status Code
     if info.HTTPStatusCode > 299 {
-        return haproxy.HealthCheckDown,
-            fmt.Sprintf("Taking offline because %v was received from backend", info.HTTPStatusCode)
+
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down,
+            fmt.Sprintf("HTTP %v", info.HTTPStatusCode))
+
+        msg := "Taking offline because %v was received from backend"
+        return resp, fmt.Sprintf(msg, info.HTTPStatusCode)
     }
 
     // Validate head block.
@@ -54,11 +58,19 @@ func (e EosioV1) Call() (haproxy.HealthCheckStatus, string) {
     diff := now.Sub(info.HeadBlockTime).Seconds()
 
     if diff > e.block_time {
-        return haproxy.HealthCheckDown,
-            fmt.Sprintf("Taking offline because head block is lagging %.0f seconds", diff)
+
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down,
+            fmt.Sprintf("headblock is %.0f seconds behind", diff))
+
+        msg := "Taking offline because head block is lagging %.0f seconds"
+        return resp, fmt.Sprintf(msg, diff)
     } else if diff < -e.block_time {
-        return haproxy.HealthCheckDown,
-            fmt.Sprintf("Taking offline because head block is %.0f seconds into the future", diff)
+
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down,
+            fmt.Sprintf("headblock is %.0f into the future", diff))
+
+        msg := "Taking offline because head block is %.0f seconds into the future"
+        return resp, fmt.Sprintf(msg, diff)
     }
-    return haproxy.HealthCheckUp, "OK"
+    return agentcheck.NewStatusResponse(agentcheck.Up), "OK"
 }

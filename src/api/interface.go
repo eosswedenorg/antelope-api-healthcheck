@@ -2,7 +2,7 @@
 package api
 
 import (
-    "github.com/eosswedenorg-go/haproxy"
+    "github.com/eosswedenorg-go/haproxy/agentcheck"
 )
 
 type ApiInterface interface {
@@ -11,5 +11,5 @@ type ApiInterface interface {
     LogInfo() LogParams
 
     // Call api and validate it's status.
-    Call() (haproxy.HealthCheckStatus, string)
+    Call() (agentcheck.Response, string)
 }

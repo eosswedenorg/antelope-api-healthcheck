@@ -4,7 +4,7 @@ package api
 import (
     "fmt"
     "github.com/eosswedenorg/eosio-api-healthcheck/src/utils"
-    "github.com/eosswedenorg-go/haproxy"
+    "github.com/eosswedenorg-go/haproxy/agentcheck"
     "github.com/eosswedenorg-go/eosapi"
 )
 
@@ -35,18 +35,18 @@ func (e EosioV2) LogInfo() LogParams {
     return p
 }
 
-func (e EosioV2) Call() (haproxy.HealthCheckStatus, string) {
+func (e EosioV2) Call() (agentcheck.Response, string) {
 
     health, err := eosapi.GetHealth(e.params)
     if err != nil {
-        msg := fmt.Sprintf("%s", err);
-        return haproxy.HealthCheckFailed, msg
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "Failed to contact api")
+        return resp, err.Error()
     }
 
     // Check HTTP Status Code
     if health.HTTPStatusCode > 299 {
-        return haproxy.HealthCheckDown,
-            fmt.Sprintf("Taking offline because %v was received from backend", health.HTTPStatusCode)
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down, fmt.Sprintf("HTTP %v", health.HTTPStatusCode))
+        return resp, fmt.Sprintf("Taking offline because %v was received from backend", health.HTTPStatusCode)
     }
 
     // Fetch elasticsearch and nodeos block numbers from json.
@@ -65,17 +65,21 @@ func (e EosioV2) Call() (haproxy.HealthCheckStatus, string) {
     if es_block == 0 || node_block == 0 {
         msg := fmt.Sprintf("Failed to get Elasticsearch and/or nodeos " +
             "block numbers (es: %d, eos: %d)", es_block, node_block)
-        return haproxy.HealthCheckFailed, msg
+
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, msg)
+        return resp, msg
     }
 
     // Check if ES is behind or in the future.
     diff := node_block - es_block;
     if diff > e.offset {
-        return haproxy.HealthCheckDown,
-            fmt.Sprintf("Taking offline because Elastic is %d blocks behind", diff)
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down,
+            fmt.Sprintf("Elastic is %d blocks behind", diff))
+        return resp, fmt.Sprintf("Taking offline because Elastic is %d blocks behind", diff)
     } else if diff < -e.offset {
-        return haproxy.HealthCheckDown,
-            fmt.Sprintf("Taking offline because Elastic is %d blocks into the future", -1 * diff)
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down,
+            fmt.Sprintf("Elastic is %d blocks into the future", -1 * diff))
+        return resp, fmt.Sprintf("Taking offline because Elastic is %d blocks into the future", -1 * diff)
     }
-    return haproxy.HealthCheckUp, "OK"
+    return agentcheck.NewStatusResponse(agentcheck.Up), "OK"
 }

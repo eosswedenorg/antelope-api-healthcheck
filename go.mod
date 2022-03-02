@@ -3,9 +3,9 @@ module github.com/eosswedenorg/eosio-api-healthcheck
 go 1.14
 
 require (
-	github.com/eosswedenorg-go/eos-contract-api-client v0.0.0-20220221105418-dc591fcc0dc5 // indirect
+	github.com/eosswedenorg-go/eos-contract-api-client v0.0.0-20220221105418-dc591fcc0dc5
 	github.com/eosswedenorg-go/eosapi v0.1.0
-	github.com/eosswedenorg-go/haproxy v0.0.0-20220101140534-fccfdd93a8cd
+	github.com/eosswedenorg-go/haproxy v0.1.0
 	github.com/eosswedenorg-go/pid v1.0.0
 	github.com/eosswedenorg-go/tcp_server v0.1.0
 	github.com/go-stack/stack v1.8.1 // indirect

@@ -4,7 +4,7 @@ package api
 import (
     "fmt"
     "time"
-    "github.com/eosswedenorg-go/haproxy"
+    "github.com/eosswedenorg-go/haproxy/agentcheck"
     contract_api "github.com/eosswedenorg-go/eos-contract-api-client"
 )
 
@@ -32,30 +32,40 @@ func (e EosioContract) LogInfo() LogParams {
 
 //  check_api - Validates head block time.
 // ---------------------------------------------------------
-func (e EosioContract) Call() (haproxy.HealthCheckStatus, string) {
+func (e EosioContract) Call() (agentcheck.Response, string) {
 
     h, err := e.client.GetHealth()
     if err != nil {
-        msg := fmt.Sprintf("%s", err);
-        return haproxy.HealthCheckFailed, msg
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "Failed to contact api")
+        return resp, err.Error()
     }
 
     // Check HTTP Status Code
     if h.HTTPStatusCode > 299 {
-        return haproxy.HealthCheckDown,
-            fmt.Sprintf("Taking offline because %v was received from backend", h.HTTPStatusCode)
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down,
+            fmt.Sprintf("HTTP %v", h.HTTPStatusCode))
+
+        msg := "Taking offline because %v was received from backend"
+        return resp, fmt.Sprintf(msg, h.HTTPStatusCode)
     }
 
     // Check postgres
     if h.Data.Postgres.Status != "OK" {
-        return haproxy.HealthCheckDown,
-            fmt.Sprintf("Taking offline because Postgres reported '%s'", h.Data.Postgres.Status)
+
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down,
+            fmt.Sprintf("Postgres: %s", h.Data.Postgres.Status))
+
+        msg := "Taking offline because Postgres reported '%s'"
+        return resp, fmt.Sprintf(msg, h.Data.Postgres.Status)
     }
 
     // Check redis
     if h.Data.Redis.Status != "OK" {
-        return haproxy.HealthCheckDown,
-            fmt.Sprintf("Taking offline because Redis reported '%s'", h.Data.Redis.Status)
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down,
+            fmt.Sprintf("Redis: %s", h.Data.Redis.Status))
+
+        msg := "Taking offline because Redis reported '%s'"
+        return resp, fmt.Sprintf(msg, h.Data.Redis.Status)
     }
 
     // Validate head block.
@@ -63,12 +73,19 @@ func (e EosioContract) Call() (haproxy.HealthCheckStatus, string) {
     diff := now.Sub(h.Data.Chain.HeadTime).Seconds()
 
     if diff > e.block_time {
-        return haproxy.HealthCheckDown,
-            fmt.Sprintf("Taking offline because head block is lagging %.0f seconds", diff)
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down,
+            fmt.Sprintf("headblock is %.0f seconds behind", diff))
+
+        msg := "Taking offline because head block is lagging %.0f seconds"
+        return resp, fmt.Sprintf(msg, diff)
     } else if diff < -e.block_time {
-        return haproxy.HealthCheckDown,
-            fmt.Sprintf("Taking offline because head block is %.0f seconds into the future", diff)
+
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down,
+            fmt.Sprintf("headblock is %.0f into the future", diff))
+
+        msg := "Taking offline because head block is %.0f seconds into the future"
+        return resp, fmt.Sprintf(msg, diff)
     }
 
-    return haproxy.HealthCheckUp, "OK"
+    return agentcheck.NewStatusResponse(agentcheck.Up), "OK"
 }
