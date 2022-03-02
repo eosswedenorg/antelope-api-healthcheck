@@ -4,7 +4,7 @@ import (
     "fmt"
     "strings"
     "strconv"
-    "internal/api"
+    "github.com/eosswedenorg/eosio-api-healthcheck/src/api"
     "github.com/eosswedenorg-go/eosapi"
     "github.com/eosswedenorg-go/haproxy"
     "github.com/eosswedenorg-go/tcp_server"
