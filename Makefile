@@ -11,6 +11,7 @@ DEPENDANCIES= github.com/firstrow/tcp_server \
 	github.com/imroc/req \
 	github.com/pborman/getopt/v2
 
+.PHONY: all build/$(PROGRAM_NAME) clean
 all: build
 build: build/$(PROGRAM_NAME)
 
