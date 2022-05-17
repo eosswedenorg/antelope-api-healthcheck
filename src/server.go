@@ -67,7 +67,7 @@ func onTcpMessage(c *tcp_server.Client, args string) {
     a.url = split[1]
 
     // 3. Block time.
-    if len(split) > 1 {
+    if len(split) > 2 {
         num, err := strconv.ParseInt(split[2], 10, 32)
         if err == nil {
             a.block_time = int(num)
