@@ -36,15 +36,11 @@ func createApi(a *arguments) (api.ApiInterface, error) {
 // ---------------------------------------------------------
 
 func onTcpMessage(c *tcp_server.Client, args string) {
+
     a := arguments{
         api: "v1",
         block_time: 10,
     }
-
-    // var url string
-    // var host string
-    // var block_time int = 10
-    // var version string = "v1"
 
     // Parse arguments.
     // -------------------
