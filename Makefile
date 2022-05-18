@@ -25,7 +25,7 @@ deps:
 info-file :
 	echo PACKAGE_NAME=\"$(PROGRAM_NAME)\" "\n"\
 	PACKAGE_DESCRIPTION=\"HAproxy healthcheck program for EOSIO API.\" "\n"\
-	PACKAGE_VERSION=\"1.2-rc2\" "\n"\
+	PACKAGE_VERSION=\"1.2\" "\n"\
 	PACKAGE_PREFIX=\"$(PREFIX:/%=%)\" "\n"\
 	PACKAGE_PROGRAM=\"build/$(PROGRAM_NAME)\" > scripts/pkg_info
 
