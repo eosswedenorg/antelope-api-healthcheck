@@ -15,18 +15,18 @@ type arguments struct {
     api string
     url string
     host string
-    block_time int
+    num_blocks int
 }
 
 func createApi(a *arguments) (api.ApiInterface, error) {
 
     switch a.api {
     case "v1":
-        return api.NewEosioV1(eosapi.ReqParams{Url: a.url, Host: a.host}, float64(a.block_time)), nil
+        return api.NewEosioV1(eosapi.ReqParams{Url: a.url, Host: a.host}, float64(a.num_blocks / 2)), nil
     case "v2":
-        return api.NewEosioV2(eosapi.ReqParams{Url: a.url, Host: a.host}, int64(a.block_time / 2)), nil
+        return api.NewEosioV2(eosapi.ReqParams{Url: a.url, Host: a.host}, int64(a.num_blocks)), nil
     case "contract":
-        return api.NewEosioContract(a.url, float64(a.block_time)), nil
+        return api.NewEosioContract(a.url, float64(a.num_blocks / 2)), nil
     }
 
     return nil, fmt.Errorf("Invalid API '%s'", a.api)
@@ -39,7 +39,7 @@ func onTcpMessage(c *tcp_server.Client, args string) {
 
     a := arguments{
         api: "v1",
-        block_time: 10,
+        num_blocks: 10,
     }
 
     // Parse arguments.
@@ -60,7 +60,7 @@ func onTcpMessage(c *tcp_server.Client, args string) {
     // Old format: <url> <version> <api> <block_time>
     if utils.IsUrl(split[0]) {
 
-        logger.Warn("Deprecated format. Please change to the new format: <api>|<url>[|<block_time>|<host>]")
+        logger.Warn("Deprecated format. Please change to the new format: <api>|<url>[|<num_blocks>|<host>]")
 
         // 1. url (scheme + ip/domain + port)
         a.url = split[0]
@@ -70,11 +70,11 @@ func onTcpMessage(c *tcp_server.Client, args string) {
             a.api = split[1]
         }
 
-        // 3. Block time
+        // 3. num blocks
         if len(split) > 2 {
             num, err := strconv.ParseInt(split[2], 10, 32)
             if err == nil {
-                a.block_time = int(num)
+                a.num_blocks = int(num)
             }
         }
 
@@ -102,11 +102,11 @@ func onTcpMessage(c *tcp_server.Client, args string) {
         // 2. url (scheme + ip/domain + port)
         a.url = split[1]
 
-        // 3. Block time.
+        // 3. num blocks
         if len(split) > 2 {
             num, err := strconv.ParseInt(split[2], 10, 32)
             if err == nil {
-                a.block_time = int(num)
+                a.num_blocks = int(num)
             }
         }
 
