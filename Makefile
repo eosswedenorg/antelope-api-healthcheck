@@ -6,10 +6,6 @@ PREFIX		= /usr/local
 
 PROGRAM_NAME=eosio-api-healthcheck
 SOURCES=src/main.go src/server.go
-DEPENDANCIES= github.com/firstrow/tcp_server \
-	github.com/liamylian/jsontime/v2 \
-	github.com/imroc/req \
-	github.com/pborman/getopt/v2
 
 .PHONY: all build/$(PROGRAM_NAME) clean
 all: build
@@ -18,9 +14,6 @@ build: build/$(PROGRAM_NAME)
 build/$(PROGRAM_NAME) : $(SOURCES)
 	$(GO) build -o $@ $(GOCCFLAGS) $(GOLDFLAGS) $^
 	$(GO) env > build/.buildinfo
-
-deps:
-	$(GO) get $(DEPENDANCIES)
 
 info-file :
 	echo PACKAGE_NAME=\"$(PROGRAM_NAME)\" "\n"\
