@@ -36,14 +36,13 @@ func (e EosioContract) Call() (agentcheck.Response, string) {
 
     h, err := e.client.GetHealth()
     if err != nil {
-        resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "Failed to contact api")
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
         return resp, err.Error()
     }
 
     // Check HTTP Status Code
     if h.HTTPStatusCode > 299 {
-        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down,
-            fmt.Sprintf("HTTP %v", h.HTTPStatusCode))
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down, "")
 
         msg := "Taking offline because %v was received from backend"
         return resp, fmt.Sprintf(msg, h.HTTPStatusCode)
@@ -61,8 +60,7 @@ func (e EosioContract) Call() (agentcheck.Response, string) {
 
     // Check redis
     if h.Data.Redis.Status != "OK" {
-        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down,
-            fmt.Sprintf("Redis: %s", h.Data.Redis.Status))
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down, "")
 
         msg := "Taking offline because Redis reported '%s'"
         return resp, fmt.Sprintf(msg, h.Data.Redis.Status)
@@ -73,15 +71,13 @@ func (e EosioContract) Call() (agentcheck.Response, string) {
     diff := now.Sub(h.Data.Chain.HeadTime).Seconds()
 
     if diff > e.block_time {
-        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down,
-            fmt.Sprintf("headblock is %.0f seconds behind", diff))
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down, "")
 
         msg := "Taking offline because head block is lagging %.0f seconds"
         return resp, fmt.Sprintf(msg, diff)
     } else if diff < -e.block_time {
 
-        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down,
-            fmt.Sprintf("headblock is %.0f into the future", diff))
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down, "")
 
         msg := "Taking offline because head block is %.0f seconds into the future"
         return resp, fmt.Sprintf(msg, diff)

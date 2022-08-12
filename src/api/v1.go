@@ -39,15 +39,14 @@ func (e EosioV1) Call() (agentcheck.Response, string) {
 
     info, err := eosapi.GetInfo(e.params)
     if err != nil {
-        resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "Failed to contact api")
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
         return resp, err.Error()
     }
 
     // Check HTTP Status Code
     if info.HTTPStatusCode > 299 {
 
-        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down,
-            fmt.Sprintf("HTTP %v", info.HTTPStatusCode))
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down, "")
 
         msg := "Taking offline because %v was received from backend"
         return resp, fmt.Sprintf(msg, info.HTTPStatusCode)
@@ -59,15 +58,13 @@ func (e EosioV1) Call() (agentcheck.Response, string) {
 
     if diff > e.block_time {
 
-        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down,
-            fmt.Sprintf("headblock is %.0f seconds behind", diff))
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down, "")
 
         msg := "Taking offline because head block is lagging %.0f seconds"
         return resp, fmt.Sprintf(msg, diff)
     } else if diff < -e.block_time {
 
-        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down,
-            fmt.Sprintf("headblock is %.0f into the future", diff))
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down, "")
 
         msg := "Taking offline because head block is %.0f seconds into the future"
         return resp, fmt.Sprintf(msg, diff)
