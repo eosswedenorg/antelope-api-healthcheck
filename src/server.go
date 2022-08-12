@@ -27,6 +27,8 @@ func createApi(a *arguments) (api.ApiInterface, error) {
         return api.NewEosioV2(eosapi.ReqParams{Url: a.url, Host: a.host}, int64(a.num_blocks)), nil
     case "contract":
         return api.NewEosioContract(a.url, float64(a.num_blocks / 2)), nil
+    case "test":
+        return api.NewTestApi(a.url), nil
     }
 
     return nil, fmt.Errorf("Invalid API '%s'", a.api)
