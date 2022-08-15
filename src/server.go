@@ -52,7 +52,7 @@ func onTcpMessage(c *tcp_server.Client, args string) {
         msg := "Invalid number of parameters in agent request"
 
         logger.Warn("Agent request error", "message", msg, "args", split)
-        resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, msg)
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
 
         c.WriteString(resp.String())
         c.Close()
@@ -91,7 +91,7 @@ func onTcpMessage(c *tcp_server.Client, args string) {
             msg := "Invalid number of parameters in agent request"
 
             logger.Warn("Agent request error", "message", msg, "args", split)
-            resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, msg)
+            resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
 
             c.WriteString(resp.String())
             c.Close()
@@ -123,7 +123,7 @@ func onTcpMessage(c *tcp_server.Client, args string) {
     healthCheckApi, err := createApi(&a)
     if err != nil {
         logger.Warn("Agent request error", "message", err)
-        resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, err.Error())
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
 
         c.WriteString(resp.String())
         c.Close()
