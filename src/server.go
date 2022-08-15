@@ -59,7 +59,7 @@ func onTcpMessage(c *tcp_server.Client, args string) {
         return
     }
 
-    // Old format: <url> <version> <api> <block_time>
+    // Old format: <url> <num_blocks> <api_version> <host>
     if utils.IsUrl(split[0]) {
 
         logger.Warn("Deprecated format. Please change to the new format: <api>|<url>[|<num_blocks>|<host>]")
@@ -67,17 +67,17 @@ func onTcpMessage(c *tcp_server.Client, args string) {
         // 1. url (scheme + ip/domain + port)
         a.url = split[0]
 
-        // 2. api
+        // 2. num blocks
         if len(split) > 1 {
-            a.api = split[1]
-        }
-
-        // 3. num blocks
-        if len(split) > 2 {
-            num, err := strconv.ParseInt(split[2], 10, 32)
+            num, err := strconv.ParseInt(split[1], 10, 32)
             if err == nil {
                 a.num_blocks = int(num)
             }
+        }
+
+        // 3. api_version
+        if len(split) > 2 {
+            a.api = split[2]
         }
 
         // 4. Host
