@@ -4,7 +4,6 @@ import (
     "fmt"
     "strings"
     "strconv"
-    "github.com/eosswedenorg/eosio-api-healthcheck/src/utils"
     "github.com/eosswedenorg/eosio-api-healthcheck/src/api"
     "github.com/eosswedenorg-go/eosapi"
     "github.com/eosswedenorg-go/haproxy/agentcheck"
@@ -59,63 +58,23 @@ func onTcpMessage(c *tcp_server.Client, args string) {
         return
     }
 
-    // Old format: <url> <num_blocks> <api_version> <host>
-    if utils.IsUrl(split[0]) {
+    // 1. Api
+    a.api = split[0]
 
-        logger.Warn("Deprecated format. Please change to the new format: <api>|<url>[|<num_blocks>|<host>]")
+    // 2. url (scheme + ip/domain + port)
+    a.url = split[1]
 
-        // 1. url (scheme + ip/domain + port)
-        a.url = split[0]
-
-        // 2. num blocks
-        if len(split) > 1 {
-            num, err := strconv.ParseInt(split[1], 10, 32)
-            if err == nil {
-                a.num_blocks = int(num)
-            }
+    // 3. num blocks
+    if len(split) > 2 {
+        num, err := strconv.ParseInt(split[2], 10, 32)
+        if err == nil {
+            a.num_blocks = int(num)
         }
+    }
 
-        // 3. api_version
-        if len(split) > 2 {
-            a.api = split[2]
-        }
-
-        // 4. Host
-        if len(split) > 3 {
-            a.host = split[3]
-        }
-
-    } else {
-
-        if len(split) < 2 {
-            msg := "Invalid number of parameters in agent request"
-
-            logger.Warn("Agent request error", "message", msg, "args", split)
-            resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
-
-            c.WriteString(resp.String())
-            c.Close()
-            return
-        }
-
-        // 1. Api
-        a.api = split[0]
-
-        // 2. url (scheme + ip/domain + port)
-        a.url = split[1]
-
-        // 3. num blocks
-        if len(split) > 2 {
-            num, err := strconv.ParseInt(split[2], 10, 32)
-            if err == nil {
-                a.num_blocks = int(num)
-            }
-        }
-
-        // 4. Host
-        if len(split) > 3 {
-            a.host = split[3]
-        }
+    // 4. Host
+    if len(split) > 3 {
+        a.host = split[3]
     }
 
     // Check api.
