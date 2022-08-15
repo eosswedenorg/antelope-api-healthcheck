@@ -130,7 +130,7 @@ func main() {
     }
 
     if version {
-        print("Version: v1.2.1\n")
+        print("Version: v1.2.2\n")
         return;
     }
 
