@@ -5,7 +5,6 @@ import (
     "strings"
     "strconv"
     "github.com/eosswedenorg/eosio-api-healthcheck/src/api"
-    "github.com/eosswedenorg-go/eosapi"
     "github.com/eosswedenorg-go/haproxy/agentcheck"
     "github.com/eosswedenorg-go/tcp_server"
 )
@@ -21,9 +20,9 @@ func createApi(a *arguments) (api.ApiInterface, error) {
 
     switch a.api {
     case "v1":
-        return api.NewEosioV1(eosapi.ReqParams{Url: a.url, Host: a.host}, float64(a.num_blocks / 2)), nil
+        return api.NewEosioV1(a.url, a.host, float64(a.num_blocks / 2)), nil
     case "v2":
-        return api.NewEosioV2(eosapi.ReqParams{Url: a.url, Host: a.host}, int64(a.num_blocks)), nil
+        return api.NewEosioV2(a.url, a.host, int64(a.num_blocks)), nil
     case "contract":
         return api.NewEosioContract(a.url, float64(a.num_blocks / 2)), nil
     case "test":

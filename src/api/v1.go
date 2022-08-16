@@ -13,9 +13,12 @@ type EosioV1 struct {
     block_time float64
 }
 
-func NewEosioV1(params eosapi.ReqParams, block_time float64) EosioV1 {
+func NewEosioV1(url string, host string, block_time float64) EosioV1 {
     return EosioV1{
-        params: params,
+        params: eosapi.ReqParams{
+            Url: url,
+            Host: host,
+        },
         block_time: block_time,
     }
 }

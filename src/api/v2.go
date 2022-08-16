@@ -13,9 +13,12 @@ type EosioV2 struct {
     offset int64
 }
 
-func NewEosioV2(params eosapi.ReqParams, offset int64) EosioV2 {
+func NewEosioV2(url string, host string, offset int64) EosioV2 {
     return EosioV2{
-        params: params,
+        params: eosapi.ReqParams{
+            Url: url,
+            Host: host,
+        },
         offset: offset,
     }
 }
