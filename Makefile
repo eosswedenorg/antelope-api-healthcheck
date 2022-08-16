@@ -5,7 +5,7 @@ GOLDFLAGS   = -ldflags="-s -w"
 PREFIX		= /usr/local
 
 PROGRAM_NAME=eosio-api-healthcheck
-SOURCES=src/main.go src/server.go
+SOURCES=src/main.go src/server.go src/parse_request.go
 
 .PHONY: all build/$(PROGRAM_NAME) clean
 all: build
