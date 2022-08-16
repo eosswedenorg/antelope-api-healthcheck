@@ -15,6 +15,9 @@ build/$(PROGRAM_NAME) : $(SOURCES)
 	$(GO) build -o $@ $(GOCCFLAGS) $(GOLDFLAGS) $^
 	$(GO) env > build/.buildinfo
 
+test:
+	$(GO) test -v ./...
+
 info-file :
 	echo PACKAGE_NAME=\"$(PROGRAM_NAME)\" "\n"\
 	PACKAGE_DESCRIPTION=\"HAproxy healthcheck program for EOSIO API.\" "\n"\
