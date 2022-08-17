@@ -11,6 +11,7 @@ import (
 type EosioV1 struct {
     params eosapi.ReqParams
     block_time float64
+    ts time.Time
 }
 
 func NewEosioV1(url string, host string, block_time float64) EosioV1 {
@@ -38,6 +39,18 @@ func (e EosioV1) LogInfo() LogParams {
     return p
 }
 
+func (e *EosioV1) SetTime(t time.Time) {
+    e.ts = t
+}
+
+func (e EosioV1) GetTime() time.Time {
+
+    if e.ts.IsZero() {
+        return time.Now().In(time.UTC)
+    }
+    return e.ts
+}
+
 func (e EosioV1) Call() (agentcheck.Response, string) {
 
     info, err := eosapi.GetInfo(e.params)
@@ -56,7 +69,7 @@ func (e EosioV1) Call() (agentcheck.Response, string) {
     }
 
     // Validate head block.
-    now  := time.Now().In(time.UTC)
+    now  := e.GetTime()
     diff := now.Sub(info.HeadBlockTime).Seconds()
 
     if diff > e.block_time {
