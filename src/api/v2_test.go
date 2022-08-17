@@ -9,6 +9,15 @@ import (
     "github.com/eosswedenorg-go/haproxy/agentcheck"
 )
 
+func TestV2LogInfo(t *testing.T) {
+
+    api := NewEosioV2("https://api.v2.example.com", "host.example.com", 120)
+
+    expected := LogParams{"type","eosio-v2","url","https://api.v2.example.com","host","host.example.com","offset",int64(120)}
+
+    assert.Equal(t, expected, api.LogInfo())
+}
+
 func TestV2JsonFailure(t *testing.T) {
 
     var srv = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
