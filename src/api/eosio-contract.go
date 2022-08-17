@@ -11,6 +11,7 @@ import (
 type EosioContract struct {
     client contract_api.Client
     block_time float64
+    ts time.Time
 }
 
 func NewEosioContract(url string, block_time float64) EosioContract {
@@ -28,6 +29,18 @@ func (e EosioContract) LogInfo() LogParams {
         "url", e.client.Url,
         "block_time", e.block_time,
     }
+}
+
+func (e *EosioContract) SetTime(t time.Time) {
+    e.ts = t
+}
+
+func (e EosioContract) GetTime() time.Time {
+
+    if e.ts.IsZero() {
+        return time.Now().In(time.UTC)
+    }
+    return e.ts
 }
 
 func (e EosioContract) Call() (agentcheck.Response, string) {
@@ -65,7 +78,7 @@ func (e EosioContract) Call() (agentcheck.Response, string) {
     }
 
     // Validate head block.
-    now  := time.Now().In(time.UTC)
+    now  := e.GetTime()
     diff := now.Sub(h.Data.Chain.HeadTime).Seconds()
 
     if diff > e.block_time {
