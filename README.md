@@ -49,7 +49,7 @@ See [HAproxy documentation](https://cbonte.github.io/haproxy-dconv/1.7/configura
 | --------- | ---------------------------------------------------------- |
 | `up`      | Api is healthy                                             |
 | `down`    | Api is not healthy                                         |
-| `failed`  | The program failed to read the status from the api.        |
+| `fail`    | The program failed to read the status from the api.        |
 | `maint`   | Api is set in maintenance mode (not used)                  |
 | `ready`   | Api is ready again after being in `maint` state (not used) |
 | `stopped` | Api has been stopped manually (not used)                   |
