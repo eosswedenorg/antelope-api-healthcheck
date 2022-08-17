@@ -30,8 +30,6 @@ func (e EosioContract) LogInfo() LogParams {
     }
 }
 
-//  check_api - Validates head block time.
-// ---------------------------------------------------------
 func (e EosioContract) Call() (agentcheck.Response, string) {
 
     h, err := e.client.GetHealth()
