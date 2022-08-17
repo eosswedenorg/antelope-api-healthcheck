@@ -62,8 +62,7 @@ func (e EosioContract) Call() (agentcheck.Response, string) {
     // Check postgres
     if h.Data.Postgres.Status != "OK" {
 
-        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down,
-            fmt.Sprintf("Postgres: %s", h.Data.Postgres.Status))
+        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down, "")
 
         msg := "Taking offline because Postgres reported '%s'"
         return resp, fmt.Sprintf(msg, h.Data.Postgres.Status)
