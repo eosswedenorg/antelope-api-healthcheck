@@ -12,4 +12,5 @@ require (
 	github.com/inconshreveable/log15 v0.0.0-20201112154412-8562bdadbbac
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/pborman/getopt/v2 v2.1.0
+	github.com/stretchr/testify v1.7.0
 )
