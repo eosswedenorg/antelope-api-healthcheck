@@ -5,8 +5,6 @@ github.com/eosswedenorg-go/eos-contract-api-client v0.0.0-20220221105418-dc591fc
 github.com/eosswedenorg-go/eos-contract-api-client v0.0.0-20220221105418-dc591fcc0dc5/go.mod h1:o/H/XtSXtaNe2ooXIAcp9vApmy2pY5YyeSl3yWgEnLw=
 github.com/eosswedenorg-go/eosapi v0.1.0 h1:SnVMx1QGPBZoQknjnAiGzjL6hVfrXPLrOdxoUstYUrk=
 github.com/eosswedenorg-go/eosapi v0.1.0/go.mod h1:7VrkU30cSqRtGDE6bXygWqMcEhCyWOaC9yVA34QIQzM=
-github.com/eosswedenorg-go/haproxy v0.1.0 h1:E/9Ptt5upbVoSpkiXwffjapDF0FRLeFePTCAkvA0STQ=
-github.com/eosswedenorg-go/haproxy v0.1.0/go.mod h1:WnDKkwYbgrpuKUOtUtWlGCgj43DMV+r4VKGdWSTYQeA=
 github.com/eosswedenorg-go/haproxy v0.1.1 h1:ClOhoK3uGn70KzGCKHdYNvHoU72whfNq3LbqT/lWlOY=
 github.com/eosswedenorg-go/haproxy v0.1.1/go.mod h1:WnDKkwYbgrpuKUOtUtWlGCgj43DMV+r4VKGdWSTYQeA=
 github.com/eosswedenorg-go/pid v1.0.0 h1:k1ra19cgWBHnX5gWQq+eUhNHIjT7hdhsYGp+Ovfvd2U=
