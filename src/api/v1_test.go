@@ -10,6 +10,15 @@ import (
     "github.com/eosswedenorg-go/haproxy/agentcheck"
 )
 
+func TestV1LogInfo(t *testing.T) {
+
+    api := NewEosioV1("https://api.v1.example.com", "host.example.com", 120)
+
+    expected := LogParams{"type","eosio-v1","url","https://api.v1.example.com","host","host.example.com","block_time",float64(120)}
+
+    assert.Equal(t, expected, api.LogInfo())
+}
+
 func TestV1SetTime(t *testing.T) {
 
     expected := time.Date(2022, 2, 24, 13, 38, 0, 0, time.UTC)
