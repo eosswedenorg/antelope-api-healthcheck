@@ -10,7 +10,7 @@ import (
     "github.com/eosswedenorg-go/haproxy/agentcheck"
 )
 
-func TestV1LogInfo(t *testing.T) {
+func TestEosioV1LogInfo(t *testing.T) {
 
     api := NewEosioV1("https://api.v1.example.com", "host.example.com", 120)
 
@@ -19,7 +19,7 @@ func TestV1LogInfo(t *testing.T) {
     assert.Equal(t, expected, api.LogInfo())
 }
 
-func TestV1SetTime(t *testing.T) {
+func TestEosioV1SetTime(t *testing.T) {
 
     expected := time.Date(2022, 2, 24, 13, 38, 0, 0, time.UTC)
 
@@ -31,7 +31,7 @@ func TestV1SetTime(t *testing.T) {
     assert.Equal(t, expected, api.GetTime())
 }
 
-func TestV1JsonFailure(t *testing.T) {
+func TestEosioV1JsonFailure(t *testing.T) {
 
     var srv = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
         res.Write([]byte(`!//{invalid-json}!##`))
@@ -44,7 +44,7 @@ func TestV1JsonFailure(t *testing.T) {
     assert.Equal(t, expected, check)
 }
 
-func TestV1HTTP500Down(t *testing.T) {
+func TestEosioV1HTTP500Down(t *testing.T) {
 
     var srv = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
         res.WriteHeader(500)
@@ -60,7 +60,7 @@ func TestV1HTTP500Down(t *testing.T) {
     assert.Equal(t, expected, check)
 }
 
-func TestV1LaggingUp(t *testing.T) {
+func TestEosioV1LaggingUp(t *testing.T) {
 
     var srv = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
         if req.URL.String() == "/v1/chain/get_info" {
@@ -84,7 +84,7 @@ func TestV1LaggingUp(t *testing.T) {
     assert.Equal(t, expected, check)
 }
 
-func TestV1LaggingDown(t *testing.T) {
+func TestEosioV1LaggingDown(t *testing.T) {
 
     var srv = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
         if req.URL.String() == "/v1/chain/get_info" {
@@ -108,7 +108,7 @@ func TestV1LaggingDown(t *testing.T) {
     assert.Equal(t, expected, check)
 }
 
-func TestV1TimeInFutureUP(t *testing.T) {
+func TestEosioV1TimeInFutureUP(t *testing.T) {
 
     var srv = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
         if req.URL.String() == "/v1/chain/get_info" {
@@ -133,7 +133,7 @@ func TestV1TimeInFutureUP(t *testing.T) {
 }
 
 
-func TestV1TimeInFutureDown(t *testing.T) {
+func TestEosioV1TimeInFutureDown(t *testing.T) {
 
     var srv = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
         if req.URL.String() == "/v1/chain/get_info" {
