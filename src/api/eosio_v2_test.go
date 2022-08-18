@@ -9,7 +9,7 @@ import (
     "github.com/eosswedenorg-go/haproxy/agentcheck"
 )
 
-func TestV2LogInfo(t *testing.T) {
+func TestEosioV2LogInfo(t *testing.T) {
 
     api := NewEosioV2("https://api.v2.example.com", "host.example.com", 120)
 
@@ -18,7 +18,7 @@ func TestV2LogInfo(t *testing.T) {
     assert.Equal(t, expected, api.LogInfo())
 }
 
-func TestV2JsonFailure(t *testing.T) {
+func TestEosioV2JsonFailure(t *testing.T) {
 
     var srv = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
         res.Write([]byte(`!//{invalid-json}!##`))
@@ -31,7 +31,7 @@ func TestV2JsonFailure(t *testing.T) {
     assert.Equal(t, expected, check)
 }
 
-func TestV2HTTP500Down(t *testing.T) {
+func TestEosioV2HTTP500Down(t *testing.T) {
 
     var srv = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
         res.WriteHeader(500)
@@ -47,7 +47,7 @@ func TestV2HTTP500Down(t *testing.T) {
     assert.Equal(t, expected, check)
 }
 
-func TestV2LaggingUp(t *testing.T) {
+func TestEosioV2LaggingUp(t *testing.T) {
 
     var srv = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
         if req.URL.String() == "/v2/health" {
@@ -94,7 +94,7 @@ func TestV2LaggingUp(t *testing.T) {
     assert.Equal(t, expected, check)
 }
 
-func TestV2LaggingDown(t *testing.T) {
+func TestEosioV2LaggingDown(t *testing.T) {
 
     var srv = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
         if req.URL.String() == "/v2/health" {
@@ -141,7 +141,7 @@ func TestV2LaggingDown(t *testing.T) {
     assert.Equal(t, expected, check)
 }
 
-func TestV2LaggingESInFutureUP(t *testing.T) {
+func TestEosioV2LaggingESInFutureUP(t *testing.T) {
 
     var srv = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
         if req.URL.String() == "/v2/health" {
@@ -188,7 +188,7 @@ func TestV2LaggingESInFutureUP(t *testing.T) {
     assert.Equal(t, expected, check)
 }
 
-func TestV2LaggingESInFutureDown(t *testing.T) {
+func TestEosioV2LaggingESInFutureDown(t *testing.T) {
 
     var srv = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
         if req.URL.String() == "/v2/health" {
@@ -235,7 +235,7 @@ func TestV2LaggingESInFutureDown(t *testing.T) {
     assert.Equal(t, expected, check)
 }
 
-func TestV2ElasticsFailed(t *testing.T) {
+func TestEosioV2ElasticsFailed(t *testing.T) {
 
     var srv = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
         if req.URL.String() == "/v2/health" {
@@ -282,7 +282,7 @@ func TestV2ElasticsFailed(t *testing.T) {
     assert.Equal(t, expected, check)
 }
 
-func TestV2NodeosRPCFailed(t *testing.T) {
+func TestEosioV2NodeosRPCFailed(t *testing.T) {
 
     var srv = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
         if req.URL.String() == "/v2/health" {
@@ -329,7 +329,7 @@ func TestV2NodeosRPCFailed(t *testing.T) {
     assert.Equal(t, expected, check)
 }
 
-func TestV2ElasticsNodeosRPCFailed(t *testing.T) {
+func TestEosioV2ElasticsNodeosRPCFailed(t *testing.T) {
 
     var srv = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
         if req.URL.String() == "/v2/health" {
