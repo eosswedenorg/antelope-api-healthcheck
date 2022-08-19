@@ -7,9 +7,12 @@ PROGRAM_NAME=eosio-api-healthcheck
 export GOOS	= $(shell go env GOOS)
 export GOARCH = $(shell go env GOARCH)
 
+DPKG_BUILDPACKAGE = dpkg-buildpackage
+DPKG_BUILDPACKAGE_FLAGS = -us -uc
+
 SOURCES=src/main.go src/server.go src/parse_request.go
 
-.PHONY: all build/$(PROGRAM_NAME) clean
+.PHONY: all build/$(PROGRAM_NAME) clean package_debian
 all: build
 build: build/$(PROGRAM_NAME)
 
@@ -26,10 +29,8 @@ install: build
 package:
 	PKGROOT=$(DESTDIR) BUILDDIR=$(realpath build) scripts/package.sh $(PKGTYPE)
 
-package_debian: PKGTYPE = debian
-package_debian: GOOS = linux
-package_debian: DESTDIR = build/debroot
-package_debian: install package
+package_debian:
+	$(DPKG_BUILDPACKAGE) $(DPKG_BUILDPACKAGE_FLAGS)
 
 package_freebsd: PKGTYPE = freebsd
 package_freebsd: GOOS = freebsd

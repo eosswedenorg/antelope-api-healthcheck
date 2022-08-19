@@ -1,0 +1,17 @@
+Source: eosio-api-healthcheck
+Section: introspection
+Build-Depends:
+ debhelper (>= 11)
+Standards-Version: 4.0.0
+Vcs-Git: https://github.com/eosswedenorg/eos-api-healthcheck.git
+Vcs-Browser: https://github.com/eosswedenorg/eos-api-healthcheck
+Priority: optional
+Maintainer: Henrik Hautakoski <henrik@eossweden.org>
+
+Package: eosio-api-healthcheck
+Section: introspection
+Priority: optional
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Homepage: https://github.com/eosswedenorg/eos-api-healthcheck
+Description: HAproxy healthcheck program for EOSIO API.

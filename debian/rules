@@ -1,0 +1,15 @@
+#!/usr/bin/make -f
+
+include /usr/share/dpkg/default.mk
+
+INSTALL_FLAGS := GOOS=linux
+
+%:
+	dh $@ -P debian/pkgroot
+
+override_dh_auto_build:
+override_dh_auto_install:
+	dh_auto_install --buildsystem=makefile -- $(INSTALL_FLAGS)
+
+override_dh_usrlocal:
+override_dh_gconf:
