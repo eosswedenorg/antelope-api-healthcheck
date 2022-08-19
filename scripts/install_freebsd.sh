@@ -1,6 +1,8 @@
 #!/bin/bash
 # Simple script to install program files on FreeBSD systems
 
+source ${BASE_DIR}/functions/log_install.sh
+
 RCDIR=${DESTDIR}/etc/rc.d
 NEWSYSLOGDIR=${DESTDIR}/etc/newsyslog.conf.d
 
@@ -13,6 +15,7 @@ RC_NAME=$(echo ${PROGRAM_NAME} | sed "s~-~_~g")
 #  Create rc file          #
 ############################
 
+log_install ${RCDIR}/${RC_NAME}
 mkdir -p ${RCDIR}
 cat ${TEMPLATE_DIR}/rc.conf \
 	| sed "s~{{ RC_NAME }}~${RC_NAME}~g" \
@@ -29,6 +32,7 @@ chmod 755 ${RCDIR}/${RC_NAME}
 #  Create newsyslog config #
 ############################
 
+log_install ${NEWSYSLOGDIR}/${PROGRAM_NAME}.conf
 mkdir -p ${NEWSYSLOGDIR}
 cat ${TEMPLATE_DIR}/newsyslog.conf \
 	| sed "s~{{ LOG_FILE }}~${LOGFILE}~" \
@@ -40,5 +44,6 @@ cat ${TEMPLATE_DIR}/newsyslog.conf \
 #  Copy binary             #
 ############################
 
+log_install ${DESTDIR}${BINDIR}/${PROGRAM_NAME}
 mkdir -p ${DESTDIR}/${BINDIR}
 cp ${BUILD_DIR}/${PROGRAM_NAME} ${DESTDIR}${BINDIR}/${PROGRAM_NAME}
