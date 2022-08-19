@@ -3,7 +3,7 @@ Description={{ DESCRIPTION }}
 After=network.target
 
 [Service]
-EnvironmentFile=-/etc/{{ PROGRAM_NAME }}/env
+EnvironmentFile=-/etc/default/{{ PROGRAM_NAME }}
 Type=simple
 ExecStart={{ PROGRAM }} $OPTS
 Restart=on-failure

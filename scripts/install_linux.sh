@@ -16,12 +16,12 @@ cat ${TEMPLATE_DIR}/sysunit.service \
     | sed "s~{{ PROGRAM }}~${BINDIR}/${PROGRAM_NAME}~" \
     > ${SYSUNITDIR}/${PROGRAM_NAME}.service
 
-# Create systemd config file
-log_install ${DESTDIR}${ETCDIR}/env
-mkdir -p ${DESTDIR}${ETCDIR}
+# Create systemd/init.d config file
+log_install ${DESTDIR}/etc/default/${PROGRAM_NAME}
+mkdir -p ${DESTDIR}/etc/default
 cat ${TEMPLATE_DIR}/config \
     | sed "s~{{ PROGRAM_NAME }}~${PROGRAM_NAME}~" \
-    > ${DESTDIR}${ETCDIR}/env
+    > ${DESTDIR}/etc/default/${PROGRAM_NAME}
 
 # Create rsyslog file
 log_install ${RSYSLOGDIR}/49-${PROGRAM_NAME}.conf

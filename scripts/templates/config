@@ -1,6 +1,6 @@
 # Default settings for {{ PROGRAM_NAME }}
 #
-# This is sourced by the systemd unit file.
+# This is sourced by the systemd unit file or init.d
 
 # Command line flags to pass to {{ PROGRAM_NAME }}
 # First is IP to listen to, second is port.
