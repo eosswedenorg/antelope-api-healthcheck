@@ -3,18 +3,24 @@
 
 source ${BASE_DIR}/functions/log_install.sh
 
-SYSUNITDIR=${DESTDIR}/etc/systemd/system
+SYSTEMDDIR=${DESTDIR}/lib/systemd/system
+SYSTEMDLINKDIR=${DESTDIR}/etc/systemd/system
 RSYSLOGDIR=${DESTDIR}/etc/rsyslog.d
 LOGROTATEDIR=${DESTDIR}/etc/logrotate.d
 
 # Create service file
-log_install ${SYSUNITDIR}/${PROGRAM_NAME}.service
-mkdir -p ${SYSUNITDIR}
+log_install ${SYSTEMDDIR}/${PROGRAM_NAME}.service
+mkdir -p ${SYSTEMDDIR}
 cat ${TEMPLATE_DIR}/sysunit.service \
     | sed "s~{{ PROGRAM_NAME }}~${PROGRAM_NAME}~" \
     | sed "s~{{ DESCRIPTION }}~${DESCRIPTION}~" \
     | sed "s~{{ PROGRAM }}~${BINDIR}/${PROGRAM_NAME}~" \
-    > ${SYSUNITDIR}/${PROGRAM_NAME}.service
+    > ${SYSTEMDDIR}/${PROGRAM_NAME}.service
+
+# Create systemd symlink
+log_install ${SYSTEMDLINKDIR}/${PROGRAM_NAME}.service
+mkdir -p ${SYSTEMDLINKDIR}
+ln -s -T /lib/systemd/system/${PROGRAM_NAME}.service ${SYSTEMDLINKDIR}/${PROGRAM_NAME}.service
 
 # Create systemd/init.d config file
 log_install ${DESTDIR}/etc/default/${PROGRAM_NAME}
