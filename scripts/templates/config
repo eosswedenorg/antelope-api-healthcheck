@@ -4,4 +4,4 @@
 
 # Command line flags to pass to {{ PROGRAM_NAME }}
 # First is IP to listen to, second is port.
-#OPTS="127.0.0.1 1337"
+#EOSIO_API_HEALTCHECK_OPTS="127.0.0.1 1337"
