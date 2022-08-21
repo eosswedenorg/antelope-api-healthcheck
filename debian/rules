@@ -2,7 +2,7 @@
 
 include /usr/share/dpkg/default.mk
 
-INSTALL_FLAGS := GOOS=linux
+INSTALL_FLAGS := GOOS=linux GOBUILDFLAGS="-v --buildmode=pie -ldflags=\"-v -s -w\""
 
 %:
 	dh $@ -P debian/pkgroot
