@@ -1,10 +1,12 @@
 
+PROGRAM_NAME 	= eosio-api-healthcheck
+export PROGRAM_VERSION = 1.2.2
+
 GO			= go
 PREFIX 		= /usr/local
-PROGRAM_NAME=eosio-api-healthcheck
 export GOOS	= $(shell go env GOOS)
 export GOARCH = $(shell go env GOARCH)
-GOBUILDFLAGS  = -v -ldflags='-v -s -w'
+GOBUILDFLAGS  = -v -ldflags='-v -s -w -X main.VersionString=$(PROGRAM_VERSION)'
 
 DPKG_BUILDPACKAGE = dpkg-buildpackage
 DPKG_BUILDPACKAGE_FLAGS = -us -uc
