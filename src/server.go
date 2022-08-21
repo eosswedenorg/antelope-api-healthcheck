@@ -52,5 +52,5 @@ func spawnTcpServer(addr string) {
     }
 
     logger.Info("TCP Server started", "addr", addr)
-    server.Listen()
+    go server.Listen()
 }

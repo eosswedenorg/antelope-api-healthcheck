@@ -80,8 +80,8 @@ func signalEventLoop() {
     // subscribe to SIGHUP signal.
     signal.Notify(sig_ch, syscall.SIGHUP)
 
-    // Event loop (runs in a seperate thread)
-    go func() {
+    // Event loop
+    func() {
         for {
             // Block until we get a signal.
             sig := <- sig_ch
@@ -149,11 +149,11 @@ func main() {
         }
     }
 
-    // Run the signal event loop.
-    signalEventLoop()
-
     addr = argv_listen_addr()
 
     // Start listening to TCP Connections
     spawnTcpServer(addr);
+
+    // Run the signal event loop.
+    signalEventLoop()
 }
