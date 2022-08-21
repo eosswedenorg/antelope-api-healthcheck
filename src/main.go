@@ -154,8 +154,6 @@ func main() {
 
     addr = argv_listen_addr()
 
-    logger.Info("TCP Server started", "addr", addr)
-
     // Start listening to TCP Connections
     spawnTcpServer(addr);
 }
