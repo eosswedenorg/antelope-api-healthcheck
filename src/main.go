@@ -78,7 +78,7 @@ func signalEventLoop() {
     sig_ch := make(chan os.Signal, 1)
 
     // subscribe to SIGHUP signal.
-    signal.Notify(sig_ch, syscall.SIGHUP, syscall.SIGINT)
+    signal.Notify(sig_ch, syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM)
 
     // Event loop
     func() {
@@ -90,6 +90,9 @@ func signalEventLoop() {
             switch sig {
             case syscall.SIGINT :
                 logger.Info("Interrupted")
+                run = false
+            case syscall.SIGTERM :
+                logger.Info("Program was asked to terminate.", "signal", "SIGTERM")
                 run = false
             // SIGHUP is sent when logfile is rotated.
             case syscall.SIGHUP :
