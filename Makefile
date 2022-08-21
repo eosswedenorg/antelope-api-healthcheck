@@ -1,11 +1,10 @@
 
 GO			= go
-GOCCFLAGS 	= -v
-GOLDFLAGS   = -ldflags="-s -w"
 PREFIX 		= /usr/local
 PROGRAM_NAME=eosio-api-healthcheck
 export GOOS	= $(shell go env GOOS)
 export GOARCH = $(shell go env GOARCH)
+GOBUILDFLAGS  = -v -ldflags='-v -s -w'
 
 DPKG_BUILDPACKAGE = dpkg-buildpackage
 DPKG_BUILDPACKAGE_FLAGS = -us -uc
@@ -17,7 +16,7 @@ all: build
 build: build/$(PROGRAM_NAME)
 
 build/$(PROGRAM_NAME) : $(SOURCES)
-	$(GO) build -o $@ $(GOCCFLAGS) $(GOLDFLAGS) $^
+	$(GO) build -o $@ $(GOBUILDFLAGS) $^
 	$(GO) env > build/.buildinfo
 
 test:
