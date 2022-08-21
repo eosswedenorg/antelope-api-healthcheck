@@ -41,16 +41,13 @@ func onTcpMessage(c *tcp_server.Client, args string) {
 //  spawnTcpServer
 // ---------------------------------------------------------
 
-func spawnTcpServer(addr string) {
+func spawnTcpServer(addr string) error {
     server := tcp_server.New(addr)
     server.OnMessage(onTcpMessage)
 
     err := server.Connect()
-    if err != nil {
-        logger.Error("TCP Server failed to start", "error", err)
-        return
+    if err == nil {
+        go server.Listen()
     }
-
-    logger.Info("TCP Server started", "addr", addr)
-    go server.Listen()
+    return err
 }
