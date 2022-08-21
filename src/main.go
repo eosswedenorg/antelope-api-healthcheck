@@ -158,8 +158,12 @@ func main() {
     // Start listening to TCP Connections
     err := spawnTcpServer(addr)
     if err == nil {
+        logger.Info("TCP Server started", "addr", addr)
+
         // Run the signal event loop.
         signalEventLoop()
+    } else {
+        log.Error("Failed to start tcp server", "error", err)
     }
 
     logger.Info("Shutdown")
