@@ -17,7 +17,6 @@ build: build/$(PROGRAM_NAME)
 
 build/$(PROGRAM_NAME) : $(SOURCES)
 	$(GO) build -o $@ $(GOBUILDFLAGS) $^
-	$(GO) env > build/.buildinfo
 
 test:
 	$(GO) test -v ./...
