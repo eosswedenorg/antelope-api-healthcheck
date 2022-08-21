@@ -70,7 +70,7 @@ func setLogFile() {
 
 //  signalEventLoop()
 //    Initialize event channel for OS signals
-//    and runs an event loop in a separate thread.
+//    and runs an event loop.
 // ---------------------------------------------------------
 func signalEventLoop() {
 
