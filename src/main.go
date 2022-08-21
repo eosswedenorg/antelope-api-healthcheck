@@ -96,16 +96,16 @@ func signalEventLoop() {
                 run = false
             // SIGHUP is sent when logfile is rotated.
             case syscall.SIGHUP :
-            msg := "SIGHUP (Logfile was rotated): "
+                msg := "SIGHUP (Logfile was rotated): "
 
-            if logfd != nil {
-                setLogFile()
-                msg += "Filedescriptor was updated"
-            } else {
-                msg += "No Filedescriptor to update (most likely uses standard out/err streams)"
-            }
+                if logfd != nil {
+                    setLogFile()
+                    msg += "Filedescriptor was updated"
+                } else {
+                    msg += "No Filedescriptor to update (most likely uses standard out/err streams)"
+                }
 
-            logger.Info(msg)
+                logger.Info(msg)
             default:
                 logger.Warn("Unknown signal", "signal", sig)
             }
