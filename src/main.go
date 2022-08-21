@@ -156,10 +156,11 @@ func main() {
     addr = argv_listen_addr()
 
     // Start listening to TCP Connections
-    spawnTcpServer(addr);
-
-    // Run the signal event loop.
-    signalEventLoop()
+    err := spawnTcpServer(addr)
+    if err == nil {
+        // Run the signal event loop.
+        signalEventLoop()
+    }
 
     logger.Info("Shutdown")
 }
