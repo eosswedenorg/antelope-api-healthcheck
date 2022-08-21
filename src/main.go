@@ -1,6 +1,7 @@
 package main
 
 import (
+    "fmt"
     "os"
     "os/signal"
     "syscall"
@@ -17,6 +18,10 @@ var pidFile string
 
 //  Global variables
 // ---------------------------------------------------------
+
+// Version string, should be updated by the go linker (by passing "-X main.VersionString=value" to the linker)
+// see: https://pkg.go.dev/cmd/link and
+var VersionString string = "-"
 
 // File descriptor to the current log file.
 var logfd *os.File
@@ -135,7 +140,7 @@ func main() {
     }
 
     if version {
-        print("Version: v1.2.2\n")
+        fmt.Printf("Version: %s\n", VersionString)
         return;
     }
 
