@@ -1,4 +1,3 @@
-
 package main
 
 import (
@@ -87,16 +86,18 @@ func signalEventLoop() {
             // Block until we get a signal.
             sig := <- sig_ch
 
+            l := logger.New("signal", sig)
+
             switch sig {
             case syscall.SIGINT :
-                logger.Info("Interrupted")
+                l.Info("Interrupted")
                 run = false
             case syscall.SIGTERM :
-                logger.Info("Program was asked to terminate.", "signal", "SIGTERM")
+                l.Info("Program was asked to terminate.")
                 run = false
             // SIGHUP is sent when logfile is rotated.
             case syscall.SIGHUP :
-                msg := "SIGHUP (Logfile was rotated): "
+                msg := "Logfile was rotated: "
 
                 if logfd != nil {
                     setLogFile()
@@ -105,9 +106,9 @@ func signalEventLoop() {
                     msg += "No Filedescriptor to update (most likely uses standard out/err streams)"
                 }
 
-                logger.Info(msg)
+                l.Info(msg)
             default:
-                logger.Warn("Unknown signal", "signal", sig)
+                l.Warn("Unknown signal")
             }
         }
     }()
