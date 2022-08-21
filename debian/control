@@ -2,7 +2,7 @@ Source: eosio-api-healthcheck
 Section: introspection
 Build-Depends:
  debhelper (>= 11)
-Standards-Version: 4.0.0
+Standards-Version: 4.5.0
 Vcs-Git: https://github.com/eosswedenorg/eos-api-healthcheck.git
 Vcs-Browser: https://github.com/eosswedenorg/eos-api-healthcheck
 Priority: optional
