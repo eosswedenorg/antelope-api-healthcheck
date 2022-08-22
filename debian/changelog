@@ -1,5 +1,19 @@
-eosio-api-healthcheck (1.2.3) unstable; urgency=medium
+eosio-api-healthcheck (1.2.3) bionic; urgency=medium
 
-  *
+  * Signal handling
+   - Act on SIGINT (user input CTRL+C for example)
+     and gracefully shutdown the program.
+   - Act on SIGTERM (sent by systemd for example)
+     and gracefully shutdown the program
+  * Build system
+   - Separate install and packaging from build script into it's own scripts.
+   - Remove the debian package script and use "The debian standard"
+     (and debhelper) to build packages.
+     Files stored under the debian directory defines how the program is
+     built and package The `dpkg-buildpackage` script (and other tools)
+     uses these files to create a package.
+  * Testing: Adding test cases and make github automatically runs test on push.
+  * Go packages
+   - Upgrade to v0.1.1 for github.com/eosswedenorg-go/tcp_server
 
- -- Henrik Hautakoski <henrik@eossweden.org>  Fri, 19 Aug 2022 16:29:56 +0200
+ -- Henrik Hautakoski <henrik@eossweden.org>  Mon, 22 Aug 2022 13:31:39 +0200
