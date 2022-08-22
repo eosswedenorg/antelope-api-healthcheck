@@ -21,7 +21,7 @@ cat ${TEMPLATE_DIR}/rc.conf \
 	| sed "s~{{ RC_NAME }}~${RC_NAME}~g" \
 	| sed "s~{{ PID_FILE }}~${PID_FILE}~g" \
 	| sed "s~{{ LOG_FILE }}~${LOGFILE}~" \
-	| sed "s~{{ DESCRIPTION }}~${DESCRIPTION}~" \
+	| sed "s~{{ PROGRAM_DESCRIPTION }}~${PROGRAM_DESCRIPTION}~" \
 	| sed "s~{{ PROGRAM }}~${BINDIR}/${PROGRAM_NAME}~" \
 	> ${RCDIR}/${RC_NAME}
 
