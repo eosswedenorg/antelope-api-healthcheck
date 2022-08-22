@@ -13,7 +13,7 @@ log_install ${SYSTEMDDIR}/${PROGRAM_NAME}.service
 mkdir -p ${SYSTEMDDIR}
 cat ${TEMPLATE_DIR}/sysunit.service \
     | sed "s~{{ PROGRAM_NAME }}~${PROGRAM_NAME}~" \
-    | sed "s~{{ DESCRIPTION }}~${DESCRIPTION}~" \
+    | sed "s~{{ PROGRAM_DESCRIPTION }}~${PROGRAM_DESCRIPTION}~" \
     | sed "s~{{ PROGRAM }}~${BINDIR}/${PROGRAM_NAME}~" \
     > ${SYSTEMDDIR}/${PROGRAM_NAME}.service
 
