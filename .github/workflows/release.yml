@@ -20,6 +20,7 @@ jobs:
         run: |
           ./compile.sh --target ${{matrix.os}} -a ${{matrix.arch}}
           FILE=$(find build -type f | head -1)
+          echo "::set-output name=version::$(sed -n 's/.*PROGRAM_VERSION\s*=\s*//p' Makefile)"
           echo "::set-output name=filename::$FILE"
           echo "::set-output name=name::$(basename $FILE)"
           echo "::set-output name=mime::$(file -bi $FILE)"
@@ -30,7 +31,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_name: ${{ steps.compile.outputs.name }}-${{matrix.os}}-${{matrix.arch}}
+          asset_name: ${{ steps.compile.outputs.name }}-${{steps.compile.outputs.version}}-${{matrix.os}}-${{matrix.arch}}
           asset_path: ${{ steps.compile.outputs.filename }}
           asset_content_type: ${{ steps.compile.outputs.mime }}
 
@@ -43,26 +44,54 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: compile
-        run: ./compile.sh
+      - name: Install build dependencies
+        run: |
+          sudo apt-get -y update
+          sudo apt-get -y install build-essential fakeroot debhelper
 
       - name: Package
         id: package
         run: |
-          ./package.sh
-          FILE=$(ls build/*.deb | head -1)
-          echo "::set-output name=filename::$FILE"
-          echo "::set-output name=name::$(basename $FILE)"
+          make package_debian
+          DEB_FILE=$(ls ../*.deb | head -1)
+          echo "::set-output name=deb_filename::$DEB_FILE"
+          echo "::set-output name=deb_name::$(basename $DEB_FILE)"
+          CH_FILE=$(ls ../*.changes | head -1)
+          echo "::set-output name=ch_filename::$CH_FILE"
+          echo "::set-output name=ch_name::$(basename $CH_FILE)"
+          INFO_FILE=$(ls ../*.buildinfo | head -1)
+          echo "::set-output name=info_filename::$INFO_FILE"
+          echo "::set-output name=info_name::$(basename $INFO_FILE)"
 
-      - name: Upload
+      - name: Upload (package)
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_name: ${{ steps.package.outputs.name }}
-          asset_path: ${{ steps.package.outputs.filename }}
+          asset_name: ${{ steps.package.outputs.deb_name }}
+          asset_path: ${{ steps.package.outputs.deb_filename }}
           asset_content_type: application/x-deb
+
+      - name: Upload (.changes)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_name: ${{ steps.package.outputs.ch_name }}
+          asset_path: ${{ steps.package.outputs.ch_filename }}
+          asset_content_type: text/plain
+
+      - name: Upload (buildinfo)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_name: ${{ steps.package.outputs.info_name }}
+          asset_path: ${{ steps.package.outputs.info_filename }}
+          asset_content_type: text/plain
 
   package-freebsd:
     strategy:
@@ -73,13 +102,10 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: compile
-        run: ./compile.sh --target=freebsd -a ${{matrix.arch}}
-
       - name: Package
         id: package
         run: |
-          ./package.sh
+          GOARCH=${{matrix.arch}} make package_freebsd
           FILE=$(ls build/*.tar.gz | head -1)
           echo "::set-output name=filename::$FILE"
           echo "::set-output name=name::$(basename $FILE)"
