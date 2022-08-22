@@ -64,5 +64,5 @@ fi
 
 
 # Update Makefile
-sed -i "s:PROGRAM_VERSION=\(.*\):PROGRAM_VERSION=$1:g" Makefile
-echo -e "[\e[34m::\e[0m] Set PROGRAM_VERSION=\e[34m$1\e[0m in \e[1mMakefile\e[0m"
+sed -i "s:PROGRAM_VERSION\(\s*\)=\(\s*\)\(.*\):PROGRAM_VERSION\1=\2$VERSION:g" Makefile
+echo -e "[\e[34m::\e[0m] Set PROGRAM_VERSION=\e[34m$VERSION\e[0m in \e[1mMakefile\e[0m"
