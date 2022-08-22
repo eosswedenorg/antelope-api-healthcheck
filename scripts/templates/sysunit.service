@@ -1,5 +1,5 @@
 [Unit]
-Description={{ DESCRIPTION }}
+Description={{ PROGRAM_DESCRIPTION }}
 After=network.target
 
 [Service]
