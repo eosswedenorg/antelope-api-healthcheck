@@ -9,7 +9,7 @@ export GOARCH = $(shell go env GOARCH)
 GOBUILDFLAGS  = -v -ldflags='-v -s -w -X main.VersionString=$(PROGRAM_VERSION)'
 
 DPKG_BUILDPACKAGE = dpkg-buildpackage
-DPKG_BUILDPACKAGE_FLAGS = -us -uc
+DPKG_BUILDPACKAGE_FLAGS = -b -uc
 
 SOURCES=src/main.go src/server.go src/parse_request.go
 
