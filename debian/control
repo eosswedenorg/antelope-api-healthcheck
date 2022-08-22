@@ -15,4 +15,5 @@ Architecture: amd64
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Homepage: https://github.com/eosswedenorg/eos-api-healthcheck
 Description: HAproxy healthcheck program for EOSIO API.
- This package provides all the files needed to run the eos-api-healthcheck TCP Server
+ This package provides all the files needed to
+ run the eos-api-healthcheck TCP Server
