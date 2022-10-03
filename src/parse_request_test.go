@@ -105,3 +105,12 @@ func TestParseEosioContractWithBlockTime(t *testing.T) {
     assert.NoError(t, err)
     assert.Equal(t, expected, api)
 }
+
+func TestParseDebugApi(t *testing.T) {
+
+    expected := api.NewDebugApi("some_api_call")
+
+    api, err := ParseRequest("debug|some_api_call")
+    assert.NoError(t, err)
+    assert.Equal(t, expected, api)
+}
