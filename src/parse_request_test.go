@@ -12,7 +12,7 @@ func TestParseWithInvalidApi(t *testing.T) {
 
     api, err := ParseRequest("invalid|http://api.example.com")
     assert.Error(t, err)
-    assert.Equal(t, err.Error(), "Invalid API 'invalid'")
+    assert.Equal(t, err.Error(), "invalid API 'invalid'")
     assert.Nil(t, api)
 }
 
@@ -20,7 +20,7 @@ func TestParseWithInvalidParams(t *testing.T) {
 
     api, err := ParseRequest("v1")
     assert.Error(t, err)
-    assert.Equal(t, err.Error(), "Invalid number of parameters in agent request")
+    assert.Equal(t, err.Error(), "invalid number of parameters in agent request")
     assert.Nil(t, api)
 }
 

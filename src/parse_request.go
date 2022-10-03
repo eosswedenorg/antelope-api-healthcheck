@@ -46,7 +46,7 @@ func ParseRequest(request string) (api.ApiInterface, error) {
     p := strings.Split(strings.TrimSpace(request), "|")
 
     if len(p) < 2 {
-        return nil, fmt.Errorf("Invalid number of parameters in agent request")
+        return nil, fmt.Errorf("invalid number of parameters in agent request")
     }
 
     a := ParseArguments(p[1:])
@@ -62,5 +62,5 @@ func ParseRequest(request string) (api.ApiInterface, error) {
         return api.NewDebugApi(a.url), nil
     }
 
-    return nil, fmt.Errorf("Invalid API '%s'", p[0])
+    return nil, fmt.Errorf("invalid API '%s'", p[0])
 }
