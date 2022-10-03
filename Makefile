@@ -23,6 +23,9 @@ build/$(PROGRAM_NAME) : $(SOURCES)
 test:
 	$(GO) test -v ./...
 
+coverage:
+	$(GO) test -cover -v ./...
+
 install: build
 	PREFIX=$(PREFIX) DESTDIR=$(DESTDIR) scripts/install.sh $(GOOS)
 
