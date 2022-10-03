@@ -8,6 +8,14 @@ import (
     "github.com/eosswedenorg/eosio-api-healthcheck/src/api"
 )
 
+func TestParseWithInvalidApi(t *testing.T) {
+
+    api, err := ParseRequest("invalid|http://api.example.com")
+    assert.Error(t, err)
+    assert.Equal(t, err.Error(), "Invalid API 'invalid'")
+    assert.Nil(t, api)
+}
+
 func TestParseWithInvalidParams(t *testing.T) {
 
     api, err := ParseRequest("v1")
