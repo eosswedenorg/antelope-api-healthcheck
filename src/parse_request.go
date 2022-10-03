@@ -58,8 +58,8 @@ func ParseRequest(request string) (api.ApiInterface, error) {
         return api.NewEosioV2(a.url, a.host, int64(a.num_blocks)), nil
     case "contract":
         return api.NewEosioContract(a.url, float64(a.num_blocks / 2)), nil
-    case "test":
-        return api.NewTestApi(a.url), nil
+    case "debug":
+        return api.NewDebugApi(a.url), nil
     }
 
     return nil, fmt.Errorf("Invalid API '%s'", p[0])

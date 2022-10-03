@@ -6,7 +6,7 @@ import (
     "github.com/eosswedenorg-go/haproxy/agentcheck"
 )
 
-type TestApi struct {
+type DebugApi struct {
     response agentcheck.Response
 }
 
@@ -25,22 +25,22 @@ func parseResponse(resp string) (agentcheck.Response, error) {
     return agentcheck.NewStatusResponse(rtype), nil
 }
 
-func NewTestApi(response string) TestApi {
+func NewDebugApi(response string) DebugApi {
 
     resp, _ := parseResponse(response)
 
-    return TestApi{
+    return DebugApi{
         response: resp,
     }
 }
 
-func (t TestApi) LogInfo() LogParams {
+func (d DebugApi) LogInfo() LogParams {
     return LogParams{
-        "type", "TestApi",
-        "response", t.response,
+        "type", "Debug",
+        "response", strings.TrimSpace(d.response.String()),
     }
 }
 
-func (t TestApi) Call() (agentcheck.Response, string) {
-    return t.response, ""
+func (d DebugApi) Call() (agentcheck.Response, string) {
+    return d.response, ""
 }
