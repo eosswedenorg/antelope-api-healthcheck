@@ -47,6 +47,7 @@ func TestEosioContractJsonFailure(t *testing.T) {
 func TestEosioContractHTTP500Down(t *testing.T) {
 
     var srv = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+        res.Header().Add("Content-type", "application/json; charset=utf-8")
         res.WriteHeader(500)
         res.Write([]byte(`{}`))
     }))
