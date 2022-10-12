@@ -10,28 +10,30 @@ import (
 
 type EosioV1 struct {
     utils.Time
-    params eosapi.ReqParams
+    client eosapi.Client
     block_time float64
 }
 
 func NewEosioV1(url string, host string, block_time float64) EosioV1 {
-    return EosioV1{
-        params: eosapi.ReqParams{
-            Url: url,
-            Host: host,
-        },
+
+    api := EosioV1{
+        client: *eosapi.New(url),
         block_time: block_time,
     }
+
+    api.client.Host = host
+
+    return api
 }
 
 func (e EosioV1) LogInfo() LogParams {
     p := LogParams{
         "type", "eosio-v1",
-        "url", e.params.Url,
+        "url", e.client.Url,
     }
 
-    if len(e.params.Host) > 0 {
-        p.Add("host", e.params.Host)
+    if len(e.client.Host) > 0 {
+        p.Add("host", e.client.Host)
     }
 
     p.Add("block_time", e.block_time)
@@ -41,7 +43,7 @@ func (e EosioV1) LogInfo() LogParams {
 
 func (e EosioV1) Call() (agentcheck.Response, string) {
 
-    info, err := eosapi.GetInfo(e.params)
+    info, err := e.client.GetInfo()
     if err != nil {
         resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
         return resp, err.Error()

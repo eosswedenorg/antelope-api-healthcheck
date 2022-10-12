@@ -9,28 +9,30 @@ import (
 )
 
 type EosioV2 struct {
-    params eosapi.ReqParams
+    client eosapi.Client
     offset int64
 }
 
 func NewEosioV2(url string, host string, offset int64) EosioV2 {
-    return EosioV2{
-        params: eosapi.ReqParams{
-            Url: url,
-            Host: host,
-        },
+
+    api := EosioV2{
+        client: *eosapi.New(url),
         offset: offset,
     }
+
+    api.client.Host = host
+
+    return api
 }
 
 func (e EosioV2) LogInfo() LogParams {
     p := LogParams{
         "type", "eosio-v2",
-        "url", e.params.Url,
+        "url", e.client.Url,
     }
 
-    if len(e.params.Host) > 0 {
-        p.Add("host", e.params.Host)
+    if len(e.client.Host) > 0 {
+        p.Add("host", e.client.Host)
     }
 
     p.Add("offset", e.offset)
@@ -40,7 +42,7 @@ func (e EosioV2) LogInfo() LogParams {
 
 func (e EosioV2) Call() (agentcheck.Response, string) {
 
-    health, err := eosapi.GetHealth(e.params)
+    health, err := e.client.GetHealth()
     if err != nil {
         resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
         return resp, err.Error()
