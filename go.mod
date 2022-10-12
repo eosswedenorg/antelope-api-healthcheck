@@ -1,6 +1,6 @@
 module github.com/eosswedenorg/eosio-api-healthcheck
 
-go 1.14
+go 1.16
 
 require (
 	github.com/eosswedenorg-go/eos-contract-api-client v0.0.0-20220221105418-dc591fcc0dc5
