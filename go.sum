@@ -9,6 +9,8 @@ github.com/eosswedenorg-go/haproxy v0.1.1 h1:ClOhoK3uGn70KzGCKHdYNvHoU72whfNq3Lb
 github.com/eosswedenorg-go/haproxy v0.1.1/go.mod h1:WnDKkwYbgrpuKUOtUtWlGCgj43DMV+r4VKGdWSTYQeA=
 github.com/eosswedenorg-go/pid v1.0.0 h1:k1ra19cgWBHnX5gWQq+eUhNHIjT7hdhsYGp+Ovfvd2U=
 github.com/eosswedenorg-go/pid v1.0.0/go.mod h1:c9nVBDmo8pa3dVjrZjDUN4/DT1ChmfuCWXt6lHsagRc=
+github.com/eosswedenorg-go/pid v1.0.1 h1:W4AEnnNwb041SpNR1uTZ/KbJ0OTA5eqiqIR1Q5Ah6A0=
+github.com/eosswedenorg-go/pid v1.0.1/go.mod h1:wiOB/JXGt4YA3+T0j0xmCGSc3Jxzb7Ti/Ftli1fgWu4=
 github.com/eosswedenorg-go/tcp_server v0.1.1 h1:jNTThJKL+5dbPBGFCAIXQRoKx9YQer3yFp4unF0+iU8=
 github.com/eosswedenorg-go/tcp_server v0.1.1/go.mod h1:JvArWV6imAGj+NkrMJWSWTTe2a+WzqfWZUcZTH9y/+0=
 github.com/go-stack/stack v1.8.1 h1:ntEHSVwIt7PNXNpgPmVfMrNhLtgjlmnZha2kOpuRiDw=
