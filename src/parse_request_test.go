@@ -33,7 +33,7 @@ func TestParseEosioV1(t *testing.T) {
 
     api, err := ParseRequest("v1|http://api.example.com")
     assert.NoError(t, err)
-    assert.Equal(t, expected, api)
+    assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
 func TestParseEosioV1WithBlockNumber(t *testing.T) {
@@ -42,7 +42,7 @@ func TestParseEosioV1WithBlockNumber(t *testing.T) {
 
     api, err := ParseRequest("v1|http://api.example.com|2000")
     assert.NoError(t, err)
-    assert.Equal(t, expected, api)
+    assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
 
@@ -52,7 +52,7 @@ func TestParseEosioV1Full(t *testing.T) {
 
     api, err := ParseRequest("v1|http://api.example.com|1000|http://host.example.com")
     assert.NoError(t, err)
-    assert.Equal(t, expected, api)
+    assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
 //  EosioV2
@@ -64,7 +64,7 @@ func TestParseEosioV2(t *testing.T) {
 
     api, err := ParseRequest("v2|http://api.v2.example.com")
     assert.NoError(t, err)
-    assert.Equal(t, expected, api)
+    assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
 func TestParseEosioV2WithOffset(t *testing.T) {
@@ -73,7 +73,7 @@ func TestParseEosioV2WithOffset(t *testing.T) {
 
     api, err := ParseRequest("v2|http://api.v2.example.com|1000")
     assert.NoError(t, err)
-    assert.Equal(t, expected, api)
+    assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
 func TestParseEosioV2Full(t *testing.T) {
@@ -82,7 +82,8 @@ func TestParseEosioV2Full(t *testing.T) {
 
     api, err := ParseRequest("v2|http://api.v2.example.com|1000|http://host.example.com")
     assert.NoError(t, err)
-    assert.Equal(t, expected, api)
+
+    assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
 // EosioContract
@@ -94,7 +95,7 @@ func TestParseEosioContract(t *testing.T) {
 
     api, err := ParseRequest("contract|http://api.contract.example.com")
     assert.NoError(t, err)
-    assert.Equal(t, expected, api)
+    assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
 func TestParseEosioContractWithBlockTime(t *testing.T) {
@@ -103,7 +104,7 @@ func TestParseEosioContractWithBlockTime(t *testing.T) {
 
     api, err := ParseRequest("contract|http://api.contract.example.com|512")
     assert.NoError(t, err)
-    assert.Equal(t, expected, api)
+    assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
 func TestParseDebugApi(t *testing.T) {
@@ -112,5 +113,5 @@ func TestParseDebugApi(t *testing.T) {
 
     api, err := ParseRequest("debug|some_api_call")
     assert.NoError(t, err)
-    assert.Equal(t, expected, api)
+    assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
