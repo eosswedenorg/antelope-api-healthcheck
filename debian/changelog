@@ -1,3 +1,20 @@
+eosio-api-healthcheck (1.2.4) unstable; urgency=medium
+
+  * Go Version
+   - Project now requires golang v1.16 or later to build.
+
+  * Go Packages
+   - Upgrade github.com/eosswedenorg-go/pid to v1.0.1
+   - Upgrade github.com/mattn/go-colorable to v0.1.13
+   - Upgrade github.com/eosswedenorg-go/eosapi to v0.1.1
+   - Upgrade github.com/eosswedenorg-go/eos-contract-api-client to v0.0.0-20220221105418-dc591fcc0dc5
+   - Upgrade github.com/eosswedenorg-go/tcp_server to v0.2.0
+
+  * Testing
+   - Improve unit tests to catch more bugs.
+
+ -- Henrik Hautakoski <henrik@eossweden.org>  Thu, 13 Oct 2022 14:34:04 +0200
+
 eosio-api-healthcheck (1.2.3) bionic; urgency=medium
 
   * Signal handling
