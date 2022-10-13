@@ -4,7 +4,7 @@ This program implements EOSIO healthcheck for HAProxy over TCP.
 
 ## Compiling
 
-You will need go-lang version `1.14` or later to compile the source.
+You will need go-lang version `1.16` or later to compile the source.
 
 compile with `compile.sh` script
 
