@@ -26,6 +26,7 @@ var VersionString string = "-"
 // File descriptor to the current log file.
 var logfd *os.File
 
+var logfmt log.Format
 var logger log.Logger
 
 //  argv_listen_addr
@@ -69,7 +70,7 @@ func setLogFile() {
 
     // Update variable and set log writer.
     logfd = fd
-    logger.SetHandler(log.StreamHandler(logfd, log.LogfmtFormat()))
+    logger.SetHandler(log.StreamHandler(logfd, logfmt))
 }
 
 //  signalEventLoop()
@@ -122,7 +123,8 @@ func main() {
 
     var version bool
     var usage bool
-    var addr string;
+    var addr string
+    var logFormatter *string
 
     logger = log.New()
 
@@ -132,6 +134,8 @@ func main() {
     getopt.FlagLong(&version, "version", 'v', "Print version")
     getopt.FlagLong(&logFile, "log", 'l', "Path to log file", "file")
     getopt.FlagLong(&pidFile, "pid", 'p', "Path to pid file", "file")
+    logFormatter = getopt.EnumLong("log-format", 0, []string{"term", "logfmt", "json", "json-pretty"}, "", "Log format to use: term,logfmt,json,json-pretty")
+
     getopt.Parse()
 
     if usage {
@@ -144,9 +148,13 @@ func main() {
         return;
     }
 
+    logfmt = parseLogFormatter(*logFormatter)
+
     // Open logfile.
     if len(logFile) > 0 {
         setLogFile()
+    } else {
+        logger.SetHandler(log.StreamHandler(os.Stdout, logfmt))
     }
 
     logger.Info("Process is starting", "pid", pid.Get())
