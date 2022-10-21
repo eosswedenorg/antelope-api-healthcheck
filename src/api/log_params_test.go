@@ -32,3 +32,19 @@ func TestLogParams(t *testing.T) {
 
     assert.ElementsMatch(t, expected, p)
 }
+
+func TestLogParamsCombine(t *testing.T) {
+
+    a := LogParams{"one",1,"string1","str1"}
+
+    b := LogParams{"two",2,"string2","str2"}
+
+    expected := LogParams{
+        "one",1,
+        "string1","str1",
+        "two",2,
+        "string2","str2",
+    }
+
+    assert.Equal(t, expected, a.Combine(b))
+}
