@@ -5,6 +5,7 @@ import (
     "os"
     "os/signal"
     "syscall"
+    "github.com/eosswedenorg/eosio-api-healthcheck/src/utils"
     log "github.com/inconshreveable/log15"
     "github.com/eosswedenorg-go/pid"
     "github.com/pborman/getopt/v2"
@@ -148,7 +149,7 @@ func main() {
         return;
     }
 
-    logfmt = parseLogFormatter(*logFormatter)
+    logfmt = utils.ParseLogFormatter(*logFormatter)
 
     // Open logfile.
     if len(logFile) > 0 {

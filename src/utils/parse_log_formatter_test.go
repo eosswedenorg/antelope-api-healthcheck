@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
     "reflect"
@@ -7,7 +7,7 @@ import (
 	log "github.com/inconshreveable/log15"
 )
 
-func Test_parseLogFormatter(t *testing.T) {
+func Test_ParseLogFormatter(t *testing.T) {
 	tests := []struct {
 		name string
 		arg  string
@@ -21,7 +21,7 @@ func Test_parseLogFormatter(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := parseLogFormatter(tt.arg); reflect.ValueOf(got).Pointer() != reflect.ValueOf(tt.want).Pointer() {
+			if got := ParseLogFormatter(tt.arg); reflect.ValueOf(got).Pointer() != reflect.ValueOf(tt.want).Pointer() {
 				t.Errorf("parseLogFormatter() = %v, want %v", got, tt.want)
 			}
 		})

@@ -1,11 +1,11 @@
 
-package main
+package utils
 
 import (
     log "github.com/inconshreveable/log15"
 )
 
-func parseLogFormatter(name string) log.Format {
+func ParseLogFormatter(name string) log.Format {
 
     switch name {
     case "logfmt" :
