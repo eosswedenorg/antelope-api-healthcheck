@@ -3,5 +3,5 @@
 # This is sourced by the systemd unit file or init.d
 
 # Command line flags to pass to {{ PROGRAM_NAME }}
-# First is IP to listen to, second is port.
-#EOSIO_API_HEALTCHECK_OPTS="127.0.0.1 1337"
+# Positional agruments are IP to listen to, then port number.
+EOSIO_API_HEALTCHECK_OPTS="--log-format=logfmt 127.0.0.1 1337"
