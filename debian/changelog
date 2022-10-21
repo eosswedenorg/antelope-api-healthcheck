@@ -1,3 +1,11 @@
+eosio-api-healthcheck (1.2.5) unstable; urgency=medium
+
+  * Logging
+   - Add runtime support via "--log-format" cli flag to change the logging format.
+     Supported formats are: term, logfmt, json, json-pretty
+
+ -- Henrik Hautakoski <henrik@eossweden.org>  Fri, 21 Oct 2022 13:42:23 +0200
+
 eosio-api-healthcheck (1.2.4) unstable; urgency=medium
 
   * Go Version
