@@ -30,5 +30,5 @@ func TestLogParams(t *testing.T) {
         },
     })
 
-    assert.ElementsMatch(t, expected, p.ToSlice())
+    assert.ElementsMatch(t, expected, p)
 }
