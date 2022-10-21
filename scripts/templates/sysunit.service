@@ -3,7 +3,7 @@ Description={{ PROGRAM_DESCRIPTION }}
 After=network.target
 
 [Service]
-EnvironmentFile=-/etc/default/{{ PROGRAM_NAME }}
+EnvironmentFile=-/etc/sysconfig/{{ PROGRAM_NAME }}
 Type=simple
 ExecStart={{ PROGRAM }} $EOSIO_API_HEALTCHECK_OPTS
 Restart=on-failure

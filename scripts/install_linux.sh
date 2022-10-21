@@ -23,11 +23,11 @@ mkdir -p ${SYSTEMDLINKDIR}
 ln -s -T /lib/systemd/system/${PROGRAM_NAME}.service ${SYSTEMDLINKDIR}/${PROGRAM_NAME}.service
 
 # Create systemd/init.d config file
-log_install ${DESTDIR}/etc/default/${PROGRAM_NAME}
-mkdir -p ${DESTDIR}/etc/default
+log_install ${DESTDIR}/etc/sysconfig/${PROGRAM_NAME}
+mkdir -p ${DESTDIR}/etc/sysconfig
 cat ${TEMPLATE_DIR}/config \
     | sed "s~{{ PROGRAM_NAME }}~${PROGRAM_NAME}~" \
-    > ${DESTDIR}/etc/default/${PROGRAM_NAME}
+    > ${DESTDIR}/etc/sysconfig/${PROGRAM_NAME}
 
 # Create rsyslog file
 log_install ${RSYSLOGDIR}/49-${PROGRAM_NAME}.conf
