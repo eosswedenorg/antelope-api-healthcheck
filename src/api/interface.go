@@ -15,6 +15,14 @@ type ApiArguments struct {
     NumBlocks int
 }
 
+/**
+ * Factory function
+ *
+ * Each API must implement this function and process `args`
+ * returing a instance of it's implementation of the ApiInterface
+*/
+type Factory func(args ApiArguments) ApiInterface
+
 type ApiInterface interface {
 
     // Returns Logging information
