@@ -25,6 +25,10 @@ func parseResponse(resp string) (agentcheck.Response, error) {
     return agentcheck.NewStatusResponse(rtype), nil
 }
 
+func DebugApiFactory(args ApiArguments) ApiInterface {
+    return NewDebugApi(args.Url)
+}
+
 func NewDebugApi(response string) DebugApi {
 
     resp, _ := parseResponse(response)
