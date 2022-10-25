@@ -10,6 +10,21 @@ import (
     "github.com/eosswedenorg-go/haproxy/agentcheck"
 )
 
+func TestEosioContractFactory(t *testing.T) {
+
+    api := EosioContractFactory(ApiArguments{
+        Url: "https://atomic.example.com",
+        NumBlocks: 120,
+    })
+
+    expected := NewEosioContract("https://atomic.example.com", 60)
+
+    assert.IsType(t, expected, api)
+    assert.Equal(t, expected.client.Url, api.(EosioContract).client.Url)
+    assert.Equal(t, expected.client.Host, api.(EosioContract).client.Host)
+    assert.Equal(t, expected.block_time, api.(EosioContract).block_time)
+}
+
 func TestEosioContractLogInfo(t *testing.T) {
 
     api := NewEosioContract("https://atomic.example.com", 120)
