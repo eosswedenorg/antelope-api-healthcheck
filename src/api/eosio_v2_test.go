@@ -9,6 +9,22 @@ import (
     "github.com/eosswedenorg-go/haproxy/agentcheck"
 )
 
+func TestEosioV2Factory(t *testing.T) {
+
+    api := EosioV2Factory(ApiArguments{
+        Url: "https://api.v2.example.com",
+        Host: "host.example.com",
+        NumBlocks: 120,
+    })
+
+    expected := NewEosioV2("https://api.v2.example.com", "host.example.com", 120)
+
+    assert.IsType(t, expected, api)
+    assert.Equal(t, expected.client.Url, api.(EosioV2).client.Url)
+    assert.Equal(t, expected.client.Host, api.(EosioV2).client.Host)
+    assert.Equal(t, expected.offset, api.(EosioV2).offset)
+}
+
 func TestEosioV2LogInfo(t *testing.T) {
 
     api := NewEosioV2("https://api.v2.example.com", "host.example.com", 120)

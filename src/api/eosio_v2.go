@@ -13,6 +13,10 @@ type EosioV2 struct {
     offset int64
 }
 
+func EosioV2Factory(args ApiArguments) ApiInterface {
+    return NewEosioV2(args.Url, args.Host, int64(args.NumBlocks))
+}
+
 func NewEosioV2(url string, host string, offset int64) EosioV2 {
 
     api := EosioV2{
