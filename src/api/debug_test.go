@@ -7,6 +7,18 @@ import (
 	"github.com/eosswedenorg-go/haproxy/agentcheck"
 )
 
+func TestDebugApiFactory(t *testing.T) {
+
+    api := DebugApiFactory(ApiArguments{
+        Url: "up",
+        Host: "host",
+        NumBlocks: 40,
+    })
+
+    assert.IsType(t, DebugApi{}, api)
+    assert.Equal(t, api.(DebugApi).response, agentcheck.NewStatusResponse(agentcheck.Up))
+}
+
 func TestNewDebugApi(t *testing.T) {
 	type args struct {
 		response string

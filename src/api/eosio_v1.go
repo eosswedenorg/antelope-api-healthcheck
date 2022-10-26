@@ -14,6 +14,10 @@ type EosioV1 struct {
     block_time float64
 }
 
+func EosioV1Factory(args ApiArguments) ApiInterface {
+    return NewEosioV1(args.Url, args.Host, float64(args.NumBlocks / 2))
+}
+
 func NewEosioV1(url string, host string, block_time float64) EosioV1 {
 
     api := EosioV1{

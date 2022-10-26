@@ -14,6 +14,10 @@ type EosioContract struct {
     block_time float64
 }
 
+func EosioContractFactory(args ApiArguments) ApiInterface {
+    return NewEosioContract(args.Url, float64(args.NumBlocks / 2))
+}
+
 func NewEosioContract(url string, block_time float64) EosioContract {
     return EosioContract{
         client: contract_api.Client{
