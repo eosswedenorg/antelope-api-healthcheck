@@ -2,6 +2,7 @@ package main
 
 import (
     "strings"
+    "github.com/eosswedenorg/eosio-api-healthcheck/src/api"
     "github.com/eosswedenorg-go/haproxy/agentcheck"
     "github.com/eosswedenorg-go/tcp_server"
 )
@@ -25,14 +26,14 @@ func onTcpMessage(c *tcp_server.Client, args string) {
 
     status, msg := healthCheckApi.Call()
 
-    logger.Info("API Check", append([]interface{}{
-        "status", strings.TrimSpace(status.String())},
-        healthCheckApi.LogInfo().ToSlice()...)...)
+    params := api.LogParams{}
+    params.Add("status", strings.TrimSpace(status.String()))
 
     if msg != "OK" && len(msg) > 0 {
-        logger.Warn("API Check Failed", "message", msg)
+        params.Add("error", msg)
     }
 
+    logger.Info("API Check", params.Combine(healthCheckApi.LogInfo())...)
     // Report status to HAproxy
     c.WriteString(status.String())
     c.Close()
