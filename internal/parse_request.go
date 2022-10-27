@@ -1,11 +1,11 @@
 
-package main
+package internal
 
 import (
     "strings"
     "fmt"
     "strconv"
-    "github.com/eosswedenorg/eosio-api-healthcheck/src/api"
+    "github.com/eosswedenorg/eosio-api-healthcheck/internal/api"
 )
 
 func ParseArguments(args []string) api.ApiArguments {

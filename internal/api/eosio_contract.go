@@ -3,7 +3,7 @@ package api
 
 import (
     "fmt"
-    "github.com/eosswedenorg/eosio-api-healthcheck/src/utils"
+    "github.com/eosswedenorg/eosio-api-healthcheck/internal/utils"
     "github.com/eosswedenorg-go/haproxy/agentcheck"
     contract_api "github.com/eosswedenorg-go/eos-contract-api-client"
 )

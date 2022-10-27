@@ -11,14 +11,12 @@ GOBUILDFLAGS  = -v -ldflags='-v -s -w -X main.VersionString=$(PROGRAM_VERSION)'
 DPKG_BUILDPACKAGE = dpkg-buildpackage
 DPKG_BUILDPACKAGE_FLAGS = -b -uc
 
-SOURCES=src/main.go src/server.go src/parse_request.go
-
 .PHONY: all build/$(PROGRAM_NAME) clean package_debian
 all: build
 build: build/$(PROGRAM_NAME)
 
 build/$(PROGRAM_NAME) : $(SOURCES)
-	$(GO) build -o $@ $(GOBUILDFLAGS) $^
+	$(GO) build -o $@ $(GOBUILDFLAGS) cmd/eosio-api-healtcheck/main.go
 
 test:
 	$(GO) test -v ./...

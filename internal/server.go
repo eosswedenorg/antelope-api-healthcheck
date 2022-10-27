@@ -1,8 +1,9 @@
-package main
+package internal
 
 import (
     "strings"
-    "github.com/eosswedenorg/eosio-api-healthcheck/src/api"
+    log "github.com/inconshreveable/log15"
+    "github.com/eosswedenorg/eosio-api-healthcheck/internal/api"
     "github.com/eosswedenorg-go/haproxy/agentcheck"
     "github.com/eosswedenorg-go/tcp_server"
 )
@@ -11,6 +12,8 @@ import (
 // ---------------------------------------------------------
 
 func onTcpMessage(c *tcp_server.Client, args string) {
+
+    logger := log.Root()
 
     // Check api.
     // -------------------
@@ -39,10 +42,10 @@ func onTcpMessage(c *tcp_server.Client, args string) {
     c.Close()
 }
 
-//  spawnTcpServer
+//  SpawnTcpServer
 // ---------------------------------------------------------
 
-func spawnTcpServer(addr string) error {
+func SpawnTcpServer(addr string) error {
     server := tcp_server.New(addr)
     server.OnMessage(onTcpMessage)
 

@@ -1,11 +1,11 @@
 
-package main
+package internal
 
 import (
     // "fmt"
     "testing"
     "github.com/stretchr/testify/assert"
-    "github.com/eosswedenorg/eosio-api-healthcheck/src/api"
+    "github.com/eosswedenorg/eosio-api-healthcheck/internal/api"
 )
 
 func TestParseWithInvalidApi(t *testing.T) {

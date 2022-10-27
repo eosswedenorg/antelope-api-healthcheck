@@ -5,7 +5,8 @@ import (
     "os"
     "os/signal"
     "syscall"
-    "github.com/eosswedenorg/eosio-api-healthcheck/src/utils"
+    "github.com/eosswedenorg/eosio-api-healthcheck/internal"
+    "github.com/eosswedenorg/eosio-api-healthcheck/internal/utils"
     log "github.com/inconshreveable/log15"
     "github.com/eosswedenorg-go/pid"
     "github.com/pborman/getopt/v2"
@@ -127,7 +128,7 @@ func main() {
     var addr string
     var logFormatter *string
 
-    logger = log.New()
+    logger = log.Root()
 
     // Command line parsing
     getopt.SetParameters("[ip] [port]")
@@ -171,7 +172,7 @@ func main() {
     addr = argv_listen_addr()
 
     // Start listening to TCP Connections
-    err := spawnTcpServer(addr)
+    err := internal.SpawnTcpServer(addr)
     if err == nil {
         logger.Info("TCP Server started", "addr", addr)
 
