@@ -53,15 +53,6 @@ func (e EosioV1) Call() (agentcheck.Response, string) {
         return resp, err.Error()
     }
 
-    // Check HTTP Status Code
-    if info.HTTPStatusCode > 299 {
-
-        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down, "")
-
-        msg := "Taking offline because %v was received from backend"
-        return resp, fmt.Sprintf(msg, info.HTTPStatusCode)
-    }
-
     // Validate head block.
     diff := e.GetTime().Sub(info.HeadBlockTime).Seconds()
 
