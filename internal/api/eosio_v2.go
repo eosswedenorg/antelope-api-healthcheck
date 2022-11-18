@@ -52,12 +52,6 @@ func (e EosioV2) Call() (agentcheck.Response, string) {
         return resp, err.Error()
     }
 
-    // Check HTTP Status Code
-    if health.HTTPStatusCode > 299 {
-        resp := agentcheck.NewStatusMessageResponse(agentcheck.Down, "")
-        return resp, fmt.Sprintf("Taking offline because %v was received from backend", health.HTTPStatusCode)
-    }
-
     // Fetch elasticsearch and nodeos block numbers from json.
     var es_block int64 = 0
     var node_block int64 = 0

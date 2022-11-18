@@ -47,7 +47,7 @@ func TestEosioV2JsonFailure(t *testing.T) {
     assert.Equal(t, expected, check)
 }
 
-func TestEosioV2HTTP500Down(t *testing.T) {
+func TestEosioV2HTTP500Failed(t *testing.T) {
 
     var srv = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
         res.WriteHeader(500)
@@ -57,9 +57,9 @@ func TestEosioV2HTTP500Down(t *testing.T) {
     api := NewEosioV2(srv.URL, "", 120)
     check, status := api.Call()
 
-    assert.Equal(t, "Taking offline because 500 was received from backend", status)
+    assert.Equal(t, "server returned HTTP 500 Internal Server Error", status)
 
-    expected := agentcheck.NewStatusMessageResponse(agentcheck.Down, "")
+    expected := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
     assert.Equal(t, expected, check)
 }
 
