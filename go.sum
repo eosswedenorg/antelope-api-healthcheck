@@ -22,8 +22,8 @@ github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSs
 github.com/dustin/go-humanize v1.0.0/go.mod h1:HtrtbFcZ19U5GC7JDqmcUSB87Iq5E25KnS6fMYU6eOk=
 github.com/eosswedenorg-go/eos-contract-api-client v0.0.0-20221012162219-7bf5d16d1d5f h1:28cfafllXW0tPZM+8xkwUlpMD5E+4+JLjZ2gNltVtf4=
 github.com/eosswedenorg-go/eos-contract-api-client v0.0.0-20221012162219-7bf5d16d1d5f/go.mod h1:5MKXTTcCZ3ZPmPAfOKwgVKA5S9BUltN8hY0/U2HqdDE=
-github.com/eosswedenorg-go/eosapi v0.1.1 h1:+7DpTz6om3Xluj0ssY0LU5Tj6WKicV9Zlgr8Cso0dlw=
-github.com/eosswedenorg-go/eosapi v0.1.1/go.mod h1:5r8ukl/BXbjeydPQNG/eE3+idpuY6XR654nyfcqkZbg=
+github.com/eosswedenorg-go/eosapi v0.1.2 h1:JK6qUQPLDHODLcAkHZB7JrWb1ozuuNKbN2Cl4l0uOSU=
+github.com/eosswedenorg-go/eosapi v0.1.2/go.mod h1:5r8ukl/BXbjeydPQNG/eE3+idpuY6XR654nyfcqkZbg=
 github.com/eosswedenorg-go/haproxy v0.1.1 h1:ClOhoK3uGn70KzGCKHdYNvHoU72whfNq3LbqT/lWlOY=
 github.com/eosswedenorg-go/haproxy v0.1.1/go.mod h1:WnDKkwYbgrpuKUOtUtWlGCgj43DMV+r4VKGdWSTYQeA=
 github.com/eosswedenorg-go/pid v1.0.1 h1:W4AEnnNwb041SpNR1uTZ/KbJ0OTA5eqiqIR1Q5Ah6A0=
