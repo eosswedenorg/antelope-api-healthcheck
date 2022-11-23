@@ -58,7 +58,7 @@ func Start(addr string) error {
 
 	err := server.Connect()
 	if err == nil {
-		go server.Listen()
+		err = server.Listen()
 	}
 	return err
 }
