@@ -33,14 +33,6 @@ func ParseArguments(args []string) api.ApiArguments {
 }
 
 func ParseRequest(request string) (api.ApiInterface, error) {
-	factories := map[string]api.Factory{
-		"v1":       api.EosioV1Factory,
-		"v2":       api.EosioV2Factory,
-		"contract": api.AtomicAssetFactory,
-		"atomic":   api.AtomicAssetFactory,
-		"debug":    api.DebugApiFactory,
-	}
-
 	// Parse arguments.
 	// -------------------
 	p := strings.Split(strings.TrimSpace(request), "|")
@@ -51,9 +43,5 @@ func ParseRequest(request string) (api.ApiInterface, error) {
 
 	a := ParseArguments(p[1:])
 
-	if factory, ok := factories[p[0]]; ok {
-		return factory(a), nil
-	}
-
-	return nil, fmt.Errorf("invalid API '%s'", p[0])
+	return api.Make(p[0], a)
 }
