@@ -1,4 +1,4 @@
-package internal
+package server
 
 import (
 	"strings"
@@ -49,10 +49,10 @@ func onTcpMessage(c *tcp_server.Client, args string) {
 	c.Close()
 }
 
-//  SpawnTcpServer
+//  Start
 // ---------------------------------------------------------
 
-func SpawnTcpServer(addr string) error {
+func Start(addr string) error {
 	server := tcp_server.New(addr)
 	server.OnMessage(onTcpMessage)
 

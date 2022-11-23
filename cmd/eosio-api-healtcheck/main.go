@@ -7,7 +7,7 @@ import (
 	"syscall"
 
 	"github.com/eosswedenorg-go/pid"
-	"github.com/eosswedenorg/eosio-api-healthcheck/internal"
+	"github.com/eosswedenorg/eosio-api-healthcheck/internal/server"
 	"github.com/eosswedenorg/eosio-api-healthcheck/internal/utils"
 	log "github.com/inconshreveable/log15"
 	"github.com/pborman/getopt/v2"
@@ -176,7 +176,7 @@ func main() {
 	addr = argv_listen_addr()
 
 	// Start listening to TCP Connections
-	err := internal.SpawnTcpServer(addr)
+	err := server.Start(addr)
 	if err == nil {
 		logger.Info("TCP Server started", "addr", addr)
 
