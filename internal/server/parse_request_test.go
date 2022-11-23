@@ -76,10 +76,10 @@ func TestParseEosioV2Full(t *testing.T) {
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
-// AtomicAsset
+// Old contract api (alias for backward compatibility)
 // --------------------------------
 
-func TestParseAtomicAsset(t *testing.T) {
+func TestParseOldContract(t *testing.T) {
 	expected := api.NewAtomicAsset("http://api.contract.example.com", 5)
 
 	api, err := ParseRequest("contract|http://api.contract.example.com")
@@ -87,10 +87,29 @@ func TestParseAtomicAsset(t *testing.T) {
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
-func TestParseAtomicAssetWithBlockTime(t *testing.T) {
+func TestParseOldContractWithBlockTime(t *testing.T) {
 	expected := api.NewAtomicAsset("http://api.contract.example.com", 256)
 
 	api, err := ParseRequest("contract|http://api.contract.example.com|512")
+	assert.NoError(t, err)
+	assert.Equal(t, expected.LogInfo(), api.LogInfo())
+}
+
+// AtomicAsset
+// --------------------------------
+
+func TestParseAtomicAsset(t *testing.T) {
+	expected := api.NewAtomicAsset("http://api.atomicassets.io", 5)
+
+	api, err := ParseRequest("atomic|http://api.atomicassets.io")
+	assert.NoError(t, err)
+	assert.Equal(t, expected.LogInfo(), api.LogInfo())
+}
+
+func TestParseAtomicAssetWithBlockTime(t *testing.T) {
+	expected := api.NewAtomicAsset("http://api.atomicassets.io", 256)
+
+	api, err := ParseRequest("atomic|http://api.atomicassets.io|512")
 	assert.NoError(t, err)
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }

@@ -37,6 +37,7 @@ func ParseRequest(request string) (api.ApiInterface, error) {
 		"v1":       api.EosioV1Factory,
 		"v2":       api.EosioV2Factory,
 		"contract": api.AtomicAssetFactory,
+		"atomic":   api.AtomicAssetFactory,
 		"debug":    api.DebugApiFactory,
 	}
 
