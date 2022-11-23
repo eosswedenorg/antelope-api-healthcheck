@@ -1,4 +1,3 @@
-
 package utils
 
 //  JsonGetInt64
@@ -8,10 +7,10 @@ package utils
 //    if the type assertion fails, the function defaults 0 (zero).
 // ---------------------------------------------------------
 
-func JsonGetInt64(input interface{}) (int64) {
-    v, res := input.(float64)
-    if res {
-        return (int64) (v)
-    }
-    return 0
+func JsonGetInt64(input interface{}) int64 {
+	v, res := input.(float64)
+	if res {
+		return (int64)(v)
+	}
+	return 0
 }

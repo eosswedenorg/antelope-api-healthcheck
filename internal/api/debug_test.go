@@ -3,20 +3,20 @@ package api
 import (
 	"reflect"
 	"testing"
-    "github.com/stretchr/testify/assert"
+
 	"github.com/eosswedenorg-go/haproxy/agentcheck"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestDebugApiFactory(t *testing.T) {
+	api := DebugApiFactory(ApiArguments{
+		Url:       "up",
+		Host:      "host",
+		NumBlocks: 40,
+	})
 
-    api := DebugApiFactory(ApiArguments{
-        Url: "up",
-        Host: "host",
-        NumBlocks: 40,
-    })
-
-    assert.IsType(t, DebugApi{}, api)
-    assert.Equal(t, api.(DebugApi).response, agentcheck.NewStatusResponse(agentcheck.Up))
+	assert.IsType(t, DebugApi{}, api)
+	assert.Equal(t, api.(DebugApi).response, agentcheck.NewStatusResponse(agentcheck.Up))
 }
 
 func TestNewDebugApi(t *testing.T) {
@@ -43,26 +43,24 @@ func TestNewDebugApi(t *testing.T) {
 }
 
 func TestDebugApi_LogInfo(t *testing.T) {
+	expected := LogParams{"type", "Debug", "response", "up"}
 
-    expected := LogParams{"type", "Debug", "response", "up"}
+	api := DebugApi{
+		response: agentcheck.NewStatusResponse(agentcheck.Up),
+	}
 
-    api := DebugApi{
-        response: agentcheck.NewStatusResponse(agentcheck.Up),
-    }
-
-    assert.Equal(t, api.LogInfo(), expected)
+	assert.Equal(t, api.LogInfo(), expected)
 }
 
 func TestDebugApi_Call(t *testing.T) {
+	expected := agentcheck.NewStatusMessageResponse(agentcheck.Stopped, "message")
 
-    expected := agentcheck.NewStatusMessageResponse(agentcheck.Stopped, "message")
+	api := DebugApi{
+		response: expected,
+	}
 
-    api := DebugApi{
-        response: expected,
-    }
+	response, msg := api.Call()
 
-    response, msg := api.Call()
-
-    assert.Equal(t, response, expected)
-    assert.Equal(t, msg, "")
+	assert.Equal(t, response, expected)
+	assert.Equal(t, msg, "")
 }

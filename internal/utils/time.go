@@ -1,22 +1,20 @@
-
 package utils
 
 import (
-    "time"
+	"time"
 )
 
 type Time struct {
-    ts time.Time
+	ts time.Time
 }
 
 func (t *Time) SetTime(value time.Time) {
-    t.ts = value
+	t.ts = value
 }
 
 func (t Time) GetTime() time.Time {
-
-    if ! t.ts.IsZero() {
-        return t.ts
-    }
-    return time.Now().In(time.UTC)
+	if !t.ts.IsZero() {
+		return t.ts
+	}
+	return time.Now().In(time.UTC)
 }
