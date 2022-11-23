@@ -22,7 +22,11 @@ func onTcpMessage(c *tcp_server.Client, args string) {
 		logger.Warn("Agent request error", "message", err)
 		resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
 
-		c.WriteString(resp.String())
+		_, err = c.WriteString(resp.String())
+		if err != nil {
+			logger.Error("WriteString", "message", err)
+		}
+
 		c.Close()
 		return
 	}
@@ -38,7 +42,10 @@ func onTcpMessage(c *tcp_server.Client, args string) {
 
 	logger.Info("API Check", params.Combine(healthCheckApi.LogInfo())...)
 	// Report status to HAproxy
-	c.WriteString(status.String())
+	_, err = c.WriteString(status.String())
+	if err != nil {
+		logger.Error("WriteString", "message", err)
+	}
 	c.Close()
 }
 
