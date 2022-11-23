@@ -20,10 +20,8 @@ github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSs
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/dustin/go-humanize v1.0.0/go.mod h1:HtrtbFcZ19U5GC7JDqmcUSB87Iq5E25KnS6fMYU6eOk=
-github.com/eosswedenorg-go/eos-contract-api-client v0.0.0-20221012162219-7bf5d16d1d5f h1:28cfafllXW0tPZM+8xkwUlpMD5E+4+JLjZ2gNltVtf4=
-github.com/eosswedenorg-go/eos-contract-api-client v0.0.0-20221012162219-7bf5d16d1d5f/go.mod h1:5MKXTTcCZ3ZPmPAfOKwgVKA5S9BUltN8hY0/U2HqdDE=
-github.com/eosswedenorg-go/eosapi v0.1.2 h1:JK6qUQPLDHODLcAkHZB7JrWb1ozuuNKbN2Cl4l0uOSU=
-github.com/eosswedenorg-go/eosapi v0.1.2/go.mod h1:5r8ukl/BXbjeydPQNG/eE3+idpuY6XR654nyfcqkZbg=
+github.com/eosswedenorg-go/atomicasset v0.0.0-20221123143615-8313517df00a h1:v34iU0eYBHL+X6Idc4BL3Meh0+WgShGF8NqjyqA3R04=
+github.com/eosswedenorg-go/atomicasset v0.0.0-20221123143615-8313517df00a/go.mod h1:zZGhO0BsuVHZe6/tafIpVxp/5VUcru6dRiRCsFv/uZQ=
 github.com/eosswedenorg-go/eosapi v0.1.3 h1:xZXMkYkPTU15VFQoiZJCMS0DFFVnwdlS0hPl/7R5wWs=
 github.com/eosswedenorg-go/eosapi v0.1.3/go.mod h1:YKkjNHIeOWvjN8vYj7YfENHnwse23yl5Rc1ttjIpqdU=
 github.com/eosswedenorg-go/haproxy v0.1.1 h1:ClOhoK3uGn70KzGCKHdYNvHoU72whfNq3LbqT/lWlOY=
@@ -89,10 +87,8 @@ github.com/hashicorp/go-multierror v1.1.1 h1:H5DkEtf6CXdFp0N0Em5UCwQpXMWke8IA0+l
 github.com/hashicorp/go-multierror v1.1.1/go.mod h1:iw975J/qwKPdAO1clOe2L8331t/9/fmwbPZ6JB6eMoM=
 github.com/hpcloud/tail v1.0.0/go.mod h1:ab1qPbhIpdTxEkNHXyeSf5vhxWSCs/tWer42PpOxQnU=
 github.com/imroc/req/v3 v3.7.6/go.mod h1:3JIicOKEDHfCSYYNLb/ObZNpx64EV5y40VlHMwhUCzU=
-github.com/imroc/req/v3 v3.24.1 h1:tT5MrwwgDQTUAWZqhPnxbsnaPMThCPGqcjiBwmZJJO4=
-github.com/imroc/req/v3 v3.24.1/go.mod h1:EluRnkfh8A39BmrCARYhcUrfGyR8qPw+O0BZyTy4j9k=
-github.com/inconshreveable/log15 v0.0.0-20201112154412-8562bdadbbac h1:n1DqxAo4oWPMvH1+v+DLYlMCecgumhhgnxAPdqDIFHI=
-github.com/inconshreveable/log15 v0.0.0-20201112154412-8562bdadbbac/go.mod h1:cOaXtrgN4ScfRrD9Bre7U1thNq5RtJ8ZoP4iXVGRj6o=
+github.com/imroc/req/v3 v3.25.0 h1:W3hFvD4PB8nNySxHuESbEuU2sY2/oBi14q2mlOlo+U8=
+github.com/imroc/req/v3 v3.25.0/go.mod h1:EluRnkfh8A39BmrCARYhcUrfGyR8qPw+O0BZyTy4j9k=
 github.com/inconshreveable/log15 v0.0.0-20221122034931-555555054819 h1:bA/jERuFz6s9Txxitj4gWsfahFpEHPfUXKWfQnBNbCo=
 github.com/inconshreveable/log15 v0.0.0-20221122034931-555555054819/go.mod h1:cOaXtrgN4ScfRrD9Bre7U1thNq5RtJ8ZoP4iXVGRj6o=
 github.com/jellevandenhooff/dkim v0.0.0-20150330215556-f50fe3d243e1/go.mod h1:E0B/fFc00Y+Rasa88328GlI/XbtyysCtTHZS8h7IrBU=
@@ -155,6 +151,8 @@ github.com/openzipkin/zipkin-go v0.1.1/go.mod h1:NtoC/o8u3JlF1lSlyPNswIbeQH9bJTm
 github.com/pborman/getopt/v2 v2.1.0 h1:eNfR+r+dWLdWmV8g5OlpyrTYHkhVNxHBdN2cCrJmOEA=
 github.com/pborman/getopt/v2 v2.1.0/go.mod h1:4NtW75ny4eBw9fO1bhtNdYTlZKYX5/tBLtsOpwKIKd0=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
+github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
+github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/prometheus/client_golang v0.8.0/go.mod h1:7SWBe2y4D6OKWSNQJUaRYU/AaXPKyh/dDVn+NZz0KFw=
@@ -185,6 +183,8 @@ github.com/shurcooL/reactions v0.0.0-20181006231557-f2e0b4ca5b82/go.mod h1:TCR1l
 github.com/shurcooL/sanitized_anchor_name v0.0.0-20170918181015-86672fcb3f95/go.mod h1:1NzhyTcUVG4SuEtjjoZeVRXNmyL/1OwPU0+IJeTBvfc=
 github.com/shurcooL/users v0.0.0-20180125191416-49c67e49c537/go.mod h1:QJTqeLYEDaXHZDBsXlPCDqdhQuJkuw4NOtaxYe3xii4=
 github.com/shurcooL/webdavfs v0.0.0-20170829043945-18c3829fa133/go.mod h1:hKmq5kWdCj2z2KEozexVbfEZIWiTjhE0+UjmZgPqehw=
+github.com/sonh/qs v0.6.0 h1:MS9WlVLpqkePKgtFnkPR9xZE+DxE7nSraWiG1vxs8eo=
+github.com/sonh/qs v0.6.0/go.mod h1:ywKyX7vSo9R5dfgEQSCZ75tFzNkVUJZyK3/W6qGeHMQ=
 github.com/sourcegraph/annotate v0.0.0-20160123013949-f4cad6c6324d/go.mod h1:UdhH50NIW0fCiwBSr0co2m7BnFLdv4fQTgdqdJTHFeE=
 github.com/sourcegraph/syntaxhighlight v0.0.0-20170531221838-bd320f5d308e/go.mod h1:HuIsMU8RRBOtsCgI77wP899iHVBQpCmg4ErYMZB+2IA=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
@@ -193,6 +193,7 @@ github.com/stretchr/objx v0.5.0/go.mod h1:Yh+to48EsGEfYuaHDzXPcE3xhTkx73EhmCGUpE
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5cxcmMvtA=
+github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.7.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO+kdMU+MU=

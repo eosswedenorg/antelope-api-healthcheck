@@ -19,7 +19,7 @@ func TestEosioContractFactory(t *testing.T) {
 	expected := NewEosioContract("https://atomic.example.com", 60)
 
 	assert.IsType(t, expected, api)
-	assert.Equal(t, expected.client.Url, api.(EosioContract).client.Url)
+	assert.Equal(t, expected.client.URL, api.(EosioContract).client.URL)
 	assert.Equal(t, expected.client.Host, api.(EosioContract).client.Host)
 	assert.Equal(t, expected.block_time, api.(EosioContract).block_time)
 }

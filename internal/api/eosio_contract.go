@@ -3,14 +3,14 @@ package api
 import (
 	"fmt"
 
-	contract_api "github.com/eosswedenorg-go/eos-contract-api-client"
+	"github.com/eosswedenorg-go/atomicasset"
 	"github.com/eosswedenorg-go/haproxy/agentcheck"
 	"github.com/eosswedenorg/eosio-api-healthcheck/internal/utils"
 )
 
 type EosioContract struct {
 	utils.Time
-	client     contract_api.Client
+	client     atomicasset.Client
 	block_time float64
 }
 
@@ -20,8 +20,8 @@ func EosioContractFactory(args ApiArguments) ApiInterface {
 
 func NewEosioContract(url string, block_time float64) EosioContract {
 	return EosioContract{
-		client: contract_api.Client{
-			Url: url,
+		client: atomicasset.Client{
+			URL: url,
 		},
 		block_time: block_time,
 	}
@@ -30,7 +30,7 @@ func NewEosioContract(url string, block_time float64) EosioContract {
 func (e EosioContract) LogInfo() LogParams {
 	return LogParams{
 		"type", "eosio-contract",
-		"url", e.client.Url,
+		"url", e.client.URL,
 		"block_time", e.block_time,
 	}
 }
@@ -64,7 +64,7 @@ func (e EosioContract) Call() (agentcheck.Response, string) {
 	}
 
 	// Validate head block.
-	diff := e.GetTime().Sub(h.Data.Chain.HeadTime).Seconds()
+	diff := e.GetTime().Sub(h.Data.Chain.HeadTime.Time()).Seconds()
 
 	if diff > e.block_time {
 		resp := agentcheck.NewStatusMessageResponse(agentcheck.Down, "")

@@ -3,7 +3,7 @@ module github.com/eosswedenorg/eosio-api-healthcheck
 go 1.16
 
 require (
-	github.com/eosswedenorg-go/eos-contract-api-client v0.0.0-20221012162219-7bf5d16d1d5f
+	github.com/eosswedenorg-go/atomicasset v0.0.0-20221123143615-8313517df00a
 	github.com/eosswedenorg-go/eosapi v0.1.3
 	github.com/eosswedenorg-go/haproxy v0.1.1
 	github.com/eosswedenorg-go/pid v1.0.1
