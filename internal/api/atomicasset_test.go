@@ -10,32 +10,32 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestEosioContractFactory(t *testing.T) {
-	api := EosioContractFactory(ApiArguments{
+func TestAtomicAssetFactory(t *testing.T) {
+	api := AtomicAssetFactory(ApiArguments{
 		Url:       "https://atomic.example.com",
 		NumBlocks: 120,
 	})
 
-	expected := NewEosioContract("https://atomic.example.com", 60)
+	expected := NewAtomicAsset("https://atomic.example.com", 60)
 
 	assert.IsType(t, expected, api)
-	assert.Equal(t, expected.client.URL, api.(EosioContract).client.URL)
-	assert.Equal(t, expected.client.Host, api.(EosioContract).client.Host)
-	assert.Equal(t, expected.block_time, api.(EosioContract).block_time)
+	assert.Equal(t, expected.client.URL, api.(AtomicAsset).client.URL)
+	assert.Equal(t, expected.client.Host, api.(AtomicAsset).client.Host)
+	assert.Equal(t, expected.block_time, api.(AtomicAsset).block_time)
 }
 
-func TestEosioContractLogInfo(t *testing.T) {
-	api := NewEosioContract("https://atomic.example.com", 120)
+func TestAtomicAssetLogInfo(t *testing.T) {
+	api := NewAtomicAsset("https://atomic.example.com", 120)
 
-	expected := LogParams{"type", "eosio-contract", "url", "https://atomic.example.com", "block_time", float64(120)}
+	expected := LogParams{"type", "atomicasset", "url", "https://atomic.example.com", "block_time", float64(120)}
 
 	assert.Equal(t, expected, api.LogInfo())
 }
 
-func TestEosioContractSetTime(t *testing.T) {
+func TestAtomicAssetSetTime(t *testing.T) {
 	expected := time.Date(2019, 3, 18, 20, 29, 32, 0, time.UTC)
 
-	api := NewEosioContract("", 60)
+	api := NewAtomicAsset("", 60)
 	// Assert that time is NOW (+-10 seconds)
 	assert.InDelta(t, api.GetTime().Unix(), time.Now().In(time.UTC).Unix(), float64(10))
 
@@ -43,26 +43,26 @@ func TestEosioContractSetTime(t *testing.T) {
 	assert.Equal(t, expected, api.GetTime())
 }
 
-func TestEosioContractJsonFailure(t *testing.T) {
+func TestAtomicAssetJsonFailure(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		res.Write([]byte(`!//{invalid-json}!##`))
 	}))
 
-	api := NewEosioContract(srv.URL, 120)
+	api := NewAtomicAsset(srv.URL, 120)
 	check, _ := api.Call()
 
 	expected := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioContractHTTP500Down(t *testing.T) {
+func TestAtomicAssetHTTP500Down(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		res.Header().Add("Content-type", "application/json; charset=utf-8")
 		res.WriteHeader(500)
 		res.Write([]byte(`{}`))
 	}))
 
-	api := NewEosioContract(srv.URL, 120)
+	api := NewAtomicAsset(srv.URL, 120)
 	check, status := api.Call()
 
 	assert.Equal(t, "Taking offline because 500 was received from backend", status)
@@ -71,7 +71,7 @@ func TestEosioContractHTTP500Down(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioContractLaggingUp(t *testing.T) {
+func TestAtomicAssetLaggingUp(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/health" {
 			payload := `{
@@ -98,7 +98,7 @@ func TestEosioContractLaggingUp(t *testing.T) {
 		}
 	}))
 
-	api := NewEosioContract(srv.URL, 120)
+	api := NewAtomicAsset(srv.URL, 120)
 	api.SetTime(time.Date(2025, 10, 8, 20, 7, 27, 0, time.UTC))
 
 	check, status := api.Call()
@@ -109,7 +109,7 @@ func TestEosioContractLaggingUp(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioContractLaggingDown(t *testing.T) {
+func TestAtomicAssetLaggingDown(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/health" {
 			payload := `{
@@ -136,7 +136,7 @@ func TestEosioContractLaggingDown(t *testing.T) {
 		}
 	}))
 
-	api := NewEosioContract(srv.URL, 120)
+	api := NewAtomicAsset(srv.URL, 120)
 	api.SetTime(time.Date(2018, 8, 5, 6, 53, 35, 0, time.UTC))
 
 	check, status := api.Call()
@@ -147,7 +147,7 @@ func TestEosioContractLaggingDown(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioContractInFutureUp(t *testing.T) {
+func TestAtomicAssetInFutureUp(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/health" {
 			payload := `{
@@ -174,7 +174,7 @@ func TestEosioContractInFutureUp(t *testing.T) {
 		}
 	}))
 
-	api := NewEosioContract(srv.URL, 120)
+	api := NewAtomicAsset(srv.URL, 120)
 	api.SetTime(time.Date(2024, 10, 15, 1, 9, 16, 500, time.UTC))
 
 	check, status := api.Call()
@@ -185,7 +185,7 @@ func TestEosioContractInFutureUp(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioContractInFutureDown(t *testing.T) {
+func TestAtomicAssetInFutureDown(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/health" {
 			payload := `{
@@ -212,7 +212,7 @@ func TestEosioContractInFutureDown(t *testing.T) {
 		}
 	}))
 
-	api := NewEosioContract(srv.URL, 120)
+	api := NewAtomicAsset(srv.URL, 120)
 	api.SetTime(time.Date(2002, 12, 29, 0, 45, 0o3, 500, time.UTC))
 
 	check, status := api.Call()
@@ -223,7 +223,7 @@ func TestEosioContractInFutureDown(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioContractRedisDown(t *testing.T) {
+func TestAtomicAssetRedisDown(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/health" {
 			payload := `{
@@ -250,7 +250,7 @@ func TestEosioContractRedisDown(t *testing.T) {
 		}
 	}))
 
-	api := NewEosioContract(srv.URL, 120)
+	api := NewAtomicAsset(srv.URL, 120)
 	api.SetTime(time.Date(2015, 3, 11, 11, 19, 30, 500, time.UTC))
 
 	check, status := api.Call()
@@ -261,7 +261,7 @@ func TestEosioContractRedisDown(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioContractPostgresDown(t *testing.T) {
+func TestAtomicAssetPostgresDown(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/health" {
 			payload := `{
@@ -288,7 +288,7 @@ func TestEosioContractPostgresDown(t *testing.T) {
 		}
 	}))
 
-	api := NewEosioContract(srv.URL, 120)
+	api := NewAtomicAsset(srv.URL, 120)
 	api.SetTime(time.Date(2019, 7, 11, 18, 6, 11, 500, time.UTC))
 
 	check, status := api.Call()

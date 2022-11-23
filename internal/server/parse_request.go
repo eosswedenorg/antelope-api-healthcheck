@@ -36,7 +36,7 @@ func ParseRequest(request string) (api.ApiInterface, error) {
 	factories := map[string]api.Factory{
 		"v1":       api.EosioV1Factory,
 		"v2":       api.EosioV2Factory,
-		"contract": api.EosioContractFactory,
+		"contract": api.AtomicAssetFactory,
 		"debug":    api.DebugApiFactory,
 	}
 

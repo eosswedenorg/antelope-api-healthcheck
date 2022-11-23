@@ -8,18 +8,18 @@ import (
 	"github.com/eosswedenorg/eosio-api-healthcheck/internal/utils"
 )
 
-type EosioContract struct {
+type AtomicAsset struct {
 	utils.Time
 	client     atomicasset.Client
 	block_time float64
 }
 
-func EosioContractFactory(args ApiArguments) ApiInterface {
-	return NewEosioContract(args.Url, float64(args.NumBlocks/2))
+func AtomicAssetFactory(args ApiArguments) ApiInterface {
+	return NewAtomicAsset(args.Url, float64(args.NumBlocks/2))
 }
 
-func NewEosioContract(url string, block_time float64) EosioContract {
-	return EosioContract{
+func NewAtomicAsset(url string, block_time float64) AtomicAsset {
+	return AtomicAsset{
 		client: atomicasset.Client{
 			URL: url,
 		},
@@ -27,15 +27,15 @@ func NewEosioContract(url string, block_time float64) EosioContract {
 	}
 }
 
-func (e EosioContract) LogInfo() LogParams {
+func (e AtomicAsset) LogInfo() LogParams {
 	return LogParams{
-		"type", "eosio-contract",
+		"type", "atomicasset",
 		"url", e.client.URL,
 		"block_time", e.block_time,
 	}
 }
 
-func (e EosioContract) Call() (agentcheck.Response, string) {
+func (e AtomicAsset) Call() (agentcheck.Response, string) {
 	h, err := e.client.GetHealth()
 	if err != nil {
 		resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")

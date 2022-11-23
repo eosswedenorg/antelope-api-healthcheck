@@ -76,19 +76,19 @@ func TestParseEosioV2Full(t *testing.T) {
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
-// EosioContract
+// AtomicAsset
 // --------------------------------
 
-func TestParseEosioContract(t *testing.T) {
-	expected := api.NewEosioContract("http://api.contract.example.com", 5)
+func TestParseAtomicAsset(t *testing.T) {
+	expected := api.NewAtomicAsset("http://api.contract.example.com", 5)
 
 	api, err := ParseRequest("contract|http://api.contract.example.com")
 	assert.NoError(t, err)
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
-func TestParseEosioContractWithBlockTime(t *testing.T) {
-	expected := api.NewEosioContract("http://api.contract.example.com", 256)
+func TestParseAtomicAssetWithBlockTime(t *testing.T) {
+	expected := api.NewAtomicAsset("http://api.contract.example.com", 256)
 
 	api, err := ParseRequest("contract|http://api.contract.example.com|512")
 	assert.NoError(t, err)
