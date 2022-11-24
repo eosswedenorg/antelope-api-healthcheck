@@ -2,7 +2,7 @@ package server
 
 import (
 	"testing"
-	// "fmt"
+
 	"github.com/eosswedenorg/eosio-api-healthcheck/internal/api"
 	"github.com/stretchr/testify/assert"
 )
