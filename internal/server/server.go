@@ -52,7 +52,7 @@ func onTcpMessage(c *tcp_server.Client, args string) {
 //  Start
 // ---------------------------------------------------------
 
-func Start(addr string) error {
+func Start(addr string) (*tcp_server.Server, error) {
 	server := tcp_server.New(addr)
 	server.OnMessage(onTcpMessage)
 
@@ -60,5 +60,5 @@ func Start(addr string) error {
 	if err == nil {
 		err = server.Listen()
 	}
-	return err
+	return server, err
 }
