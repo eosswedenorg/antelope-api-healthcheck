@@ -7,7 +7,7 @@ import (
 	log "github.com/inconshreveable/log15"
 )
 
-func Test_ParseLogFormatter(t *testing.T) {
+func TestParseLogFormatter(t *testing.T) {
 	tests := []struct {
 		name string
 		arg  string

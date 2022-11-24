@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestAtomicAssetFactory(t *testing.T) {
+func TestAtomicAsset_Factory(t *testing.T) {
 	api := AtomicAssetFactory(ApiArguments{
 		Url:       "https://atomic.example.com",
 		NumBlocks: 120,
@@ -24,7 +24,7 @@ func TestAtomicAssetFactory(t *testing.T) {
 	assert.Equal(t, expected.block_time, api.(AtomicAsset).block_time)
 }
 
-func TestAtomicAssetLogInfo(t *testing.T) {
+func TestAtomicAsset_LogInfo(t *testing.T) {
 	api := NewAtomicAsset("https://atomic.example.com", 120)
 
 	expected := LogParams{"type", "atomicasset", "url", "https://atomic.example.com", "block_time", float64(120)}
@@ -32,7 +32,7 @@ func TestAtomicAssetLogInfo(t *testing.T) {
 	assert.Equal(t, expected, api.LogInfo())
 }
 
-func TestAtomicAssetSetTime(t *testing.T) {
+func TestAtomicAsset_SetTime(t *testing.T) {
 	expected := time.Date(2019, 3, 18, 20, 29, 32, 0, time.UTC)
 
 	api := NewAtomicAsset("", 60)
@@ -43,7 +43,7 @@ func TestAtomicAssetSetTime(t *testing.T) {
 	assert.Equal(t, expected, api.GetTime())
 }
 
-func TestAtomicAssetJsonFailure(t *testing.T) {
+func TestAtomicAsset_JsonFailure(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		_, err := res.Write([]byte(`!//{invalid-json}!##`))
 		assert.NoError(t, err)
@@ -56,7 +56,7 @@ func TestAtomicAssetJsonFailure(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestAtomicAssetHTTP500Down(t *testing.T) {
+func TestAtomicAsset_HTTP500Down(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		res.Header().Add("Content-type", "application/json; charset=utf-8")
 		res.WriteHeader(500)
@@ -73,7 +73,7 @@ func TestAtomicAssetHTTP500Down(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestAtomicAssetLaggingUp(t *testing.T) {
+func TestAtomicAsset_LaggingUp(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/health" {
 			payload := `{
@@ -112,7 +112,7 @@ func TestAtomicAssetLaggingUp(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestAtomicAssetLaggingDown(t *testing.T) {
+func TestAtomicAsset_LaggingDown(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/health" {
 			payload := `{
@@ -151,7 +151,7 @@ func TestAtomicAssetLaggingDown(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestAtomicAssetInFutureUp(t *testing.T) {
+func TestAtomicAsset_InFutureUp(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/health" {
 			payload := `{
@@ -190,7 +190,7 @@ func TestAtomicAssetInFutureUp(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestAtomicAssetInFutureDown(t *testing.T) {
+func TestAtomicAsset_InFutureDown(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/health" {
 			payload := `{
@@ -229,7 +229,7 @@ func TestAtomicAssetInFutureDown(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestAtomicAssetRedisDown(t *testing.T) {
+func TestAtomicAsset_RedisDown(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/health" {
 			payload := `{
@@ -268,7 +268,7 @@ func TestAtomicAssetRedisDown(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestAtomicAssetPostgresDown(t *testing.T) {
+func TestAtomicAsset_PostgresDown(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/health" {
 			payload := `{

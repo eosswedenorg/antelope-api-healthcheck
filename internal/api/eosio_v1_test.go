@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestEosioV1Factory(t *testing.T) {
+func TestEosioV1_Factory(t *testing.T) {
 	api := EosioV1Factory(ApiArguments{
 		Url:       "https://api.v1.example.com",
 		Host:      "host.example.com",
@@ -25,7 +25,7 @@ func TestEosioV1Factory(t *testing.T) {
 	assert.Equal(t, expected.block_time, api.(EosioV1).block_time)
 }
 
-func TestEosioV1LogInfo(t *testing.T) {
+func TestEosioV1_LogInfo(t *testing.T) {
 	api := NewEosioV1("https://api.v1.example.com", "host.example.com", 120)
 
 	expected := LogParams{"type", "eosio-v1", "url", "https://api.v1.example.com", "host", "host.example.com", "block_time", float64(120)}
@@ -33,7 +33,7 @@ func TestEosioV1LogInfo(t *testing.T) {
 	assert.Equal(t, expected, api.LogInfo())
 }
 
-func TestEosioV1SetTime(t *testing.T) {
+func TestEosioV1_SetTime(t *testing.T) {
 	expected := time.Date(2022, 2, 24, 13, 38, 0, 0, time.UTC)
 
 	api := NewEosioV1("", "", 60)
@@ -44,7 +44,7 @@ func TestEosioV1SetTime(t *testing.T) {
 	assert.Equal(t, expected, api.GetTime())
 }
 
-func TestEosioV1JsonFailure(t *testing.T) {
+func TestEosioV1_JsonFailure(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		_, err := res.Write([]byte(`!//{invalid-json}!##`))
 		assert.NoError(t, err)
@@ -57,7 +57,7 @@ func TestEosioV1JsonFailure(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV1HTTP500Failed(t *testing.T) {
+func TestEosioV1_HTTP500Failed(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		res.WriteHeader(500)
 		_, err := res.Write([]byte(`{}`))
@@ -73,7 +73,7 @@ func TestEosioV1HTTP500Failed(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV1LaggingUp(t *testing.T) {
+func TestEosioV1_LaggingUp(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v1/chain/get_info" {
 			info := `{
@@ -97,7 +97,7 @@ func TestEosioV1LaggingUp(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV1LaggingDown(t *testing.T) {
+func TestEosioV1_LaggingDown(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v1/chain/get_info" {
 			info := `{
@@ -121,7 +121,7 @@ func TestEosioV1LaggingDown(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV1TimeInFutureUP(t *testing.T) {
+func TestEosioV1_TimeInFutureUP(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v1/chain/get_info" {
 			info := `{
@@ -145,7 +145,7 @@ func TestEosioV1TimeInFutureUP(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV1TimeInFutureDown(t *testing.T) {
+func TestEosioV1_TimeInFutureDown(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v1/chain/get_info" {
 			info := `{

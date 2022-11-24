@@ -7,14 +7,14 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestParseWithInvalidApi(t *testing.T) {
+func TestParseRequest_WithInvalidApi(t *testing.T) {
 	api, err := ParseRequest("invalid|http://api.example.com")
 	assert.Error(t, err)
 	assert.Equal(t, err.Error(), "invalid API 'invalid'")
 	assert.Nil(t, api)
 }
 
-func TestParseWithInvalidParams(t *testing.T) {
+func TestParseRequest_WithInvalidParams(t *testing.T) {
 	api, err := ParseRequest("v1")
 	assert.Error(t, err)
 	assert.Equal(t, err.Error(), "invalid number of parameters in agent request")
@@ -24,7 +24,7 @@ func TestParseWithInvalidParams(t *testing.T) {
 //  EosioV1
 // --------------------------------
 
-func TestParseEosioV1(t *testing.T) {
+func TestParseRequest_EosioV1(t *testing.T) {
 	expected := api.NewEosioV1("http://api.example.com", "", 5)
 
 	api, err := ParseRequest("v1|http://api.example.com")
@@ -32,7 +32,7 @@ func TestParseEosioV1(t *testing.T) {
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
-func TestParseEosioV1WithBlockNumber(t *testing.T) {
+func TestParseRequest_EosioV1WithBlockNumber(t *testing.T) {
 	expected := api.NewEosioV1("http://api.example.com", "", 1000)
 
 	api, err := ParseRequest("v1|http://api.example.com|2000")
@@ -40,7 +40,7 @@ func TestParseEosioV1WithBlockNumber(t *testing.T) {
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
-func TestParseEosioV1Full(t *testing.T) {
+func TestParseRequest_EosioV1Full(t *testing.T) {
 	expected := api.NewEosioV1("http://api.example.com", "http://host.example.com", 500)
 
 	api, err := ParseRequest("v1|http://api.example.com|1000|http://host.example.com")
@@ -51,7 +51,7 @@ func TestParseEosioV1Full(t *testing.T) {
 //  EosioV2
 // --------------------------------
 
-func TestParseEosioV2(t *testing.T) {
+func TestParseRequest_EosioV2(t *testing.T) {
 	expected := api.NewEosioV2("http://api.v2.example.com", "", 10)
 
 	api, err := ParseRequest("v2|http://api.v2.example.com")
@@ -59,7 +59,7 @@ func TestParseEosioV2(t *testing.T) {
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
-func TestParseEosioV2WithOffset(t *testing.T) {
+func TestParseRequest_EosioV2WithOffset(t *testing.T) {
 	expected := api.NewEosioV2("http://api.v2.example.com", "", 1000)
 
 	api, err := ParseRequest("v2|http://api.v2.example.com|1000")
@@ -67,7 +67,7 @@ func TestParseEosioV2WithOffset(t *testing.T) {
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
-func TestParseEosioV2Full(t *testing.T) {
+func TestParseRequest_EosioV2Full(t *testing.T) {
 	expected := api.NewEosioV2("http://api.v2.example.com", "http://host.example.com", 1000)
 
 	api, err := ParseRequest("v2|http://api.v2.example.com|1000|http://host.example.com")
@@ -79,7 +79,7 @@ func TestParseEosioV2Full(t *testing.T) {
 // Old contract api (alias for backward compatibility)
 // --------------------------------
 
-func TestParseOldContract(t *testing.T) {
+func TestParseRequest_OldContract(t *testing.T) {
 	expected := api.NewAtomicAsset("http://api.contract.example.com", 5)
 
 	api, err := ParseRequest("contract|http://api.contract.example.com")
@@ -87,7 +87,7 @@ func TestParseOldContract(t *testing.T) {
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
-func TestParseOldContractWithBlockTime(t *testing.T) {
+func TestParseRequest_OldContractWithBlockTime(t *testing.T) {
 	expected := api.NewAtomicAsset("http://api.contract.example.com", 256)
 
 	api, err := ParseRequest("contract|http://api.contract.example.com|512")
@@ -98,7 +98,7 @@ func TestParseOldContractWithBlockTime(t *testing.T) {
 // AtomicAsset
 // --------------------------------
 
-func TestParseAtomicAsset(t *testing.T) {
+func TestParseRequest_AtomicAsset(t *testing.T) {
 	expected := api.NewAtomicAsset("http://api.atomicassets.io", 5)
 
 	api, err := ParseRequest("atomic|http://api.atomicassets.io")
@@ -106,7 +106,7 @@ func TestParseAtomicAsset(t *testing.T) {
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
-func TestParseAtomicAssetWithBlockTime(t *testing.T) {
+func TestParseRequest_AtomicAssetWithBlockTime(t *testing.T) {
 	expected := api.NewAtomicAsset("http://api.atomicassets.io", 256)
 
 	api, err := ParseRequest("atomic|http://api.atomicassets.io|512")
@@ -114,7 +114,7 @@ func TestParseAtomicAssetWithBlockTime(t *testing.T) {
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
-func TestParseDebugApi(t *testing.T) {
+func TestParseRequest_DebugApi(t *testing.T) {
 	expected := api.NewDebugApi("some_api_call")
 
 	api, err := ParseRequest("debug|some_api_call")

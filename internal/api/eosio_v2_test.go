@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestEosioV2Factory(t *testing.T) {
+func TestEosioV2_Factory(t *testing.T) {
 	api := EosioV2Factory(ApiArguments{
 		Url:       "https://api.v2.example.com",
 		Host:      "host.example.com",
@@ -24,7 +24,7 @@ func TestEosioV2Factory(t *testing.T) {
 	assert.Equal(t, expected.offset, api.(EosioV2).offset)
 }
 
-func TestEosioV2LogInfo(t *testing.T) {
+func TestEosioV2_LogInfo(t *testing.T) {
 	api := NewEosioV2("https://api.v2.example.com", "host.example.com", 120)
 
 	expected := LogParams{"type", "eosio-v2", "url", "https://api.v2.example.com", "host", "host.example.com", "offset", int64(120)}
@@ -32,7 +32,7 @@ func TestEosioV2LogInfo(t *testing.T) {
 	assert.Equal(t, expected, api.LogInfo())
 }
 
-func TestEosioV2JsonFailure(t *testing.T) {
+func TestEosioV2_JsonFailure(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		_, err := res.Write([]byte(`!//{invalid-json}!##`))
 		assert.NoError(t, err)
@@ -45,7 +45,7 @@ func TestEosioV2JsonFailure(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV2HTTP500Failed(t *testing.T) {
+func TestEosioV2_HTTP500Failed(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		res.WriteHeader(500)
 		_, err := res.Write([]byte(`{}`))
@@ -61,7 +61,7 @@ func TestEosioV2HTTP500Failed(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV2LaggingUp(t *testing.T) {
+func TestEosioV2_LaggingUp(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v2/health" {
 			info := `{
@@ -108,7 +108,7 @@ func TestEosioV2LaggingUp(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV2LaggingDown(t *testing.T) {
+func TestEosioV2_LaggingDown(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v2/health" {
 			info := `{
@@ -155,7 +155,7 @@ func TestEosioV2LaggingDown(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV2LaggingESInFutureUP(t *testing.T) {
+func TestEosioV2_LaggingESInFutureUP(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v2/health" {
 			info := `{
@@ -202,7 +202,7 @@ func TestEosioV2LaggingESInFutureUP(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV2LaggingESInFutureDown(t *testing.T) {
+func TestEosioV2_LaggingESInFutureDown(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v2/health" {
 			info := `{
@@ -249,7 +249,7 @@ func TestEosioV2LaggingESInFutureDown(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV2ElasticsFailed(t *testing.T) {
+func TestEosioV2_ElasticsFailed(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v2/health" {
 			info := `{
@@ -296,7 +296,7 @@ func TestEosioV2ElasticsFailed(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV2NodeosRPCFailed(t *testing.T) {
+func TestEosioV2_NodeosRPCFailed(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v2/health" {
 			info := `{
@@ -343,7 +343,7 @@ func TestEosioV2NodeosRPCFailed(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV2ElasticsNodeosRPCFailed(t *testing.T) {
+func TestEosioV2_ElasticsNodeosRPCFailed(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v2/health" {
 			info := `{

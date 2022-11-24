@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestDebugApiFactory(t *testing.T) {
+func TestDebugApi_Factory(t *testing.T) {
 	api := DebugApiFactory(ApiArguments{
 		Url:       "up",
 		Host:      "host",

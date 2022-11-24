@@ -2,7 +2,7 @@ package utils
 
 import "testing"
 
-func TestJsonGetInt64(t *testing.T) {
+func TestJson_GetInt64(t *testing.T) {
 	tests := []struct {
 		name  string
 		input interface{}
