@@ -45,7 +45,8 @@ func TestAtomicAssetSetTime(t *testing.T) {
 
 func TestAtomicAssetJsonFailure(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-		res.Write([]byte(`!//{invalid-json}!##`))
+		_, err := res.Write([]byte(`!//{invalid-json}!##`))
+		assert.NoError(t, err)
 	}))
 
 	api := NewAtomicAsset(srv.URL, 120)
@@ -59,7 +60,8 @@ func TestAtomicAssetHTTP500Down(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		res.Header().Add("Content-type", "application/json; charset=utf-8")
 		res.WriteHeader(500)
-		res.Write([]byte(`{}`))
+		_, err := res.Write([]byte(`{}`))
+		assert.NoError(t, err)
 	}))
 
 	api := NewAtomicAsset(srv.URL, 120)
@@ -94,7 +96,8 @@ func TestAtomicAssetLaggingUp(t *testing.T) {
             }`
 
 			res.Header().Add("Content-type", "application/json; charset=utf-8")
-			res.Write([]byte(payload))
+			_, err := res.Write([]byte(payload))
+			assert.NoError(t, err)
 		}
 	}))
 
@@ -132,7 +135,8 @@ func TestAtomicAssetLaggingDown(t *testing.T) {
             }`
 
 			res.Header().Add("Content-type", "application/json; charset=utf-8")
-			res.Write([]byte(payload))
+			_, err := res.Write([]byte(payload))
+			assert.NoError(t, err)
 		}
 	}))
 
@@ -170,7 +174,8 @@ func TestAtomicAssetInFutureUp(t *testing.T) {
             }`
 
 			res.Header().Add("Content-type", "application/json; charset=utf-8")
-			res.Write([]byte(payload))
+			_, err := res.Write([]byte(payload))
+			assert.NoError(t, err)
 		}
 	}))
 
@@ -208,7 +213,8 @@ func TestAtomicAssetInFutureDown(t *testing.T) {
             }`
 
 			res.Header().Add("Content-type", "application/json; charset=utf-8")
-			res.Write([]byte(payload))
+			_, err := res.Write([]byte(payload))
+			assert.NoError(t, err)
 		}
 	}))
 
@@ -246,7 +252,8 @@ func TestAtomicAssetRedisDown(t *testing.T) {
             }`
 
 			res.Header().Add("Content-type", "application/json; charset=utf-8")
-			res.Write([]byte(payload))
+			_, err := res.Write([]byte(payload))
+			assert.NoError(t, err)
 		}
 	}))
 
@@ -284,7 +291,8 @@ func TestAtomicAssetPostgresDown(t *testing.T) {
             }`
 
 			res.Header().Add("Content-type", "application/json; charset=utf-8")
-			res.Write([]byte(payload))
+			_, err := res.Write([]byte(payload))
+			assert.NoError(t, err)
 		}
 	}))
 
