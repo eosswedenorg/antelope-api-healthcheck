@@ -1,6 +1,6 @@
 
 PROGRAM_NAME 	= eosio-api-healthcheck
-export PROGRAM_VERSION = 1.2.5
+export PROGRAM_VERSION = 1.2.6
 
 GO			= go
 PREFIX 		= /usr/local

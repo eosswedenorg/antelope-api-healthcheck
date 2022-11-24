@@ -1,3 +1,17 @@
+eosio-api-healthcheck (1.2.6) unstable; urgency=medium
+
+  * Go Packages
+   - Upgrade github.com/stretchr/testify to v1.8.1
+   - Upgrade github.com/eosswedenorg-go/eosapi to v0.1.3
+   - Upgrade github.com/inconshreveable/log15 to v0.0.0-20221122034931-555555054819
+   - Upgrade github.com/eosswedenorg-go/tcp_server to v0.2.1
+
+  * Eosio v1/v2 API's
+   - HTTP Errors are now handled by `eosapi`
+     This changes the log message abit and will report "Fail" instead of "Down" to haproxy.
+
+ -- Henrik Hautakoski <henrik@eossweden.org>  Thu, 24 Nov 2022 14:57:00 +0100
+
 eosio-api-healthcheck (1.2.5) unstable; urgency=medium
 
   * Logging
