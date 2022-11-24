@@ -30,6 +30,8 @@ github.com/eosswedenorg-go/pid v1.0.1 h1:W4AEnnNwb041SpNR1uTZ/KbJ0OTA5eqiqIR1Q5A
 github.com/eosswedenorg-go/pid v1.0.1/go.mod h1:wiOB/JXGt4YA3+T0j0xmCGSc3Jxzb7Ti/Ftli1fgWu4=
 github.com/eosswedenorg-go/tcp_server v0.2.0 h1:0EHNmdrOGgYuDE+yT6N1xDdZ1Amc18w6tczDnaHdJL8=
 github.com/eosswedenorg-go/tcp_server v0.2.0/go.mod h1:3+3QlVIS8UY6eGDP78lg2km6/XFEk/JLbwOr5MfwW/g=
+github.com/eosswedenorg-go/tcp_server v0.2.1 h1:xu+b/HfW6cpatBClzZYcM4D7V0u9pqlYVYlIVfntjtI=
+github.com/eosswedenorg-go/tcp_server v0.2.1/go.mod h1:3+3QlVIS8UY6eGDP78lg2km6/XFEk/JLbwOr5MfwW/g=
 github.com/flynn/go-shlex v0.0.0-20150515145356-3f9db97f8568/go.mod h1:xEzjJPgXI435gkrCt3MPfRiAkVrwSbHsst4LCFVfpJc=
 github.com/francoispqt/gojay v1.2.13/go.mod h1:ehT5mTG4ua4581f1++1WLG0vPdaA9HaiDsoyrBGkyDY=
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
