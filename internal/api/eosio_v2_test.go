@@ -34,7 +34,8 @@ func TestEosioV2LogInfo(t *testing.T) {
 
 func TestEosioV2JsonFailure(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-		res.Write([]byte(`!//{invalid-json}!##`))
+		_, err := res.Write([]byte(`!//{invalid-json}!##`))
+		assert.NoError(t, err)
 	}))
 
 	api := NewEosioV2(srv.URL, "", 120)
@@ -47,7 +48,8 @@ func TestEosioV2JsonFailure(t *testing.T) {
 func TestEosioV2HTTP500Failed(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		res.WriteHeader(500)
-		res.Write([]byte(`{}`))
+		_, err := res.Write([]byte(`{}`))
+		assert.NoError(t, err)
 	}))
 
 	api := NewEosioV2(srv.URL, "", 120)
@@ -92,7 +94,8 @@ func TestEosioV2LaggingUp(t *testing.T) {
                 ]
             }`
 
-			res.Write([]byte(info))
+			_, err := res.Write([]byte(info))
+			assert.NoError(t, err)
 		}
 	}))
 
@@ -138,7 +141,8 @@ func TestEosioV2LaggingDown(t *testing.T) {
                 ]
             }`
 
-			res.Write([]byte(info))
+			_, err := res.Write([]byte(info))
+			assert.NoError(t, err)
 		}
 	}))
 
@@ -184,7 +188,8 @@ func TestEosioV2LaggingESInFutureUP(t *testing.T) {
                 ]
             }`
 
-			res.Write([]byte(info))
+			_, err := res.Write([]byte(info))
+			assert.NoError(t, err)
 		}
 	}))
 
@@ -230,7 +235,8 @@ func TestEosioV2LaggingESInFutureDown(t *testing.T) {
                 ]
             }`
 
-			res.Write([]byte(info))
+			_, err := res.Write([]byte(info))
+			assert.NoError(t, err)
 		}
 	}))
 
@@ -276,7 +282,8 @@ func TestEosioV2ElasticsFailed(t *testing.T) {
                 ]
             }`
 
-			res.Write([]byte(info))
+			_, err := res.Write([]byte(info))
+			assert.NoError(t, err)
 		}
 	}))
 
@@ -322,7 +329,8 @@ func TestEosioV2NodeosRPCFailed(t *testing.T) {
                 ]
             }`
 
-			res.Write([]byte(info))
+			_, err := res.Write([]byte(info))
+			assert.NoError(t, err)
 		}
 	}))
 
@@ -358,7 +366,8 @@ func TestEosioV2ElasticsNodeosRPCFailed(t *testing.T) {
                 ]
             }`
 
-			res.Write([]byte(info))
+			_, err := res.Write([]byte(info))
+			assert.NoError(t, err)
 		}
 	}))
 
