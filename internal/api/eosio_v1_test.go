@@ -46,7 +46,8 @@ func TestEosioV1SetTime(t *testing.T) {
 
 func TestEosioV1JsonFailure(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-		res.Write([]byte(`!//{invalid-json}!##`))
+		_, err := res.Write([]byte(`!//{invalid-json}!##`))
+		assert.NoError(t, err)
 	}))
 
 	api := NewEosioV1(srv.URL, "", 120)
@@ -59,7 +60,8 @@ func TestEosioV1JsonFailure(t *testing.T) {
 func TestEosioV1HTTP500Failed(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		res.WriteHeader(500)
-		res.Write([]byte(`{}`))
+		_, err := res.Write([]byte(`{}`))
+		assert.NoError(t, err)
 	}))
 
 	api := NewEosioV1(srv.URL, "", 120)
@@ -80,7 +82,8 @@ func TestEosioV1LaggingUp(t *testing.T) {
                 "head_block_time": "2022-02-24T13:37:00"
             }`
 
-			res.Write([]byte(info))
+			_, err := res.Write([]byte(info))
+			assert.NoError(t, err)
 		}
 	}))
 
@@ -103,7 +106,8 @@ func TestEosioV1LaggingDown(t *testing.T) {
                 "head_block_time": "2018-01-01T13:37:01"
             }`
 
-			res.Write([]byte(info))
+			_, err := res.Write([]byte(info))
+			assert.NoError(t, err)
 		}
 	}))
 
@@ -126,7 +130,8 @@ func TestEosioV1TimeInFutureUP(t *testing.T) {
                 "head_block_time": "2020-09-22T09:32:00"
             }`
 
-			res.Write([]byte(info))
+			_, err := res.Write([]byte(info))
+			assert.NoError(t, err)
 		}
 	}))
 
@@ -149,7 +154,8 @@ func TestEosioV1TimeInFutureDown(t *testing.T) {
                 "head_block_time": "2019-04-14T12:02:01"
             }`
 
-			res.Write([]byte(info))
+			_, err := res.Write([]byte(info))
+			assert.NoError(t, err)
 		}
 	}))
 
