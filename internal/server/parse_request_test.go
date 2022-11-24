@@ -76,25 +76,6 @@ func TestParseRequest_EosioV2Full(t *testing.T) {
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
-// Old contract api (alias for backward compatibility)
-// --------------------------------
-
-func TestParseRequest_OldContract(t *testing.T) {
-	expected := api.NewAtomicAsset("http://api.contract.example.com", 5)
-
-	api, err := ParseRequest("contract|http://api.contract.example.com")
-	assert.NoError(t, err)
-	assert.Equal(t, expected.LogInfo(), api.LogInfo())
-}
-
-func TestParseRequest_OldContractWithBlockTime(t *testing.T) {
-	expected := api.NewAtomicAsset("http://api.contract.example.com", 256)
-
-	api, err := ParseRequest("contract|http://api.contract.example.com|512")
-	assert.NoError(t, err)
-	assert.Equal(t, expected.LogInfo(), api.LogInfo())
-}
-
 // AtomicAsset
 // --------------------------------
 
