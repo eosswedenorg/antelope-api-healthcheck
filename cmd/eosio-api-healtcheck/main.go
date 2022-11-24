@@ -176,12 +176,17 @@ func main() {
 	addr = argv_listen_addr()
 
 	// Start listening to TCP Connections
-	err := server.Start(addr)
+	srv, err := server.Start(addr)
 	if err == nil {
 		logger.Info("TCP Server started", "addr", addr)
 
 		// Run the signal event loop.
 		signalEventLoop()
+
+		err = srv.Close()
+		if err != nil {
+			logger.Error("Failed to close server", "error", err)
+		}
 	} else {
 		log.Error("Failed to start tcp server", "error", err)
 	}
