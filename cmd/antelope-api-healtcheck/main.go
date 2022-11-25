@@ -7,8 +7,8 @@ import (
 	"syscall"
 
 	"github.com/eosswedenorg-go/pid"
-	"github.com/eosswedenorg/eosio-api-healthcheck/internal/server"
-	"github.com/eosswedenorg/eosio-api-healthcheck/internal/utils"
+	"github.com/eosswedenorg/antelope-api-healthcheck/internal/server"
+	"github.com/eosswedenorg/antelope-api-healthcheck/internal/utils"
 	log "github.com/inconshreveable/log15"
 	"github.com/pborman/getopt/v2"
 )

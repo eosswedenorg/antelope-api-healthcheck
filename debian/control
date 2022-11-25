@@ -1,19 +1,19 @@
-Source: eosio-api-healthcheck
+Source: antelope-api-healthcheck
 Section: introspection
 Build-Depends:
  debhelper (>= 11)
 Standards-Version: 4.5.0
-Vcs-Git: https://github.com/eosswedenorg/eos-api-healthcheck.git
-Vcs-Browser: https://github.com/eosswedenorg/eos-api-healthcheck
+Vcs-Git: https://github.com/eosswedenorg/antelope-api-healthcheck.git
+Vcs-Browser: https://github.com/eosswedenorg/antelope-api-healthcheck
 Priority: optional
 Maintainer: Henrik Hautakoski <henrik@eossweden.org>
 
-Package: eosio-api-healthcheck
+Package: antelope-api-healthcheck
 Section: introspection
 Priority: optional
 Architecture: amd64
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Homepage: https://github.com/eosswedenorg/eos-api-healthcheck
-Description: HAproxy healthcheck program for EOSIO API.
+Homepage: https://github.com/eosswedenorg/antelope-api-healthcheck
+Description: HAproxy healthcheck program for Leap API.
  This package provides all the files needed to
- run the eos-api-healthcheck TCP Server
+ run the antelope-api-healthcheck TCP Server

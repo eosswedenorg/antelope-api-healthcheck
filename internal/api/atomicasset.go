@@ -5,7 +5,7 @@ import (
 
 	"github.com/eosswedenorg-go/atomicasset"
 	"github.com/eosswedenorg-go/haproxy/agentcheck"
-	"github.com/eosswedenorg/eosio-api-healthcheck/internal/utils"
+	"github.com/eosswedenorg/antelope-api-healthcheck/internal/utils"
 )
 
 type AtomicAsset struct {

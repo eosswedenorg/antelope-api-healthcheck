@@ -4,4 +4,4 @@
 
 # Command line flags to pass to {{ PROGRAM_NAME }}
 # Positional agruments are IP to listen to, then port number.
-EOSIO_API_HEALTCHECK_OPTS="--log-format=logfmt 127.0.0.1 1337"
+ANTELOPE_API_HEALTCHECK_OPTS="--log-format=logfmt 127.0.0.1 1337"

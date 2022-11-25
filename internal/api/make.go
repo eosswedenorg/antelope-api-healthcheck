@@ -6,8 +6,8 @@ import (
 
 func Make(name string, args ApiArguments) (ApiInterface, error) {
 	factories := map[string]Factory{
-		"v1":     EosioV1Factory,
-		"v2":     EosioV2Factory,
+		"v1":     AntelopeV1Factory,
+		"v2":     AntelopeV2Factory,
 		"atomic": AtomicAssetFactory,
 		"debug":  DebugApiFactory,
 	}

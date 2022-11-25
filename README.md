@@ -1,6 +1,6 @@
-# EOSIO API Healthcheck for HAProxy
+# Antelope API Healthcheck for HAProxy
 
-This program implements EOSIO healthcheck for HAProxy over TCP.
+This program implements Antelope healthcheck for HAProxy over TCP.
 
 ## Compiling
 

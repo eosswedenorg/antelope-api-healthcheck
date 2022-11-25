@@ -10,33 +10,33 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestEosioV1_Factory(t *testing.T) {
-	api := EosioV1Factory(ApiArguments{
+func TestAntelopeV1_Factory(t *testing.T) {
+	api := AntelopeV1Factory(ApiArguments{
 		Url:       "https://api.v1.example.com",
 		Host:      "host.example.com",
 		NumBlocks: 120,
 	})
 
-	expected := NewEosioV1("https://api.v1.example.com", "host.example.com", 60)
+	expected := NewAntelopeV1("https://api.v1.example.com", "host.example.com", 60)
 
 	assert.IsType(t, expected, api)
-	assert.Equal(t, expected.client.Url, api.(EosioV1).client.Url)
-	assert.Equal(t, expected.client.Host, api.(EosioV1).client.Host)
-	assert.Equal(t, expected.block_time, api.(EosioV1).block_time)
+	assert.Equal(t, expected.client.Url, api.(AntelopeV1).client.Url)
+	assert.Equal(t, expected.client.Host, api.(AntelopeV1).client.Host)
+	assert.Equal(t, expected.block_time, api.(AntelopeV1).block_time)
 }
 
-func TestEosioV1_LogInfo(t *testing.T) {
-	api := NewEosioV1("https://api.v1.example.com", "host.example.com", 120)
+func TestAntelopeV1_LogInfo(t *testing.T) {
+	api := NewAntelopeV1("https://api.v1.example.com", "host.example.com", 120)
 
-	expected := LogParams{"type", "eosio-v1", "url", "https://api.v1.example.com", "host", "host.example.com", "block_time", float64(120)}
+	expected := LogParams{"type", "antelope-v1", "url", "https://api.v1.example.com", "host", "host.example.com", "block_time", float64(120)}
 
 	assert.Equal(t, expected, api.LogInfo())
 }
 
-func TestEosioV1_SetTime(t *testing.T) {
+func TestAntelopeV1_SetTime(t *testing.T) {
 	expected := time.Date(2022, 2, 24, 13, 38, 0, 0, time.UTC)
 
-	api := NewEosioV1("", "", 60)
+	api := NewAntelopeV1("", "", 60)
 	// Assert that time is NOW (+-10 seconds)
 	assert.InDelta(t, api.GetTime().Unix(), time.Now().In(time.UTC).Unix(), float64(10))
 
@@ -44,27 +44,27 @@ func TestEosioV1_SetTime(t *testing.T) {
 	assert.Equal(t, expected, api.GetTime())
 }
 
-func TestEosioV1_JsonFailure(t *testing.T) {
+func TestAntelopeV1_JsonFailure(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		_, err := res.Write([]byte(`!//{invalid-json}!##`))
 		assert.NoError(t, err)
 	}))
 
-	api := NewEosioV1(srv.URL, "", 120)
+	api := NewAntelopeV1(srv.URL, "", 120)
 	check, _ := api.Call()
 
 	expected := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV1_HTTP500Failed(t *testing.T) {
+func TestAntelopeV1_HTTP500Failed(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		res.WriteHeader(500)
 		_, err := res.Write([]byte(`{}`))
 		assert.NoError(t, err)
 	}))
 
-	api := NewEosioV1(srv.URL, "", 120)
+	api := NewAntelopeV1(srv.URL, "", 120)
 	check, status := api.Call()
 
 	assert.Equal(t, "server returned HTTP 500 Internal Server Error", status)
@@ -73,7 +73,7 @@ func TestEosioV1_HTTP500Failed(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV1_LaggingUp(t *testing.T) {
+func TestAntelopeV1_LaggingUp(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v1/chain/get_info" {
 			info := `{
@@ -87,7 +87,7 @@ func TestEosioV1_LaggingUp(t *testing.T) {
 		}
 	}))
 
-	api := NewEosioV1(srv.URL, "", 60)
+	api := NewAntelopeV1(srv.URL, "", 60)
 	api.SetTime(time.Date(2022, 2, 24, 13, 38, 0, 0, time.UTC))
 	check, status := api.Call()
 
@@ -97,7 +97,7 @@ func TestEosioV1_LaggingUp(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV1_LaggingDown(t *testing.T) {
+func TestAntelopeV1_LaggingDown(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v1/chain/get_info" {
 			info := `{
@@ -111,7 +111,7 @@ func TestEosioV1_LaggingDown(t *testing.T) {
 		}
 	}))
 
-	api := NewEosioV1(srv.URL, "", 60)
+	api := NewAntelopeV1(srv.URL, "", 60)
 	api.SetTime(time.Date(2018, time.January, 1, 13, 38, 2, 0, time.UTC))
 	check, status := api.Call()
 
@@ -121,7 +121,7 @@ func TestEosioV1_LaggingDown(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV1_TimeInFutureUP(t *testing.T) {
+func TestAntelopeV1_TimeInFutureUP(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v1/chain/get_info" {
 			info := `{
@@ -135,7 +135,7 @@ func TestEosioV1_TimeInFutureUP(t *testing.T) {
 		}
 	}))
 
-	api := NewEosioV1(srv.URL, "", 120)
+	api := NewAntelopeV1(srv.URL, "", 120)
 	api.SetTime(time.Date(2020, 9, 22, 9, 30, 0, 0, time.UTC))
 	check, status := api.Call()
 
@@ -145,7 +145,7 @@ func TestEosioV1_TimeInFutureUP(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV1_TimeInFutureDown(t *testing.T) {
+func TestAntelopeV1_TimeInFutureDown(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v1/chain/get_info" {
 			info := `{
@@ -159,7 +159,7 @@ func TestEosioV1_TimeInFutureDown(t *testing.T) {
 		}
 	}))
 
-	api := NewEosioV1(srv.URL, "", 120)
+	api := NewAntelopeV1(srv.URL, "", 120)
 	api.SetTime(time.Date(2019, time.April, 14, 12, 0, 0, 0, time.UTC))
 	check, status := api.Call()
 

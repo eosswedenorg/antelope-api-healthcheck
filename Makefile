@@ -1,5 +1,5 @@
 
-PROGRAM_NAME 	= eosio-api-healthcheck
+PROGRAM_NAME 	= antelope-api-healthcheck
 export PROGRAM_VERSION = 1.2.6
 
 GO			= go
@@ -16,7 +16,7 @@ all: build
 build: build/$(PROGRAM_NAME)
 
 build/$(PROGRAM_NAME) : $(SOURCES)
-	$(GO) build -o $@ $(GOBUILDFLAGS) cmd/eosio-api-healtcheck/main.go
+	$(GO) build -o $@ $(GOBUILDFLAGS) cmd/antelope-api-healtcheck/main.go
 
 test:
 	$(GO) test -v ./...

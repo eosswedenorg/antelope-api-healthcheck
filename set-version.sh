@@ -48,7 +48,7 @@ if [ ${WRITE_DEBCHANGES} -ne 0 ]; then
     # Update debian changelog
     ex debian/changelog <<EOF
 1 insert
-eosio-api-healthcheck (${VERSION}) unstable; urgency=medium
+antelope-api-healthcheck (${VERSION}) unstable; urgency=medium
 
   *
 

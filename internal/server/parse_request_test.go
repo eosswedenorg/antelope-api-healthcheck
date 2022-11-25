@@ -3,7 +3,7 @@ package server
 import (
 	"testing"
 
-	"github.com/eosswedenorg/eosio-api-healthcheck/internal/api"
+	"github.com/eosswedenorg/antelope-api-healthcheck/internal/api"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -21,54 +21,54 @@ func TestParseRequest_WithInvalidParams(t *testing.T) {
 	assert.Nil(t, api)
 }
 
-//  EosioV1
+//  AntelopeV1
 // --------------------------------
 
-func TestParseRequest_EosioV1(t *testing.T) {
-	expected := api.NewEosioV1("http://api.example.com", "", 5)
+func TestParseRequest_AntelopeV1(t *testing.T) {
+	expected := api.NewAntelopeV1("http://api.example.com", "", 5)
 
 	api, err := ParseRequest("v1|http://api.example.com")
 	assert.NoError(t, err)
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
-func TestParseRequest_EosioV1WithBlockNumber(t *testing.T) {
-	expected := api.NewEosioV1("http://api.example.com", "", 1000)
+func TestParseRequest_AntelopeV1WithBlockNumber(t *testing.T) {
+	expected := api.NewAntelopeV1("http://api.example.com", "", 1000)
 
 	api, err := ParseRequest("v1|http://api.example.com|2000")
 	assert.NoError(t, err)
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
-func TestParseRequest_EosioV1Full(t *testing.T) {
-	expected := api.NewEosioV1("http://api.example.com", "http://host.example.com", 500)
+func TestParseRequest_AntelopeV1Full(t *testing.T) {
+	expected := api.NewAntelopeV1("http://api.example.com", "http://host.example.com", 500)
 
 	api, err := ParseRequest("v1|http://api.example.com|1000|http://host.example.com")
 	assert.NoError(t, err)
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
-//  EosioV2
+//  AntelopeV2
 // --------------------------------
 
-func TestParseRequest_EosioV2(t *testing.T) {
-	expected := api.NewEosioV2("http://api.v2.example.com", "", 10)
+func TestParseRequest_AntelopeV2(t *testing.T) {
+	expected := api.NewAntelopeV2("http://api.v2.example.com", "", 10)
 
 	api, err := ParseRequest("v2|http://api.v2.example.com")
 	assert.NoError(t, err)
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
-func TestParseRequest_EosioV2WithOffset(t *testing.T) {
-	expected := api.NewEosioV2("http://api.v2.example.com", "", 1000)
+func TestParseRequest_AntelopeV2WithOffset(t *testing.T) {
+	expected := api.NewAntelopeV2("http://api.v2.example.com", "", 1000)
 
 	api, err := ParseRequest("v2|http://api.v2.example.com|1000")
 	assert.NoError(t, err)
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
-func TestParseRequest_EosioV2Full(t *testing.T) {
-	expected := api.NewEosioV2("http://api.v2.example.com", "http://host.example.com", 1000)
+func TestParseRequest_AntelopeV2Full(t *testing.T) {
+	expected := api.NewAntelopeV2("http://api.v2.example.com", "http://host.example.com", 1000)
 
 	api, err := ParseRequest("v2|http://api.v2.example.com|1000|http://host.example.com")
 	assert.NoError(t, err)

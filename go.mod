@@ -1,4 +1,4 @@
-module github.com/eosswedenorg/eosio-api-healthcheck
+module github.com/eosswedenorg/antelope-api-healthcheck
 
 go 1.16
 

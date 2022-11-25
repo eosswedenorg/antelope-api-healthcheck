@@ -5,7 +5,7 @@ import (
 
 	"github.com/eosswedenorg-go/haproxy/agentcheck"
 	"github.com/eosswedenorg-go/tcp_server"
-	"github.com/eosswedenorg/eosio-api-healthcheck/internal/api"
+	"github.com/eosswedenorg/antelope-api-healthcheck/internal/api"
 	log "github.com/inconshreveable/log15"
 )
 

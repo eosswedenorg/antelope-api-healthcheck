@@ -1,5 +1,5 @@
 #!/bin/bash
 
 # Info
-PROGRAM_NAME=eosio-api-healthcheck
-PROGRAM_DESCRIPTION="HAproxy healthcheck program for EOSIO API."
+PROGRAM_NAME=antelope-api-healthcheck
+PROGRAM_DESCRIPTION="HAproxy healthcheck program for Antelope Leap API."

@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: eosio-api-healthcheck
+Upstream-Name: antelope-api-healthcheck
 Upstream-Contact: Henrik Hautakoski <henrik@eossweden.org>
-Source: https://github.com/eosswedenorg/eos-api-healthcheck.git
+Source: https://github.com/eosswedenorg/antelope-api-healthcheck.git
 
 Files: *
 Copyright: 2020-2022 Sw/eden

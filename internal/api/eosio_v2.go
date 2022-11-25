@@ -5,20 +5,20 @@ import (
 
 	"github.com/eosswedenorg-go/eosapi"
 	"github.com/eosswedenorg-go/haproxy/agentcheck"
-	"github.com/eosswedenorg/eosio-api-healthcheck/internal/utils"
+	"github.com/eosswedenorg/antelope-api-healthcheck/internal/utils"
 )
 
-type EosioV2 struct {
+type AntelopeV2 struct {
 	client eosapi.Client
 	offset int64
 }
 
-func EosioV2Factory(args ApiArguments) ApiInterface {
-	return NewEosioV2(args.Url, args.Host, int64(args.NumBlocks))
+func AntelopeV2Factory(args ApiArguments) ApiInterface {
+	return NewAntelopeV2(args.Url, args.Host, int64(args.NumBlocks))
 }
 
-func NewEosioV2(url string, host string, offset int64) EosioV2 {
-	api := EosioV2{
+func NewAntelopeV2(url string, host string, offset int64) AntelopeV2 {
+	api := AntelopeV2{
 		client: *eosapi.New(url),
 		offset: offset,
 	}
@@ -28,9 +28,9 @@ func NewEosioV2(url string, host string, offset int64) EosioV2 {
 	return api
 }
 
-func (e EosioV2) LogInfo() LogParams {
+func (e AntelopeV2) LogInfo() LogParams {
 	p := LogParams{
-		"type", "eosio-v2",
+		"type", "antelope-v2",
 		"url", e.client.Url,
 	}
 
@@ -43,7 +43,7 @@ func (e EosioV2) LogInfo() LogParams {
 	return p
 }
 
-func (e EosioV2) Call() (agentcheck.Response, string) {
+func (e AntelopeV2) Call() (agentcheck.Response, string) {
 	health, err := e.client.GetHealth()
 	if err != nil {
 		resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")

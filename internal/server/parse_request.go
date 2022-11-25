@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/eosswedenorg/eosio-api-healthcheck/internal/api"
+	"github.com/eosswedenorg/antelope-api-healthcheck/internal/api"
 )
 
 func ParseArguments(args []string) api.ApiArguments {

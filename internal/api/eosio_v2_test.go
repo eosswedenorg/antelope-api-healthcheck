@@ -9,50 +9,50 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestEosioV2_Factory(t *testing.T) {
-	api := EosioV2Factory(ApiArguments{
+func TestAntelopeV2_Factory(t *testing.T) {
+	api := AntelopeV2Factory(ApiArguments{
 		Url:       "https://api.v2.example.com",
 		Host:      "host.example.com",
 		NumBlocks: 120,
 	})
 
-	expected := NewEosioV2("https://api.v2.example.com", "host.example.com", 120)
+	expected := NewAntelopeV2("https://api.v2.example.com", "host.example.com", 120)
 
 	assert.IsType(t, expected, api)
-	assert.Equal(t, expected.client.Url, api.(EosioV2).client.Url)
-	assert.Equal(t, expected.client.Host, api.(EosioV2).client.Host)
-	assert.Equal(t, expected.offset, api.(EosioV2).offset)
+	assert.Equal(t, expected.client.Url, api.(AntelopeV2).client.Url)
+	assert.Equal(t, expected.client.Host, api.(AntelopeV2).client.Host)
+	assert.Equal(t, expected.offset, api.(AntelopeV2).offset)
 }
 
-func TestEosioV2_LogInfo(t *testing.T) {
-	api := NewEosioV2("https://api.v2.example.com", "host.example.com", 120)
+func TestAntelopeV2_LogInfo(t *testing.T) {
+	api := NewAntelopeV2("https://api.v2.example.com", "host.example.com", 120)
 
-	expected := LogParams{"type", "eosio-v2", "url", "https://api.v2.example.com", "host", "host.example.com", "offset", int64(120)}
+	expected := LogParams{"type", "antelope-v2", "url", "https://api.v2.example.com", "host", "host.example.com", "offset", int64(120)}
 
 	assert.Equal(t, expected, api.LogInfo())
 }
 
-func TestEosioV2_JsonFailure(t *testing.T) {
+func TestAntelopeV2_JsonFailure(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		_, err := res.Write([]byte(`!//{invalid-json}!##`))
 		assert.NoError(t, err)
 	}))
 
-	api := NewEosioV2(srv.URL, "", 120)
+	api := NewAntelopeV2(srv.URL, "", 120)
 	check, _ := api.Call()
 
 	expected := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV2_HTTP500Failed(t *testing.T) {
+func TestAntelopeV2_HTTP500Failed(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		res.WriteHeader(500)
 		_, err := res.Write([]byte(`{}`))
 		assert.NoError(t, err)
 	}))
 
-	api := NewEosioV2(srv.URL, "", 120)
+	api := NewAntelopeV2(srv.URL, "", 120)
 	check, status := api.Call()
 
 	assert.Equal(t, "server returned HTTP 500 Internal Server Error", status)
@@ -61,7 +61,7 @@ func TestEosioV2_HTTP500Failed(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV2_LaggingUp(t *testing.T) {
+func TestAntelopeV2_LaggingUp(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v2/health" {
 			info := `{
@@ -99,7 +99,7 @@ func TestEosioV2_LaggingUp(t *testing.T) {
 		}
 	}))
 
-	api := NewEosioV2(srv.URL, "", 500)
+	api := NewAntelopeV2(srv.URL, "", 500)
 	check, status := api.Call()
 
 	assert.Equal(t, "OK", status)
@@ -108,7 +108,7 @@ func TestEosioV2_LaggingUp(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV2_LaggingDown(t *testing.T) {
+func TestAntelopeV2_LaggingDown(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v2/health" {
 			info := `{
@@ -146,7 +146,7 @@ func TestEosioV2_LaggingDown(t *testing.T) {
 		}
 	}))
 
-	api := NewEosioV2(srv.URL, "", 499)
+	api := NewAntelopeV2(srv.URL, "", 499)
 	check, status := api.Call()
 
 	assert.Equal(t, "Taking offline because Elastic is 500 blocks behind", status)
@@ -155,7 +155,7 @@ func TestEosioV2_LaggingDown(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV2_LaggingESInFutureUP(t *testing.T) {
+func TestAntelopeV2_LaggingESInFutureUP(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v2/health" {
 			info := `{
@@ -193,7 +193,7 @@ func TestEosioV2_LaggingESInFutureUP(t *testing.T) {
 		}
 	}))
 
-	api := NewEosioV2(srv.URL, "", 200)
+	api := NewAntelopeV2(srv.URL, "", 200)
 	check, status := api.Call()
 
 	assert.Equal(t, "OK", status)
@@ -202,7 +202,7 @@ func TestEosioV2_LaggingESInFutureUP(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV2_LaggingESInFutureDown(t *testing.T) {
+func TestAntelopeV2_LaggingESInFutureDown(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v2/health" {
 			info := `{
@@ -240,7 +240,7 @@ func TestEosioV2_LaggingESInFutureDown(t *testing.T) {
 		}
 	}))
 
-	api := NewEosioV2(srv.URL, "", 200)
+	api := NewAntelopeV2(srv.URL, "", 200)
 	check, status := api.Call()
 
 	assert.Equal(t, "Taking offline because Elastic is 201 blocks into the future", status)
@@ -249,7 +249,7 @@ func TestEosioV2_LaggingESInFutureDown(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV2_ElasticsFailed(t *testing.T) {
+func TestAntelopeV2_ElasticsFailed(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v2/health" {
 			info := `{
@@ -287,7 +287,7 @@ func TestEosioV2_ElasticsFailed(t *testing.T) {
 		}
 	}))
 
-	api := NewEosioV2(srv.URL, "", 500)
+	api := NewAntelopeV2(srv.URL, "", 500)
 	check, status := api.Call()
 
 	assert.Equal(t, "Failed to get Elasticsearch and/or nodeos block numbers (es: 0, eos: 263148621)", status)
@@ -296,7 +296,7 @@ func TestEosioV2_ElasticsFailed(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV2_NodeosRPCFailed(t *testing.T) {
+func TestAntelopeV2_NodeosRPCFailed(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v2/health" {
 			info := `{
@@ -334,7 +334,7 @@ func TestEosioV2_NodeosRPCFailed(t *testing.T) {
 		}
 	}))
 
-	api := NewEosioV2(srv.URL, "", 500)
+	api := NewAntelopeV2(srv.URL, "", 500)
 	check, status := api.Call()
 
 	assert.Equal(t, "Failed to get Elasticsearch and/or nodeos block numbers (es: 263148121, eos: 0)", status)
@@ -343,7 +343,7 @@ func TestEosioV2_NodeosRPCFailed(t *testing.T) {
 	assert.Equal(t, expected, check)
 }
 
-func TestEosioV2_ElasticsNodeosRPCFailed(t *testing.T) {
+func TestAntelopeV2_ElasticsNodeosRPCFailed(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.String() == "/v2/health" {
 			info := `{
@@ -371,7 +371,7 @@ func TestEosioV2_ElasticsNodeosRPCFailed(t *testing.T) {
 		}
 	}))
 
-	api := NewEosioV2(srv.URL, "", 500)
+	api := NewAntelopeV2(srv.URL, "", 500)
 	check, status := api.Call()
 
 	assert.Equal(t, "Failed to get Elasticsearch and/or nodeos block numbers (es: 0, eos: 0)", status)
