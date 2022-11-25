@@ -1,3 +1,31 @@
+antelope-api-healthcheck (1.3.0) unstable; urgency=medium
+
+  Project and binary renamed from eosio-api-healthcheck to antelope-api-healthcheck
+
+  [ BREAKING Change: Config files ]
+
+  * Debian /etc/sysconfig/eosio-api-healthcheck
+    - File renamed to /etc/sysconfig/antelope-api-healthcheck
+    - EOSIO_API_HEALTCHECK_OPTS changed to ANTELOPE_API_HEALTCHECK_OPTS
+
+  * FreeBSD /etc/rc.conf
+    - eosio_api_healthcheck_args changed to antelope_api_healthcheck_args
+    - eosio_api_healthcheck_logfile changed to antelope_api_healthcheck_logfile
+
+  [ BREAKING Change: API ]
+
+  * Requests using "contract" as api is invalid from
+    this release and should use "atomic" instead.
+
+    For example: "contract|https://api.domain.com" should be changed to "atomic|https://api.domain.com"
+
+  [ Misc ]
+
+  * Go Packages
+   - Upgrade github.com/eosswedenorg-go/eosapi to github.com/eosswedenorg-go/leapapi v0.2.0
+
+ -- Henrik Hautakoski <henrik@eossweden.org>  Fri, 25 Nov 2022 12:40:02 +0100
+
 eosio-api-healthcheck (1.2.6) unstable; urgency=medium
 
   * Go Packages

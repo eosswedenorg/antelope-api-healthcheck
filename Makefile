@@ -1,6 +1,6 @@
 
 PROGRAM_NAME 	= antelope-api-healthcheck
-export PROGRAM_VERSION = 1.2.6
+export PROGRAM_VERSION = 1.3.0
 
 GO			= go
 PREFIX 		= /usr/local
