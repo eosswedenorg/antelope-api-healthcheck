@@ -26,6 +26,8 @@ github.com/eosswedenorg-go/eosapi v0.1.3 h1:xZXMkYkPTU15VFQoiZJCMS0DFFVnwdlS0hPl
 github.com/eosswedenorg-go/eosapi v0.1.3/go.mod h1:YKkjNHIeOWvjN8vYj7YfENHnwse23yl5Rc1ttjIpqdU=
 github.com/eosswedenorg-go/haproxy v0.1.1 h1:ClOhoK3uGn70KzGCKHdYNvHoU72whfNq3LbqT/lWlOY=
 github.com/eosswedenorg-go/haproxy v0.1.1/go.mod h1:WnDKkwYbgrpuKUOtUtWlGCgj43DMV+r4VKGdWSTYQeA=
+github.com/eosswedenorg-go/leapapi v0.2.0 h1:XUWWg+ohSUUj3o4zc7b9sqGJNQQJKhz6rTwXLuOTBY0=
+github.com/eosswedenorg-go/leapapi v0.2.0/go.mod h1:RZPrRzqh3SqhEQiutvld6960xFCOUq7Xk2h8jhHw/lc=
 github.com/eosswedenorg-go/pid v1.0.1 h1:W4AEnnNwb041SpNR1uTZ/KbJ0OTA5eqiqIR1Q5Ah6A0=
 github.com/eosswedenorg-go/pid v1.0.1/go.mod h1:wiOB/JXGt4YA3+T0j0xmCGSc3Jxzb7Ti/Ftli1fgWu4=
 github.com/eosswedenorg-go/tcp_server v0.2.0 h1:0EHNmdrOGgYuDE+yT6N1xDdZ1Amc18w6tczDnaHdJL8=

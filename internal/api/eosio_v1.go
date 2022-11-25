@@ -3,14 +3,14 @@ package api
 import (
 	"fmt"
 
-	"github.com/eosswedenorg-go/eosapi"
 	"github.com/eosswedenorg-go/haproxy/agentcheck"
+	"github.com/eosswedenorg-go/leapapi"
 	"github.com/eosswedenorg/antelope-api-healthcheck/internal/utils"
 )
 
 type AntelopeV1 struct {
 	utils.Time
-	client     eosapi.Client
+	client     leapapi.Client
 	block_time float64
 }
 
@@ -20,7 +20,7 @@ func AntelopeV1Factory(args ApiArguments) ApiInterface {
 
 func NewAntelopeV1(url string, host string, block_time float64) AntelopeV1 {
 	api := AntelopeV1{
-		client:     *eosapi.New(url),
+		client:     *leapapi.New(url),
 		block_time: block_time,
 	}
 

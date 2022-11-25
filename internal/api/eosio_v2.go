@@ -3,13 +3,13 @@ package api
 import (
 	"fmt"
 
-	"github.com/eosswedenorg-go/eosapi"
 	"github.com/eosswedenorg-go/haproxy/agentcheck"
+	"github.com/eosswedenorg-go/leapapi"
 	"github.com/eosswedenorg/antelope-api-healthcheck/internal/utils"
 )
 
 type AntelopeV2 struct {
-	client eosapi.Client
+	client leapapi.Client
 	offset int64
 }
 
@@ -19,7 +19,7 @@ func AntelopeV2Factory(args ApiArguments) ApiInterface {
 
 func NewAntelopeV2(url string, host string, offset int64) AntelopeV2 {
 	api := AntelopeV2{
-		client: *eosapi.New(url),
+		client: *leapapi.New(url),
 		offset: offset,
 	}
 
