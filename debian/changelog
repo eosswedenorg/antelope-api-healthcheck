@@ -1,3 +1,12 @@
+antelope-api-healthcheck (1.3.1) unstable; urgency=medium
+
+  * Upgraded to github.com/eosswedenorg-go/leapapi@v0.2.1
+    That contains a bugfix for HTTP Host Header being sent without port.
+    This caused some antelope api's with `http-validate-host` enabled
+    to respond with `400 Bad Request` as the header and url did not match.
+
+ -- Henrik Hautakoski <henrik@eossweden.org>  Mon, 12 Dec 2022 16:19:26 +0100
+
 antelope-api-healthcheck (1.3.0) unstable; urgency=medium
 
   Project and binary renamed from eosio-api-healthcheck to antelope-api-healthcheck
