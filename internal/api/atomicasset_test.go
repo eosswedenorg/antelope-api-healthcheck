@@ -52,7 +52,7 @@ func TestAtomicAsset_JsonFailure(t *testing.T) {
 	api := NewAtomicAsset(srv.URL, 120)
 	check, _ := api.Call()
 
-	expected := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
+	expected := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")
 	assert.Equal(t, expected, check)
 }
 

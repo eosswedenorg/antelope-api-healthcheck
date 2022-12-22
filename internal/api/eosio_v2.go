@@ -46,7 +46,7 @@ func (e AntelopeV2) LogInfo() LogParams {
 func (e AntelopeV2) Call() (agentcheck.Response, string) {
 	health, err := e.client.GetHealth()
 	if err != nil {
-		resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
+		resp := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")
 		return resp, err.Error()
 	}
 
@@ -67,7 +67,7 @@ func (e AntelopeV2) Call() (agentcheck.Response, string) {
 		msg := fmt.Sprintf("Failed to get Elasticsearch and/or nodeos "+
 			"block numbers (es: %d, eos: %d)", es_block, node_block)
 
-		resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
+		resp := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")
 		return resp, msg
 	}
 

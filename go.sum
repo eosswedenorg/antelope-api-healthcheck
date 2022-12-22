@@ -21,8 +21,8 @@ github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSs
 github.com/dustin/go-humanize v1.0.0/go.mod h1:HtrtbFcZ19U5GC7JDqmcUSB87Iq5E25KnS6fMYU6eOk=
 github.com/eosswedenorg-go/atomicasset v0.1.0 h1:HRxFO7tOdyyygbxJjPm810x09sOUPbJW6pleslAjU+c=
 github.com/eosswedenorg-go/atomicasset v0.1.0/go.mod h1:QWm39AIPrv0CsYI2SRajNxpRyrHg5kcQwa/a0hf0wVo=
-github.com/eosswedenorg-go/haproxy v0.1.1 h1:ClOhoK3uGn70KzGCKHdYNvHoU72whfNq3LbqT/lWlOY=
-github.com/eosswedenorg-go/haproxy v0.1.1/go.mod h1:WnDKkwYbgrpuKUOtUtWlGCgj43DMV+r4VKGdWSTYQeA=
+github.com/eosswedenorg-go/haproxy v1.0.1 h1:N9tyQSvEDG9Fq+gBP0b7A8R5iZAqYCms2K6Nvqq8TfE=
+github.com/eosswedenorg-go/haproxy v1.0.1/go.mod h1:rBXDRd72ifA/IvsZUpW8Q4gR5rbV/4DAuKC/lqDrwWQ=
 github.com/eosswedenorg-go/leapapi v0.2.1 h1:zeY4TtVbgIPpLcD4wl42u+G/K+YfTN9YtpY4cb51KMQ=
 github.com/eosswedenorg-go/leapapi v0.2.1/go.mod h1:RZPrRzqh3SqhEQiutvld6960xFCOUq7Xk2h8jhHw/lc=
 github.com/eosswedenorg-go/pid v1.0.1 h1:W4AEnnNwb041SpNR1uTZ/KbJ0OTA5eqiqIR1Q5Ah6A0=

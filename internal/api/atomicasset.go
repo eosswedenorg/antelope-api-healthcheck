@@ -38,7 +38,7 @@ func (e AtomicAsset) LogInfo() LogParams {
 func (e AtomicAsset) Call() (agentcheck.Response, string) {
 	h, err := e.client.GetHealth()
 	if err != nil {
-		resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
+		resp := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")
 		return resp, err.Error()
 	}
 

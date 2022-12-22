@@ -47,7 +47,7 @@ func (e AntelopeV1) LogInfo() LogParams {
 func (e AntelopeV1) Call() (agentcheck.Response, string) {
 	info, err := e.client.GetInfo()
 	if err != nil {
-		resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
+		resp := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")
 		return resp, err.Error()
 	}
 

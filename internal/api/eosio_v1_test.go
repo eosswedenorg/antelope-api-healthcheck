@@ -53,7 +53,7 @@ func TestAntelopeV1_JsonFailure(t *testing.T) {
 	api := NewAntelopeV1(srv.URL, "", 120)
 	check, _ := api.Call()
 
-	expected := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
+	expected := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")
 	assert.Equal(t, expected, check)
 }
 
@@ -69,7 +69,7 @@ func TestAntelopeV1_HTTP500Failed(t *testing.T) {
 
 	assert.Equal(t, "server returned HTTP 500 Internal Server Error", status)
 
-	expected := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
+	expected := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")
 	assert.Equal(t, expected, check)
 }
 

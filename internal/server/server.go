@@ -20,7 +20,7 @@ func onTcpMessage(c *tcp_server.Client, args string) {
 	healthCheckApi, err := ParseRequest(args)
 	if err != nil {
 		logger.Warn("Agent request error", "message", err)
-		resp := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
+		resp := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")
 
 		_, err = c.WriteString(resp.String())
 		if err != nil {

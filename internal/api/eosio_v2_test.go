@@ -41,7 +41,7 @@ func TestAntelopeV2_JsonFailure(t *testing.T) {
 	api := NewAntelopeV2(srv.URL, "", 120)
 	check, _ := api.Call()
 
-	expected := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
+	expected := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")
 	assert.Equal(t, expected, check)
 }
 
@@ -57,7 +57,7 @@ func TestAntelopeV2_HTTP500Failed(t *testing.T) {
 
 	assert.Equal(t, "server returned HTTP 500 Internal Server Error", status)
 
-	expected := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
+	expected := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")
 	assert.Equal(t, expected, check)
 }
 
@@ -292,7 +292,7 @@ func TestAntelopeV2_ElasticsFailed(t *testing.T) {
 
 	assert.Equal(t, "Failed to get Elasticsearch and/or nodeos block numbers (es: 0, eos: 263148621)", status)
 
-	expected := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
+	expected := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")
 	assert.Equal(t, expected, check)
 }
 
@@ -339,7 +339,7 @@ func TestAntelopeV2_NodeosRPCFailed(t *testing.T) {
 
 	assert.Equal(t, "Failed to get Elasticsearch and/or nodeos block numbers (es: 263148121, eos: 0)", status)
 
-	expected := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
+	expected := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")
 	assert.Equal(t, expected, check)
 }
 
@@ -376,6 +376,6 @@ func TestAntelopeV2_ElasticsNodeosRPCFailed(t *testing.T) {
 
 	assert.Equal(t, "Failed to get Elasticsearch and/or nodeos block numbers (es: 0, eos: 0)", status)
 
-	expected := agentcheck.NewStatusMessageResponse(agentcheck.Failed, "")
+	expected := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")
 	assert.Equal(t, expected, check)
 }
