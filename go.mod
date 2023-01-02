@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/eosswedenorg-go/atomicasset v0.1.0
 	github.com/eosswedenorg-go/haproxy v1.0.1
-	github.com/eosswedenorg-go/leapapi v0.2.1
+	github.com/eosswedenorg-go/leapapi v0.2.2
 	github.com/eosswedenorg-go/pid v1.0.1
 	github.com/eosswedenorg-go/tcp_server v0.2.1
 	github.com/inconshreveable/log15 v0.0.0-20221122034931-555555054819

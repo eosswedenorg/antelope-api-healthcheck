@@ -23,8 +23,8 @@ github.com/eosswedenorg-go/atomicasset v0.1.0 h1:HRxFO7tOdyyygbxJjPm810x09sOUPbJ
 github.com/eosswedenorg-go/atomicasset v0.1.0/go.mod h1:QWm39AIPrv0CsYI2SRajNxpRyrHg5kcQwa/a0hf0wVo=
 github.com/eosswedenorg-go/haproxy v1.0.1 h1:N9tyQSvEDG9Fq+gBP0b7A8R5iZAqYCms2K6Nvqq8TfE=
 github.com/eosswedenorg-go/haproxy v1.0.1/go.mod h1:rBXDRd72ifA/IvsZUpW8Q4gR5rbV/4DAuKC/lqDrwWQ=
-github.com/eosswedenorg-go/leapapi v0.2.1 h1:zeY4TtVbgIPpLcD4wl42u+G/K+YfTN9YtpY4cb51KMQ=
-github.com/eosswedenorg-go/leapapi v0.2.1/go.mod h1:RZPrRzqh3SqhEQiutvld6960xFCOUq7Xk2h8jhHw/lc=
+github.com/eosswedenorg-go/leapapi v0.2.2 h1:gNS36V261Y21QjevQ13UV9glb7WbDgdGPbiJzUI/opA=
+github.com/eosswedenorg-go/leapapi v0.2.2/go.mod h1:hyfjHswFjcnWMqOb+cYvTrT6l34S80GrFvfOdcYugnM=
 github.com/eosswedenorg-go/pid v1.0.1 h1:W4AEnnNwb041SpNR1uTZ/KbJ0OTA5eqiqIR1Q5Ah6A0=
 github.com/eosswedenorg-go/pid v1.0.1/go.mod h1:wiOB/JXGt4YA3+T0j0xmCGSc3Jxzb7Ti/Ftli1fgWu4=
 github.com/eosswedenorg-go/tcp_server v0.2.1 h1:xu+b/HfW6cpatBClzZYcM4D7V0u9pqlYVYlIVfntjtI=
