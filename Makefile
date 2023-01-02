@@ -18,6 +18,11 @@ build: build/$(PROGRAM_NAME)
 build/$(PROGRAM_NAME) : $(SOURCES)
 	$(GO) build -o $@ $(GOBUILDFLAGS) cmd/antelope-api-healtcheck/main.go
 
+build/antelope-v1-mock-server:
+	$(GO) build -o $@ $(GOBUILDFLAGS) cmd/antelope-v1-mock-server/main.go
+
+test-utils: build/antelope-v1-mock-server
+
 test:
 	$(GO) test -v ./...
 
