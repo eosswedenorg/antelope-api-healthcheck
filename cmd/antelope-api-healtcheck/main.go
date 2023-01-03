@@ -34,6 +34,9 @@ var logfd *os.File
 var (
 	logfmt log.Format
 	logger log.Logger
+
+	// TCP Server
+	srv *server.Server
 )
 
 //	argv_listen_addr
@@ -104,6 +107,12 @@ func signalEventLoop() {
 			case syscall.SIGINT, syscall.SIGTERM:
 				l.Info("Program was asked to terminate.")
 				run = false
+
+				// Tell the server to close.
+				err := srv.Close()
+				if err != nil {
+					l.Error("Failed to close server", "error", err)
+				}
 			// SIGHUP is sent when logfile is rotated.
 			case syscall.SIGHUP:
 				msg := "Logfile was rotated: "
@@ -129,7 +138,6 @@ func signalEventLoop() {
 func main() {
 	var version bool
 	var usage bool
-	var addr string
 	var logFormatter *string
 
 	logger = log.Root()
@@ -173,23 +181,15 @@ func main() {
 		}
 	}
 
-	addr = argv_listen_addr()
+	// Create server
+	srv = server.New(argv_listen_addr())
 
-	// Start listening to TCP Connections
-	srv, err := server.Start(addr)
-	if err == nil {
-		logger.Info("TCP Server started", "addr", addr)
+	// Run signal event loop in its own goroutine
+	go signalEventLoop()
 
-		// Run the signal event loop.
-		signalEventLoop()
-
-		err = srv.Close()
-		if err != nil {
-			logger.Error("Failed to close server", "error", err)
-		}
-	} else {
-		log.Error("Failed to start tcp server", "error", err)
+	// Run server
+	err := srv.Run()
+	if err != nil {
+		logger.Error("Server failed to shutdown", "message", err)
 	}
-
-	logger.Info("Shutdown")
 }
