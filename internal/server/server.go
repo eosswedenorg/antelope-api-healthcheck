@@ -23,11 +23,15 @@ type Server struct {
 
 	// Number of connections between each OnTick()
 	num_conn uint64
+
+	// Time between each call to OnTick()
+	tick_interval time.Duration
 }
 
-func New(addr string) *Server {
+func New(addr string, tick_interval time.Duration) *Server {
 	return &Server{
-		addr: fmt.Sprintf("tcp://%s", addr),
+		addr:          fmt.Sprintf("tcp://%s", addr),
+		tick_interval: tick_interval,
 	}
 }
 
@@ -61,7 +65,7 @@ func (s *Server) OnTick() (time.Duration, gnet.Action) {
 		"current_connections": s.eng.CountConnections(),
 	})
 	atomic.StoreUint64(&s.num_conn, 0)
-	return time.Second * 10, gnet.None
+	return s.tick_interval, gnet.None
 }
 
 //	OnTraffic callback function

@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/eosswedenorg-go/pid"
 	"github.com/eosswedenorg/antelope-api-healthcheck/internal/server"
@@ -182,7 +183,7 @@ func main() {
 	}
 
 	// Create server
-	srv = server.New(argv_listen_addr())
+	srv = server.New(argv_listen_addr(), time.Second*10)
 
 	// Run signal event loop in its own goroutine
 	go signalEventLoop()
