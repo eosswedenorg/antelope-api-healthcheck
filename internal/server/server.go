@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"strings"
+	"sync/atomic"
 	"time"
 
 	"github.com/eosswedenorg-go/haproxy/agentcheck"
@@ -15,8 +16,9 @@ import (
 type Server struct {
 	gnet.BuiltinEventEngine
 
-	addr string
-	eng  gnet.Engine
+	addr     string
+	eng      gnet.Engine
+	num_conn uint64
 }
 
 func New(addr string) *Server {
@@ -34,6 +36,11 @@ func (s *Server) OnBoot(eng gnet.Engine) gnet.Action {
 	return gnet.None
 }
 
+func (s *Server) OnOpen(c gnet.Conn) ([]byte, gnet.Action) {
+	atomic.AddUint64(&s.num_conn, 1)
+	return nil, gnet.None
+}
+
 //	OnShutdown callback function
 //
 // ---------------------------------------------------------
@@ -45,7 +52,11 @@ func (s *Server) OnShutdown(eng gnet.Engine) {
 //
 // ---------------------------------------------------------
 func (s *Server) OnTick() (time.Duration, gnet.Action) {
-	log.Info("Server info", "connections", s.eng.CountConnections())
+	log.Info("Server info", log.Ctx{
+		"connections":         atomic.LoadUint64(&s.num_conn),
+		"current_connections": s.eng.CountConnections(),
+	})
+	atomic.StoreUint64(&s.num_conn, 0)
 	return time.Second * 10, gnet.None
 }
 
