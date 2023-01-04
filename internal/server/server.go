@@ -16,8 +16,12 @@ import (
 type Server struct {
 	gnet.BuiltinEventEngine
 
-	addr     string
-	eng      gnet.Engine
+	eng gnet.Engine
+
+	// Address to bind to.
+	addr string
+
+	// Number of connections between each OnTick()
 	num_conn uint64
 }
 
