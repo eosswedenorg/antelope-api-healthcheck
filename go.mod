@@ -54,3 +54,5 @@ require (
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
+
+replace github.com/panjf2000/gnet/v2 v2.2.2 => github.com/eosswedenorg-go/gnet/v2 v2.2.2-kqueue-fix
