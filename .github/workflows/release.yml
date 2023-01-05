@@ -7,6 +7,7 @@ on:
 jobs:
   cross-compile:
     strategy:
+      fail-fast: false
       matrix:
         os: [ linux, freebsd ]
         arch: [ 386, amd64, arm, arm64 ]
@@ -42,6 +43,7 @@ jobs:
 
   package-ubuntu:
     strategy:
+      fail-fast: false
       matrix:
         os: [ ubuntu-20.04 ]
     name: Package - ${{matrix.os}}
@@ -105,6 +107,7 @@ jobs:
 
   package-freebsd:
     strategy:
+      fail-fast: false
       matrix:
         arch: [ 386, amd64, arm, arm64 ]
     name: Package - FreeBSD (${{matrix.arch}})
