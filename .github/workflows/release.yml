@@ -13,7 +13,7 @@ jobs:
     name: Crosscompile - ${{matrix.os}}-${{matrix.arch}}
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
 
       - name: compile
         id: compile
@@ -42,7 +42,7 @@ jobs:
     name: Package - ${{matrix.os}}
     runs-on: ${{matrix.os}}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
 
       - name: Install build dependencies
         run: |
@@ -100,7 +100,7 @@ jobs:
     name: Package - FreeBSD (${{matrix.arch}})
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
 
       - name: Package
         id: package
