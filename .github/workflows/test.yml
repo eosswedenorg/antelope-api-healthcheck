@@ -5,6 +5,26 @@ on:
   - pull_request
 
 jobs:
+  cross-compile:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ linux, freebsd ]
+        arch: [ 386, amd64, arm, arm64 ]
+    name: Crosscompile - ${{matrix.os}}-${{matrix.arch}}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.18
+
+      - name: compile
+        id: compile
+        run: |
+          ./compile.sh --target ${{matrix.os}} -a ${{matrix.arch}}
 
   test:
     runs-on: ubuntu-latest
