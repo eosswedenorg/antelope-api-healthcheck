@@ -8,7 +8,7 @@ require (
 	github.com/eosswedenorg-go/leapapi v0.2.2
 	github.com/eosswedenorg-go/pid v1.0.1
 	github.com/inconshreveable/log15 v0.0.0-20221122034931-555555054819
-	github.com/panjf2000/gnet/v2 v2.2.2
+	github.com/panjf2000/gnet/v2 v2.2.3-0.20230105151625-72b6e726ce32
 	github.com/pborman/getopt/v2 v2.1.0
 	github.com/stretchr/testify v1.8.1
 )
@@ -54,5 +54,3 @@ require (
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-replace github.com/panjf2000/gnet/v2 v2.2.2 => github.com/eosswedenorg-go/gnet/v2 v2.2.2-kqueue-fix
