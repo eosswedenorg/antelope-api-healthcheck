@@ -10,18 +10,18 @@ type DebugApi struct {
 	response agentcheck.Response
 }
 
-func parseResponse(resp string) (agentcheck.Response, error) {
+func parseResponse(resp string) agentcheck.Response {
 	parts := strings.SplitN(resp, "#", 2)
 
 	// Status with message
 	if len(parts) > 1 {
 		rtype := agentcheck.StatusMessageResponseType(parts[0])
-		return agentcheck.NewStatusMessageResponse(rtype, parts[1]), nil
+		return agentcheck.NewStatusMessageResponse(rtype, parts[1])
 	}
 
 	// Only status.
-	rtype := agentcheck.StatusResponseType(parts[0])
-	return agentcheck.NewStatusResponse(rtype), nil
+	rtype := agentcheck.StatusResponseType(resp)
+	return agentcheck.NewStatusResponse(rtype)
 }
 
 func DebugApiFactory(args ApiArguments) ApiInterface {
@@ -29,10 +29,8 @@ func DebugApiFactory(args ApiArguments) ApiInterface {
 }
 
 func NewDebugApi(response string) DebugApi {
-	resp, _ := parseResponse(response)
-
 	return DebugApi{
-		response: resp,
+		response: parseResponse(response),
 	}
 }
 
