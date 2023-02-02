@@ -26,7 +26,7 @@ var (
 // ---------------------------------------------------------
 
 // Version string, should be updated by the go linker (by passing "-X main.VersionString=value" to the linker)
-// see: https://pkg.go.dev/cmd/link and
+// see: https://pkg.go.dev/cmd/link
 var VersionString string = "-"
 
 // File descriptor to the current log file.
