@@ -33,8 +33,6 @@ func ParseArguments(args []string) api.ApiArguments {
 }
 
 func ParseRequest(request string) (api.ApiInterface, error) {
-	// Parse arguments.
-	// -------------------
 	p := strings.Split(strings.TrimSpace(request), "|")
 
 	if len(p) < 2 {
