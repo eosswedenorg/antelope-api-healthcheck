@@ -96,41 +96,39 @@ func signalEventLoop() {
 	signal.Notify(sig_ch, syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM)
 
 	// Event loop
-	func() {
-		var run bool = true
-		for run {
-			// Block until we get a signal.
-			sig := <-sig_ch
+	var run bool = true
+	for run {
+		// Block until we get a signal.
+		sig := <-sig_ch
 
-			l := logger.New("signal", sig)
+		l := logger.New("signal", sig)
 
-			switch sig {
-			case syscall.SIGINT, syscall.SIGTERM:
-				l.Info("Program was asked to terminate.")
-				run = false
+		switch sig {
+		case syscall.SIGINT, syscall.SIGTERM:
+			l.Info("Program was asked to terminate.")
+			run = false
 
-				// Tell the server to close.
-				err := srv.Close()
-				if err != nil {
-					l.Error("Failed to close server", "error", err)
-				}
-			// SIGHUP is sent when logfile is rotated.
-			case syscall.SIGHUP:
-				msg := "Logfile was rotated: "
-
-				if logfd != nil {
-					setLogFile()
-					msg += "Filedescriptor was updated"
-				} else {
-					msg += "No Filedescriptor to update (most likely uses standard out/err streams)"
-				}
-
-				l.Info(msg)
-			default:
-				l.Warn("Unknown signal")
+			// Tell the server to close.
+			err := srv.Close()
+			if err != nil {
+				l.Error("Failed to close server", "error", err)
 			}
+		// SIGHUP is sent when logfile is rotated.
+		case syscall.SIGHUP:
+			msg := "Logfile was rotated: "
+
+			if logfd != nil {
+				setLogFile()
+				msg += "Filedescriptor was updated"
+			} else {
+				msg += "No Filedescriptor to update (most likely uses standard out/err streams)"
+			}
+
+			l.Info(msg)
+		default:
+			l.Warn("Unknown signal")
 		}
-	}()
+	}
 }
 
 //	main
