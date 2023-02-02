@@ -189,8 +189,7 @@ func main() {
 	go signalEventLoop()
 
 	// Run server
-	err := srv.Run()
-	if err != nil {
+	if err := srv.Run(); err != nil {
 		logger.Error("Server failed to shutdown", "message", err)
 	}
 }
