@@ -109,7 +109,10 @@ func (s *Server) OnTraffic(c gnet.Conn) gnet.Action {
 
 		logger.Info("API Check", params.Combine(healthCheckApi.LogInfo())...)
 		// Report status to HAproxy
-		err = c.AsyncWrite([]byte(status.String()), nil)
+		err = c.AsyncWrite([]byte(status.String()), func(c gnet.Conn, err error) error {
+			return c.Close()
+		})
+
 		if err != nil {
 			logger.Error("Write", "message", err)
 		}
