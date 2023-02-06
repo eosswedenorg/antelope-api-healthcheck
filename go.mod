@@ -3,7 +3,7 @@ module github.com/eosswedenorg/antelope-api-healthcheck
 go 1.18
 
 require (
-	github.com/eosswedenorg-go/atomicasset v0.1.0
+	github.com/eosswedenorg-go/atomicasset v0.1.1-0.20230206134606-4577244fa67a
 	github.com/eosswedenorg-go/haproxy v1.0.1
 	github.com/eosswedenorg-go/leapapi v0.2.3
 	github.com/eosswedenorg-go/pid v1.0.1
