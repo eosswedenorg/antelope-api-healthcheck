@@ -1,6 +1,7 @@
 package api
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -51,7 +52,7 @@ func TestAntelopeV1_JsonFailure(t *testing.T) {
 	}))
 
 	api := NewAntelopeV1(srv.URL, "", 120)
-	check, _ := api.Call()
+	check, _ := api.Call(context.Background())
 
 	expected := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")
 	assert.Equal(t, expected, check)
@@ -65,7 +66,7 @@ func TestAntelopeV1_HTTP500Failed(t *testing.T) {
 	}))
 
 	api := NewAntelopeV1(srv.URL, "", 120)
-	check, status := api.Call()
+	check, status := api.Call(context.Background())
 
 	assert.Equal(t, "server returned HTTP 500 Internal Server Error", status)
 
@@ -89,7 +90,7 @@ func TestAntelopeV1_LaggingUp(t *testing.T) {
 
 	api := NewAntelopeV1(srv.URL, "", 60)
 	api.SetTime(time.Date(2022, 2, 24, 13, 38, 0, 0, time.UTC))
-	check, status := api.Call()
+	check, status := api.Call(context.Background())
 
 	assert.Equal(t, "OK", status)
 
@@ -113,7 +114,7 @@ func TestAntelopeV1_LaggingDown(t *testing.T) {
 
 	api := NewAntelopeV1(srv.URL, "", 60)
 	api.SetTime(time.Date(2018, time.January, 1, 13, 38, 2, 0, time.UTC))
-	check, status := api.Call()
+	check, status := api.Call(context.Background())
 
 	assert.Equal(t, "Taking offline because head block is lagging 61 seconds", status)
 
@@ -137,7 +138,7 @@ func TestAntelopeV1_TimeInFutureUP(t *testing.T) {
 
 	api := NewAntelopeV1(srv.URL, "", 120)
 	api.SetTime(time.Date(2020, 9, 22, 9, 30, 0, 0, time.UTC))
-	check, status := api.Call()
+	check, status := api.Call(context.Background())
 
 	assert.Equal(t, "OK", status)
 
@@ -161,7 +162,7 @@ func TestAntelopeV1_TimeInFutureDown(t *testing.T) {
 
 	api := NewAntelopeV1(srv.URL, "", 120)
 	api.SetTime(time.Date(2019, time.April, 14, 12, 0, 0, 0, time.UTC))
-	check, status := api.Call()
+	check, status := api.Call(context.Background())
 
 	assert.Equal(t, "Taking offline because head block is -121 seconds into the future", status)
 

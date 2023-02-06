@@ -1,6 +1,7 @@
 package api
 
 import (
+	"context"
 	"reflect"
 	"testing"
 
@@ -59,7 +60,7 @@ func TestDebugApi_Call(t *testing.T) {
 		response: expected,
 	}
 
-	response, msg := api.Call()
+	response, msg := api.Call(context.Background())
 
 	assert.Equal(t, response, expected)
 	assert.Equal(t, msg, "")

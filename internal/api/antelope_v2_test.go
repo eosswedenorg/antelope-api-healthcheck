@@ -1,6 +1,7 @@
 package api
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -39,7 +40,7 @@ func TestAntelopeV2_JsonFailure(t *testing.T) {
 	}))
 
 	api := NewAntelopeV2(srv.URL, "", 120)
-	check, _ := api.Call()
+	check, _ := api.Call(context.Background())
 
 	expected := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")
 	assert.Equal(t, expected, check)
@@ -53,7 +54,7 @@ func TestAntelopeV2_HTTP500Failed(t *testing.T) {
 	}))
 
 	api := NewAntelopeV2(srv.URL, "", 120)
-	check, status := api.Call()
+	check, status := api.Call(context.Background())
 
 	assert.Equal(t, "server returned HTTP 500 Internal Server Error", status)
 
@@ -100,7 +101,7 @@ func TestAntelopeV2_LaggingUp(t *testing.T) {
 	}))
 
 	api := NewAntelopeV2(srv.URL, "", 500)
-	check, status := api.Call()
+	check, status := api.Call(context.Background())
 
 	assert.Equal(t, "OK", status)
 
@@ -147,7 +148,7 @@ func TestAntelopeV2_LaggingDown(t *testing.T) {
 	}))
 
 	api := NewAntelopeV2(srv.URL, "", 499)
-	check, status := api.Call()
+	check, status := api.Call(context.Background())
 
 	assert.Equal(t, "Taking offline because Elastic is 500 blocks behind", status)
 
@@ -194,7 +195,7 @@ func TestAntelopeV2_LaggingESInFutureUP(t *testing.T) {
 	}))
 
 	api := NewAntelopeV2(srv.URL, "", 200)
-	check, status := api.Call()
+	check, status := api.Call(context.Background())
 
 	assert.Equal(t, "OK", status)
 
@@ -241,7 +242,7 @@ func TestAntelopeV2_LaggingESInFutureDown(t *testing.T) {
 	}))
 
 	api := NewAntelopeV2(srv.URL, "", 200)
-	check, status := api.Call()
+	check, status := api.Call(context.Background())
 
 	assert.Equal(t, "Taking offline because Elastic is 201 blocks into the future", status)
 
@@ -288,7 +289,7 @@ func TestAntelopeV2_ElasticsFailed(t *testing.T) {
 	}))
 
 	api := NewAntelopeV2(srv.URL, "", 500)
-	check, status := api.Call()
+	check, status := api.Call(context.Background())
 
 	assert.Equal(t, "Failed to get Elasticsearch and/or nodeos block numbers (es: 0, eos: 263148621)", status)
 
@@ -335,7 +336,7 @@ func TestAntelopeV2_NodeosRPCFailed(t *testing.T) {
 	}))
 
 	api := NewAntelopeV2(srv.URL, "", 500)
-	check, status := api.Call()
+	check, status := api.Call(context.Background())
 
 	assert.Equal(t, "Failed to get Elasticsearch and/or nodeos block numbers (es: 263148121, eos: 0)", status)
 
@@ -372,7 +373,7 @@ func TestAntelopeV2_ElasticsNodeosRPCFailed(t *testing.T) {
 	}))
 
 	api := NewAntelopeV2(srv.URL, "", 500)
-	check, status := api.Call()
+	check, status := api.Call(context.Background())
 
 	assert.Equal(t, "Failed to get Elasticsearch and/or nodeos block numbers (es: 0, eos: 0)", status)
 

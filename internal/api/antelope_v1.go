@@ -1,6 +1,7 @@
 package api
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/eosswedenorg-go/haproxy/agentcheck"
@@ -44,7 +45,8 @@ func (e AntelopeV1) LogInfo() LogParams {
 	return p
 }
 
-func (e AntelopeV1) Call() (agentcheck.Response, string) {
+func (e AntelopeV1) Call(ctx context.Context) (agentcheck.Response, string) {
+	// TODO: Pass context
 	info, err := e.client.GetInfo()
 	if err != nil {
 		resp := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")

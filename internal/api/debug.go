@@ -1,6 +1,7 @@
 package api
 
 import (
+	"context"
 	"strings"
 
 	"github.com/eosswedenorg-go/haproxy/agentcheck"
@@ -41,6 +42,6 @@ func (d DebugApi) LogInfo() LogParams {
 	}
 }
 
-func (d DebugApi) Call() (agentcheck.Response, string) {
+func (d DebugApi) Call(_ context.Context) (agentcheck.Response, string) {
 	return d.response, ""
 }

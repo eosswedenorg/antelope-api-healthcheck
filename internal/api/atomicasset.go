@@ -1,6 +1,7 @@
 package api
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/eosswedenorg-go/atomicasset"
@@ -35,7 +36,8 @@ func (e AtomicAsset) LogInfo() LogParams {
 	}
 }
 
-func (e AtomicAsset) Call() (agentcheck.Response, string) {
+func (e AtomicAsset) Call(ctx context.Context) (agentcheck.Response, string) {
+	// TODO: Pass context
 	h, err := e.client.GetHealth()
 	if err != nil {
 		resp := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")

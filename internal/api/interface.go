@@ -1,6 +1,8 @@
 package api
 
 import (
+	"context"
+
 	"github.com/eosswedenorg-go/haproxy/agentcheck"
 )
 
@@ -27,5 +29,5 @@ type ApiInterface interface {
 	LogInfo() LogParams
 
 	// Call api and validate it's status.
-	Call() (agentcheck.Response, string)
+	Call(ctx context.Context) (agentcheck.Response, string)
 }
