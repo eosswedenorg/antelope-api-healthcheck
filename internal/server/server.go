@@ -108,10 +108,14 @@ func (s *Server) OnTraffic(c gnet.Conn) gnet.Action {
 	// gnet library does not like blocking calls.
 	// as we do a blocking http call here, we need to wrap it in a goroutine.
 	go func() {
+		t := time.Now()
 		status, msg := healthCheckApi.Call()
+		req_time := time.Since(t)
 
 		params := api.LogParams{}
 		params.Add("status", strings.TrimSpace(status.String()))
+		params.Add("duration", req_time)
+		params.Add("duration_us", req_time.Microseconds())
 
 		if msg != "OK" && len(msg) > 0 {
 			params.Add("error", msg)
