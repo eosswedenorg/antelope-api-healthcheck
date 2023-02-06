@@ -49,6 +49,16 @@ func (s *Server) OnOpen(c gnet.Conn) ([]byte, gnet.Action) {
 	return nil, gnet.None
 }
 
+//	OnClose callback function
+//
+// ---------------------------------------------------------
+func (s *Server) OnClose(c gnet.Conn, err error) gnet.Action {
+	if err != nil {
+		log.Error("TCP Close", "error", err)
+	}
+	return gnet.None
+}
+
 //	OnShutdown callback function
 //
 // ---------------------------------------------------------
