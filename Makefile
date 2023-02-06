@@ -11,7 +11,7 @@ GOBUILDFLAGS  = -v -ldflags='-v -s -w -X main.VersionString=$(PROGRAM_VERSION)'
 DPKG_BUILDPACKAGE = dpkg-buildpackage
 DPKG_BUILDPACKAGE_FLAGS = -b -uc
 
-.PHONY: all build/$(PROGRAM_NAME) clean package_debian
+.PHONY: all build/$(PROGRAM_NAME) build/antelope-v1-mock-server clean package_debian
 all: build
 build: build/$(PROGRAM_NAME)
 
