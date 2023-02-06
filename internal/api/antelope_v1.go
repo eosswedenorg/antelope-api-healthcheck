@@ -46,8 +46,7 @@ func (e AntelopeV1) LogInfo() LogParams {
 }
 
 func (e AntelopeV1) Call(ctx context.Context) (agentcheck.Response, string) {
-	// TODO: Pass context
-	info, err := e.client.GetInfo()
+	info, err := e.client.GetInfo(ctx)
 	if err != nil {
 		resp := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")
 		return resp, err.Error()
