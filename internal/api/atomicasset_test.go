@@ -32,6 +32,14 @@ func TestAtomicAsset_LogInfo(t *testing.T) {
 	assert.Equal(t, expected, api.LogInfo())
 }
 
+func TestAtomicAsset_LogInfoWithHost(t *testing.T) {
+	api := NewAtomicAsset("https://atomic.example.com", "some.other.host", 120)
+
+	expected := LogParams{"type", "atomicasset", "url", "https://atomic.example.com", "block_time", float64(120), "host", "some.other.host"}
+
+	assert.Equal(t, expected, api.LogInfo())
+}
+
 func TestAtomicAsset_SetTime(t *testing.T) {
 	expected := time.Date(2019, 3, 18, 20, 29, 32, 0, time.UTC)
 
