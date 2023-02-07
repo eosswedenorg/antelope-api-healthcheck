@@ -30,11 +30,17 @@ func NewAtomicAsset(url string, host string, block_time float64) AtomicAsset {
 }
 
 func (e AtomicAsset) LogInfo() LogParams {
-	return LogParams{
+	p := LogParams{
 		"type", "atomicasset",
 		"url", e.url,
 		"block_time", e.block_time,
 	}
+
+	if len(e.host) > 0 {
+		p.Add("host", e.host)
+	}
+
+	return p
 }
 
 func (e AtomicAsset) Call(ctx context.Context) (agentcheck.Response, string) {
