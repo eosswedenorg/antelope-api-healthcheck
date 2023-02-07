@@ -187,7 +187,7 @@ func main() {
 		// Dont alow anything below 2 seconds. that is abit aggresive.
 		logger.Warn("Request timeout is less than the minimum. Setting it to 2 seconds", "req_timeout", req_timeout)
 		req_timeout = time.Second * 2
-	} else if req_timeout.Minutes() > 0 {
+	} else if req_timeout.Minutes() > 1.0 {
 		// Anything more than 1 min is too long :)
 		logger.Warn("Request timeout is more than the maximum. Setting it to 1 minute", "req_timeout", req_timeout)
 		req_timeout = time.Minute
