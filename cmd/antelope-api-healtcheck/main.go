@@ -181,7 +181,7 @@ func main() {
 	}
 
 	// Create server
-	srv = server.New(argv_listen_addr(), time.Second*10)
+	srv = server.New(argv_listen_addr(), server.WithTick(time.Second*10))
 
 	// Run signal event loop in its own goroutine
 	go signalEventLoop()

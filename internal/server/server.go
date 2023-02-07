@@ -28,10 +28,23 @@ type Server struct {
 	tick_interval time.Duration
 }
 
-func New(addr string, tick_interval time.Duration) *Server {
-	return &Server{
-		addr:          fmt.Sprintf("tcp://%s", addr),
-		tick_interval: tick_interval,
+type Option func(*Server)
+
+func New(addr string, options ...Option) *Server {
+	s := &Server{
+		addr: fmt.Sprintf("tcp://%s", addr),
+	}
+
+	for _, opt := range options {
+		opt(s)
+	}
+
+	return s
+}
+
+func WithTick(interval time.Duration) Option {
+	return func(s *Server) {
+		s.tick_interval = interval
 	}
 }
 
