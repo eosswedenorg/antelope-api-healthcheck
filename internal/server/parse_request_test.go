@@ -80,7 +80,7 @@ func TestParseRequest_AntelopeV2Full(t *testing.T) {
 // --------------------------------
 
 func TestParseRequest_AtomicAsset(t *testing.T) {
-	expected := api.NewAtomicAsset("http://api.atomicassets.io", 5)
+	expected := api.NewAtomicAsset("http://api.atomicassets.io", "", 5)
 
 	api, err := ParseRequest("atomic|http://api.atomicassets.io")
 	assert.NoError(t, err)
@@ -88,7 +88,7 @@ func TestParseRequest_AtomicAsset(t *testing.T) {
 }
 
 func TestParseRequest_AtomicAssetWithBlockTime(t *testing.T) {
-	expected := api.NewAtomicAsset("http://api.atomicassets.io", 256)
+	expected := api.NewAtomicAsset("http://api.atomicassets.io", "", 256)
 
 	api, err := ParseRequest("atomic|http://api.atomicassets.io|512")
 	assert.NoError(t, err)

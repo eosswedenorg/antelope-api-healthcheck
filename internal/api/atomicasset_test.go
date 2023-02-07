@@ -17,7 +17,7 @@ func TestAtomicAsset_Factory(t *testing.T) {
 		NumBlocks: 120,
 	})
 
-	expected := NewAtomicAsset("https://atomic.example.com", 60)
+	expected := NewAtomicAsset("https://atomic.example.com", "", 60)
 
 	assert.IsType(t, expected, api)
 	assert.Equal(t, expected.url, api.(AtomicAsset).url)
@@ -25,7 +25,7 @@ func TestAtomicAsset_Factory(t *testing.T) {
 }
 
 func TestAtomicAsset_LogInfo(t *testing.T) {
-	api := NewAtomicAsset("https://atomic.example.com", 120)
+	api := NewAtomicAsset("https://atomic.example.com", "", 120)
 
 	expected := LogParams{"type", "atomicasset", "url", "https://atomic.example.com", "block_time", float64(120)}
 
@@ -35,7 +35,7 @@ func TestAtomicAsset_LogInfo(t *testing.T) {
 func TestAtomicAsset_SetTime(t *testing.T) {
 	expected := time.Date(2019, 3, 18, 20, 29, 32, 0, time.UTC)
 
-	api := NewAtomicAsset("", 60)
+	api := NewAtomicAsset("", "", 60)
 	// Assert that time is NOW (+-10 seconds)
 	assert.InDelta(t, api.GetTime().Unix(), time.Now().In(time.UTC).Unix(), float64(10))
 
@@ -49,7 +49,7 @@ func TestAtomicAsset_JsonFailure(t *testing.T) {
 		assert.NoError(t, err)
 	}))
 
-	api := NewAtomicAsset(srv.URL, 120)
+	api := NewAtomicAsset(srv.URL, "", 120)
 	check, _ := api.Call(context.Background())
 
 	expected := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")
@@ -64,7 +64,7 @@ func TestAtomicAsset_HTTP500Down(t *testing.T) {
 		assert.NoError(t, err)
 	}))
 
-	api := NewAtomicAsset(srv.URL, 120)
+	api := NewAtomicAsset(srv.URL, "", 120)
 	check, status := api.Call(context.Background())
 
 	assert.Equal(t, "Taking offline because 500 was received from backend", status)
@@ -101,7 +101,7 @@ func TestAtomicAsset_LaggingUp(t *testing.T) {
 		}
 	}))
 
-	api := NewAtomicAsset(srv.URL, 120)
+	api := NewAtomicAsset(srv.URL, "", 120)
 	api.SetTime(time.Date(2025, 10, 8, 20, 7, 27, 0, time.UTC))
 
 	check, status := api.Call(context.Background())
@@ -140,7 +140,7 @@ func TestAtomicAsset_LaggingDown(t *testing.T) {
 		}
 	}))
 
-	api := NewAtomicAsset(srv.URL, 120)
+	api := NewAtomicAsset(srv.URL, "", 120)
 	api.SetTime(time.Date(2018, 8, 5, 6, 53, 35, 0, time.UTC))
 
 	check, status := api.Call(context.Background())
@@ -179,7 +179,7 @@ func TestAtomicAsset_InFutureUp(t *testing.T) {
 		}
 	}))
 
-	api := NewAtomicAsset(srv.URL, 120)
+	api := NewAtomicAsset(srv.URL, "", 120)
 	api.SetTime(time.Date(2024, 10, 15, 1, 9, 16, 500, time.UTC))
 
 	check, status := api.Call(context.Background())
@@ -218,7 +218,7 @@ func TestAtomicAsset_InFutureDown(t *testing.T) {
 		}
 	}))
 
-	api := NewAtomicAsset(srv.URL, 120)
+	api := NewAtomicAsset(srv.URL, "", 120)
 	api.SetTime(time.Date(2002, 12, 29, 0, 45, 0o3, 500, time.UTC))
 
 	check, status := api.Call(context.Background())
@@ -257,7 +257,7 @@ func TestAtomicAsset_RedisDown(t *testing.T) {
 		}
 	}))
 
-	api := NewAtomicAsset(srv.URL, 120)
+	api := NewAtomicAsset(srv.URL, "", 120)
 	api.SetTime(time.Date(2015, 3, 11, 11, 19, 30, 500, time.UTC))
 
 	check, status := api.Call(context.Background())
@@ -296,7 +296,7 @@ func TestAtomicAsset_PostgresDown(t *testing.T) {
 		}
 	}))
 
-	api := NewAtomicAsset(srv.URL, 120)
+	api := NewAtomicAsset(srv.URL, "", 120)
 	api.SetTime(time.Date(2019, 7, 11, 18, 6, 11, 500, time.UTC))
 
 	check, status := api.Call(context.Background())

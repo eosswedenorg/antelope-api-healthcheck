@@ -13,16 +13,18 @@ type AtomicAsset struct {
 	utils.Time
 
 	url        string
+	host       string
 	block_time float64
 }
 
 func AtomicAssetFactory(args ApiArguments) ApiInterface {
-	return NewAtomicAsset(args.Url, float64(args.NumBlocks/2))
+	return NewAtomicAsset(args.Url, args.Host, float64(args.NumBlocks/2))
 }
 
-func NewAtomicAsset(url string, block_time float64) AtomicAsset {
+func NewAtomicAsset(url string, host string, block_time float64) AtomicAsset {
 	return AtomicAsset{
 		url:        url,
+		host:       host,
 		block_time: block_time,
 	}
 }
@@ -37,6 +39,7 @@ func (e AtomicAsset) LogInfo() LogParams {
 
 func (e AtomicAsset) Call(ctx context.Context) (agentcheck.Response, string) {
 	client := atomicasset.NewWithContext(e.url, ctx)
+	client.Host = e.host
 
 	h, err := client.GetHealth()
 	if err != nil {
