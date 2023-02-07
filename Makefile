@@ -4,8 +4,8 @@ export PROGRAM_VERSION = 1.4.1
 
 GO			= go
 PREFIX 		= /usr/local
-export GOOS	= $(shell go env GOOS)
-export GOARCH = $(shell go env GOARCH)
+export GOOS	= $(shell $(GO) env GOOS)
+export GOARCH = $(shell $(GO) env GOARCH)
 GOBUILDFLAGS  = -v -ldflags='-v -s -w -X main.VersionString=$(PROGRAM_VERSION)'
 
 DPKG_BUILDPACKAGE = dpkg-buildpackage
