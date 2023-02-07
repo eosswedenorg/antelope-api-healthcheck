@@ -1,3 +1,28 @@
+antelope-api-healthcheck (1.4.1) unstable; urgency=medium
+
+  [ Bugfixes ]
+
+    * Fixing a bug where TCP connections were not closed after response was written.
+
+  [ Improvements ]
+
+    * API Check
+      - timeouts can now be configurable.
+      - "duration" and "duration_us" fields added to log row, these
+        values represents the api check duration.
+
+    * CLI
+      - new parameter `-t`, `--timeout` that specify the maximum duration of api checks.
+
+  [ Misc ]
+
+    * Go Packages
+      - Update github.com/panjf2000/gnet/v2 to v2.2.4
+      - Update github.com/eosswedenorg-go/leapapi to v0.2.3
+      - Update github.com/eosswedenorg-go/atomicassets to v0.1.1-0.20230206134606-4577244fa67a
+
+ -- Henrik Hautakoski <henrik@eossweden.org>  Tue, 07 Feb 2023 09:29:40 +0100
+
 antelope-api-healthcheck (1.4.0) unstable; urgency=medium
 
   * Using github.com/panjf2000/gnet as tcp server library instead of github.com/eosswedenorg-go/tcp_server
