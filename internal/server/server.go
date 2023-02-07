@@ -26,6 +26,9 @@ type Server struct {
 
 	// Time between each call to OnTick()
 	tick_interval time.Duration
+
+	// API Check timeout
+	timeout time.Duration
 }
 
 type Option func(*Server)
@@ -45,6 +48,12 @@ func New(addr string, options ...Option) *Server {
 func WithTick(interval time.Duration) Option {
 	return func(s *Server) {
 		s.tick_interval = interval
+	}
+}
+
+func WithTimeout(duration time.Duration) Option {
+	return func(s *Server) {
+		s.timeout = duration
 	}
 }
 
@@ -121,9 +130,12 @@ func (s *Server) OnTraffic(c gnet.Conn) gnet.Action {
 	// gnet library does not like blocking calls.
 	// as we do a blocking http call here, we need to wrap it in a goroutine.
 	go func() {
-		// Make a context with 30 sec timeout per default. Should be "enough" for most cases.
-		ctx, cancel := context.WithTimeout(context.Background(), time.Second*30)
-		defer cancel()
+		ctx := context.Background()
+		if s.timeout > 0 {
+			var cancel context.CancelFunc
+			ctx, cancel = context.WithTimeout(ctx, s.timeout)
+			defer cancel()
+		}
 
 		t := time.Now()
 		status, msg := healthCheckApi.Call(ctx)
