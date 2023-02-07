@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"math/rand"
 	"net/http"
 	"os"
 	"time"
@@ -13,6 +14,7 @@ import (
 var (
 	listen_host = flag.String("h,host", "localhost", "Host to listen on.")
 	listen_port = flag.Int("p", 3333, "Port to listen to.")
+	delay       = flag.Int("d", 0, "Delays responses randomly between 0 and int seconds.")
 )
 
 func getInfo(w http.ResponseWriter, r *http.Request) {
@@ -40,6 +42,11 @@ func getInfo(w http.ResponseWriter, r *http.Request) {
 		ForkDBHeadBlockNum:        100,
 	}
 
+	if *delay > 0 {
+		sleep_for := rand.Intn(*delay)
+		time.Sleep(time.Second * time.Duration(sleep_for))
+	}
+
 	payload, err := leapapi.Json().Marshal(&info)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -54,6 +61,8 @@ func getInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	rand.Seed(time.Now().Unix())
+
 	flag.Parse()
 
 	http.HandleFunc("/v1/chain/get_info", getInfo)
