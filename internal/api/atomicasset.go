@@ -11,7 +11,8 @@ import (
 
 type AtomicAsset struct {
 	utils.Time
-	client     atomicasset.Client
+
+	url        string
 	block_time float64
 }
 
@@ -21,9 +22,7 @@ func AtomicAssetFactory(args ApiArguments) ApiInterface {
 
 func NewAtomicAsset(url string, block_time float64) AtomicAsset {
 	return AtomicAsset{
-		client: atomicasset.Client{
-			URL: url,
-		},
+		url:        url,
 		block_time: block_time,
 	}
 }
@@ -31,14 +30,15 @@ func NewAtomicAsset(url string, block_time float64) AtomicAsset {
 func (e AtomicAsset) LogInfo() LogParams {
 	return LogParams{
 		"type", "atomicasset",
-		"url", e.client.URL,
+		"url", e.url,
 		"block_time", e.block_time,
 	}
 }
 
 func (e AtomicAsset) Call(ctx context.Context) (agentcheck.Response, string) {
-	// TODO: Pass context
-	h, err := e.client.GetHealth()
+	client := atomicasset.NewWithContext(e.url, ctx)
+
+	h, err := client.GetHealth()
 	if err != nil {
 		resp := agentcheck.NewStatusMessageResponse(agentcheck.Fail, "")
 		return resp, err.Error()

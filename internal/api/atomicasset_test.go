@@ -20,8 +20,7 @@ func TestAtomicAsset_Factory(t *testing.T) {
 	expected := NewAtomicAsset("https://atomic.example.com", 60)
 
 	assert.IsType(t, expected, api)
-	assert.Equal(t, expected.client.URL, api.(AtomicAsset).client.URL)
-	assert.Equal(t, expected.client.Host, api.(AtomicAsset).client.Host)
+	assert.Equal(t, expected.url, api.(AtomicAsset).url)
 	assert.Equal(t, expected.block_time, api.(AtomicAsset).block_time)
 }
 
