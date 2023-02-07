@@ -201,6 +201,6 @@ func main() {
 
 	// Run server
 	if err := srv.Run(); err != nil {
-		logger.Error("Server failed to shutdown", "message", err)
+		logger.Error("Server error", "error", err)
 	}
 }
