@@ -202,5 +202,6 @@ func main() {
 	// Run server
 	if err := srv.Run(); err != nil {
 		logger.Error("Server error", "error", err)
+		os.Exit(1)
 	}
 }
