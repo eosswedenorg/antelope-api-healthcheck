@@ -95,6 +95,14 @@ func TestParseRequest_AtomicAssetWithBlockTime(t *testing.T) {
 	assert.Equal(t, expected.LogInfo(), api.LogInfo())
 }
 
+func TestParseRequest_AtomicAssetWithHost(t *testing.T) {
+	expected := api.NewAtomicAsset("http://api.atomicassets.io", "some.other.host", 256)
+
+	api, err := ParseRequest("atomic|http://api.atomicassets.io|512|some.other.host")
+	assert.NoError(t, err)
+	assert.Equal(t, expected.LogInfo(), api.LogInfo())
+}
+
 func TestParseRequest_DebugApi(t *testing.T) {
 	expected := api.NewDebugApi("some_api_call")
 
