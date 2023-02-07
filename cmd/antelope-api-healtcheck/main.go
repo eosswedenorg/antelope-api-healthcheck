@@ -138,6 +138,8 @@ func main() {
 	var version bool
 	var usage bool
 	var logFormatter *string
+	// Set default timeout to 30 sec. Should be "enough" for most cases.
+	req_timeout := time.Second * 30
 
 	logger = log.Root()
 
@@ -147,6 +149,7 @@ func main() {
 	getopt.FlagLong(&version, "version", 'v', "Print version")
 	getopt.FlagLong(&logFile, "log", 'l', "Path to log file", "file")
 	getopt.FlagLong(&pidFile, "pid", 'p', "Path to pid file", "file")
+	getopt.FlagLong(&req_timeout, "timeout", 't', "Set the maximum time before a request times out, valid prefixes are 's','ms','us'", "duration")
 	logFormatter = getopt.EnumLong("log-format", 0, []string{"term", "logfmt", "json", "json-pretty"}, "", "Log format to use: term,logfmt,json,json-pretty")
 
 	getopt.Parse()
@@ -180,8 +183,18 @@ func main() {
 		}
 	}
 
+	if req_timeout.Seconds() < 2 {
+		// Dont alow anything below 2 seconds. that is abit aggresive.
+		logger.Warn("Request timeout is less than the minimum. Setting it to 2 seconds", "req_timeout", req_timeout)
+		req_timeout = time.Second * 2
+	} else if req_timeout.Minutes() > 0 {
+		// Anything more than 1 min is too long :)
+		logger.Warn("Request timeout is more than the maximum. Setting it to 1 minute", "req_timeout", req_timeout)
+		req_timeout = time.Minute
+	}
+
 	// Create server
-	srv = server.New(argv_listen_addr(), server.WithTick(time.Second*10))
+	srv = server.New(argv_listen_addr(), server.WithTick(time.Second*10), server.WithTimeout(req_timeout))
 
 	// Run signal event loop in its own goroutine
 	go signalEventLoop()
