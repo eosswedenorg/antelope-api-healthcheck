@@ -6,6 +6,7 @@ source ${BASE_DIR}/functions/log_install.sh
 SYSTEMDDIR=${DESTDIR}/lib/systemd/system
 SYSTEMDLINKDIR=${DESTDIR}/etc/systemd/system
 RSYSLOGDIR=${DESTDIR}/etc/rsyslog.d
+SYSLOG_NG_DIR=${DESTDIR}/etc/syslog-ng/conf.d
 LOGROTATEDIR=${DESTDIR}/etc/logrotate.d
 
 # Create service file
@@ -36,6 +37,14 @@ cat ${TEMPLATE_DIR}/rsyslog.conf \
     | sed "s~{{ PROGRAM }}~${PROGRAM_NAME}~" \
     | sed "s~{{ LOG_FILE }}~${LOGFILE}~" \
     > ${RSYSLOGDIR}/49-${PROGRAM_NAME}.conf
+
+# Create syslog-ng file
+log_install ${SYSLOG_NG_DIR}/${PROGRAM_NAME}.conf
+mkdir -p ${SYSLOG_NG_DIR}
+cat ${TEMPLATE_DIR}/syslog-ng.conf \
+    | sed "s~{{ PROGRAM }}~${PROGRAM_NAME}~" \
+    | sed "s~{{ LOG_FILE }}~${LOGFILE}~" \
+    > ${SYSLOG_NG_DIR}/${PROGRAM_NAME}.conf
 
 # Create logrotate file
 log_install ${LOGROTATEDIR}/${PROGRAM_NAME}.conf
