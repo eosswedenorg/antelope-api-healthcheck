@@ -1,3 +1,18 @@
+antelope-api-healthcheck (1.4.2) unstable; urgency=medium
+
+  [ Improvements ]
+    * API Check
+      - Default value for api timeout changed from 30s to 2s.
+        This makes sense because haproxy "inter" parameter is set to 2s per default.
+
+    * Linux install script
+      - Now installs `syslog-ng` configuration file.
+
+    * Misc
+      - Program now exits with correct status code "1" when an error occures.
+
+ -- Henrik Hautakoski <henrik@eossweden.org>  Tue, 14 Feb 2023 09:11:43 +0100
+
 antelope-api-healthcheck (1.4.1) unstable; urgency=medium
 
   [ Bugfixes ]
