@@ -138,8 +138,9 @@ func main() {
 	var version bool
 	var usage bool
 	var logFormatter *string
-	// Set default timeout to 30 sec. Should be "enough" for most cases.
-	req_timeout := time.Second * 30
+	// Set default timeout to 2 sec
+	// as haproxy "inter" parameter to healthcheck is set to 2s per default.
+	req_timeout := time.Second * 2
 
 	logger = log.Root()
 
