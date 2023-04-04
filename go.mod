@@ -3,7 +3,7 @@ module github.com/eosswedenorg/antelope-api-healthcheck
 go 1.18
 
 require (
-	github.com/eosswedenorg-go/atomicasset v0.1.1-0.20230206134606-4577244fa67a
+	github.com/eosswedenorg-go/atomicasset v0.1.1
 	github.com/eosswedenorg-go/haproxy v1.0.1
 	github.com/eosswedenorg-go/leapapi v0.2.3
 	github.com/eosswedenorg-go/pid v1.0.1
@@ -22,15 +22,9 @@ require (
 	github.com/google/pprof v0.0.0-20221219190121-3cb0bae90811 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
-	github.com/imroc/req/v3 v3.26.5 // indirect
+	github.com/imroc/req/v3 v3.33.2 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/liamylian/jsontime/v2 v2.0.0 // indirect
-	github.com/lucas-clemente/quic-go v0.31.1 // indirect
-	github.com/marten-seemann/qpack v0.3.0 // indirect
-	github.com/marten-seemann/qtls-go1-16 v0.1.5 // indirect
-	github.com/marten-seemann/qtls-go1-17 v0.1.2 // indirect
-	github.com/marten-seemann/qtls-go1-18 v0.1.3 // indirect
-	github.com/marten-seemann/qtls-go1-19 v0.1.1 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.16 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
@@ -38,6 +32,12 @@ require (
 	github.com/onsi/ginkgo/v2 v2.6.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/quic-go/qpack v0.4.0 // indirect
+	github.com/quic-go/qtls-go1-18 v0.2.0 // indirect
+	github.com/quic-go/qtls-go1-19 v0.2.0 // indirect
+	github.com/quic-go/qtls-go1-20 v0.1.0 // indirect
+	github.com/quic-go/quic-go v0.32.0 // indirect
+	github.com/rogpeppe/go-internal v1.10.0 // indirect
 	github.com/sonh/qs v0.6.2 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
