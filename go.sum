@@ -22,8 +22,6 @@ github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSs
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/dustin/go-humanize v1.0.0/go.mod h1:HtrtbFcZ19U5GC7JDqmcUSB87Iq5E25KnS6fMYU6eOk=
-github.com/eosswedenorg-go/atomicasset v0.1.0 h1:HRxFO7tOdyyygbxJjPm810x09sOUPbJW6pleslAjU+c=
-github.com/eosswedenorg-go/atomicasset v0.1.0/go.mod h1:QWm39AIPrv0CsYI2SRajNxpRyrHg5kcQwa/a0hf0wVo=
 github.com/eosswedenorg-go/atomicasset v0.1.1-0.20230206134606-4577244fa67a h1:FGWFvXC5DAxcOuig/kHIns6S6TL/9NtbvUXJYGyqF0U=
 github.com/eosswedenorg-go/atomicasset v0.1.1-0.20230206134606-4577244fa67a/go.mod h1:QWm39AIPrv0CsYI2SRajNxpRyrHg5kcQwa/a0hf0wVo=
 github.com/eosswedenorg-go/haproxy v1.0.1 h1:N9tyQSvEDG9Fq+gBP0b7A8R5iZAqYCms2K6Nvqq8TfE=
@@ -162,8 +160,8 @@ github.com/onsi/gomega v1.13.0/go.mod h1:lRk9szgn8TxENtWd0Tp4c3wjlRfMTMH27I+3Je4
 github.com/onsi/gomega v1.24.1 h1:KORJXNNTzJXzu4ScJWssJfJMnJ+2QJqhoQSRwNlze9E=
 github.com/openzipkin/zipkin-go v0.1.1/go.mod h1:NtoC/o8u3JlF1lSlyPNswIbeQH9bJTmOf0Erfk+hxe8=
 github.com/panjf2000/ants/v2 v2.7.1 h1:qBy5lfSdbxvrR0yUnZfaEDjf0FlCw4ufsbcsxmE7r+M=
-github.com/panjf2000/gnet/v2 v2.2.4 h1:40XE9G7QOU7PeM3QeOV09WVd3gqNWuKwSuto2LCUj0Q=
-github.com/panjf2000/gnet/v2 v2.2.4/go.mod h1:Q34YBnJNDFLsVBC4TiGD3uN+imoXrunFnecs/4FYcx4=
+github.com/panjf2000/gnet/v2 v2.2.6 h1:yVhVSnTZs/rtT1aEACz5EwpLDeQrhVZcB8w5Sn+t/TE=
+github.com/panjf2000/gnet/v2 v2.2.6/go.mod h1:Q34YBnJNDFLsVBC4TiGD3uN+imoXrunFnecs/4FYcx4=
 github.com/pborman/getopt/v2 v2.1.0 h1:eNfR+r+dWLdWmV8g5OlpyrTYHkhVNxHBdN2cCrJmOEA=
 github.com/pborman/getopt/v2 v2.1.0/go.mod h1:4NtW75ny4eBw9fO1bhtNdYTlZKYX5/tBLtsOpwKIKd0=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
