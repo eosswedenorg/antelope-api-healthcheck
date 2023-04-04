@@ -1,3 +1,16 @@
+antelope-api-healthcheck (1.4.3) unstable; urgency=medium
+
+  [ Misc ]
+
+    * Typo fix.
+
+    * Go Packages
+      - github.com/stretchr/testify from 1.8.1 to 1.8.2
+      - github.com/inconshreveable/log15 from 0.0.0-20221122034931-555555054819 to 3.0.0-testing.5+incompatible
+      - github.com/panjf2000/gnet/v2 from 2.2.4 to 2.2.6
+
+ -- Henrik Hautakoski <henrik@eossweden.org>  Tue, 04 Apr 2023 06:07:05 +0200
+
 antelope-api-healthcheck (1.4.2) unstable; urgency=medium
 
   [ Improvements ]
