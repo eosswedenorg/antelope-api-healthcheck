@@ -3,7 +3,7 @@ module github.com/eosswedenorg/antelope-api-healthcheck
 go 1.18
 
 require (
-	github.com/eosswedenorg-go/atomicasset v0.1.1
+	github.com/eosswedenorg-go/atomicasset v0.1.2
 	github.com/eosswedenorg-go/haproxy v1.0.1
 	github.com/eosswedenorg-go/leapapi v0.2.3
 	github.com/eosswedenorg-go/pid v1.0.1
@@ -15,6 +15,7 @@ require (
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/eosswedenorg-go/unixtime v0.1.1 // indirect
 	github.com/go-stack/stack v1.8.1 // indirect
 	github.com/go-task/slim-sprig v0.0.0-20210107165309-348f09dbbbc0 // indirect
 	github.com/golang/mock v1.6.0 // indirect
