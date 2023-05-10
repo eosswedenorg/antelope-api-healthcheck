@@ -188,7 +188,7 @@ func TestAtomicAsset_InFutureUp(t *testing.T) {
 	}))
 
 	api := NewAtomicAsset(srv.URL, "", 120)
-	api.SetTime(time.Date(2024, 10, 15, 1, 9, 16, 500, time.UTC))
+	api.SetTime(time.Date(2024, 10, 15, 1, 9, 16, 500*int(time.Millisecond), time.UTC))
 
 	check, status := api.Call(context.Background())
 
@@ -227,7 +227,7 @@ func TestAtomicAsset_InFutureDown(t *testing.T) {
 	}))
 
 	api := NewAtomicAsset(srv.URL, "", 120)
-	api.SetTime(time.Date(2002, 12, 29, 0, 45, 0o3, 500, time.UTC))
+	api.SetTime(time.Date(2002, 12, 29, 0, 45, 0o3, 500*int(time.Millisecond), time.UTC))
 
 	check, status := api.Call(context.Background())
 
@@ -266,7 +266,7 @@ func TestAtomicAsset_RedisDown(t *testing.T) {
 	}))
 
 	api := NewAtomicAsset(srv.URL, "", 120)
-	api.SetTime(time.Date(2015, 3, 11, 11, 19, 30, 500, time.UTC))
+	api.SetTime(time.Date(2015, 3, 11, 11, 19, 30, 500*int(time.Millisecond), time.UTC))
 
 	check, status := api.Call(context.Background())
 
@@ -305,7 +305,7 @@ func TestAtomicAsset_PostgresDown(t *testing.T) {
 	}))
 
 	api := NewAtomicAsset(srv.URL, "", 120)
-	api.SetTime(time.Date(2019, 7, 11, 18, 6, 11, 500, time.UTC))
+	api.SetTime(time.Date(2019, 7, 11, 18, 6, 11, 500*int(time.Millisecond), time.UTC))
 
 	check, status := api.Call(context.Background())
 
