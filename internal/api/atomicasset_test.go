@@ -227,7 +227,7 @@ func TestAtomicAsset_InFutureDown(t *testing.T) {
 	}))
 
 	api := NewAtomicAsset(srv.URL, "", 120)
-	api.SetTime(time.Date(2002, 12, 29, 0, 45, 0o3, 500*int(time.Millisecond), time.UTC))
+	api.SetTime(time.Date(2002, 12, 29, 0, 45, 3, 500*int(time.Millisecond), time.UTC))
 
 	check, status := api.Call(context.Background())
 
