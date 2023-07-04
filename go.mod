@@ -8,7 +8,7 @@ require (
 	github.com/eosswedenorg-go/leapapi v0.2.3
 	github.com/eosswedenorg-go/pid v1.0.1
 	github.com/inconshreveable/log15 v3.0.0-testing.5+incompatible
-	github.com/panjf2000/gnet/v2 v2.2.9
+	github.com/panjf2000/gnet/v2 v2.3.0
 	github.com/pborman/getopt/v2 v2.1.0
 	github.com/stretchr/testify v1.8.4
 )
@@ -40,6 +40,7 @@ require (
 	github.com/quic-go/quic-go v0.32.0 // indirect
 	github.com/rogpeppe/go-internal v1.10.0 // indirect
 	github.com/sonh/qs v0.6.2 // indirect
+	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	go.uber.org/zap v1.21.0 // indirect
@@ -47,11 +48,12 @@ require (
 	golang.org/x/exp v0.0.0-20221217163422-3c43f8badb15 // indirect
 	golang.org/x/mod v0.7.0 // indirect
 	golang.org/x/net v0.7.0 // indirect
-	golang.org/x/sys v0.5.0 // indirect
+	golang.org/x/sync v0.2.0 // indirect
+	golang.org/x/sys v0.8.0 // indirect
 	golang.org/x/term v0.5.0 // indirect
 	golang.org/x/text v0.7.0 // indirect
 	golang.org/x/tools v0.4.0 // indirect
 	gopkg.in/guregu/null.v4 v4.0.0 // indirect
-	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
+	gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
