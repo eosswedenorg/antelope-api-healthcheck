@@ -1,3 +1,11 @@
+antelope-api-healthcheck (1.4.6) unstable; urgency=medium
+
+  * Go Packages
+    - Update github.com/panjf2000/gnet/v2 from 2.2.9 to 2.3.1
+    - Update github.com/stretchr/testify from 1.8.3 to 1.8.4
+
+ -- Henrik Hautakoski <henrik@eossweden.org>  Tue, 25 Jul 2023 17:28:29 +0200
+
 antelope-api-healthcheck (1.4.5) unstable; urgency=medium
 
   Maintenance release, dependancies updates.
