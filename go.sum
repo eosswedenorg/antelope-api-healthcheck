@@ -60,9 +60,9 @@ github.com/modern-go/reflect2 v1.0.2/go.mod h1:yWuevngMOJpCy52FWWMvUC8ws7m/LJsjY
 github.com/onsi/ginkgo/v2 v2.6.1 h1:1xQPCjcqYw/J5LchOcp4/2q/jzJFjiAOc25chhnDw+Q=
 github.com/onsi/ginkgo/v2 v2.6.1/go.mod h1:yjiuMwPokqY1XauOgju45q3sJt6VzQ/Fict1LFVcsAo=
 github.com/onsi/gomega v1.24.1 h1:KORJXNNTzJXzu4ScJWssJfJMnJ+2QJqhoQSRwNlze9E=
-github.com/panjf2000/ants/v2 v2.7.4 h1:mJqMDtMckZltyL458pq81IGNfiDhEgzX5s/lhjwPWIM=
-github.com/panjf2000/gnet/v2 v2.3.0 h1:yarrsO8EfQiZaHDVGAl60a1AJf/Sfx781vbac55HYss=
-github.com/panjf2000/gnet/v2 v2.3.0/go.mod h1:Ixlf0CJ4qwldu2/M4smsEjAaMPYIj7qB5iASXNjKjMQ=
+github.com/panjf2000/ants/v2 v2.8.1 h1:C+n/f++aiW8kHCExKlpX6X+okmxKXP7DWLutxuAPuwQ=
+github.com/panjf2000/gnet/v2 v2.3.1 h1:J7vHkNxwsevVIw3u/6LCXgcnpGBk5iKqhQ2RMblGodc=
+github.com/panjf2000/gnet/v2 v2.3.1/go.mod h1:Ik5lTy2nmBg9Uvjfcf2KRYs+EXVNOLyxPHpFOFlqu+M=
 github.com/pborman/getopt/v2 v2.1.0 h1:eNfR+r+dWLdWmV8g5OlpyrTYHkhVNxHBdN2cCrJmOEA=
 github.com/pborman/getopt/v2 v2.1.0/go.mod h1:4NtW75ny4eBw9fO1bhtNdYTlZKYX5/tBLtsOpwKIKd0=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
