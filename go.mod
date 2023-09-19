@@ -8,7 +8,7 @@ require (
 	github.com/eosswedenorg-go/leapapi v0.2.3
 	github.com/eosswedenorg-go/pid v1.0.1
 	github.com/inconshreveable/log15 v3.0.0-testing.5+incompatible
-	github.com/panjf2000/gnet/v2 v2.3.2
+	github.com/panjf2000/gnet/v2 v2.3.3
 	github.com/pborman/getopt/v2 v2.1.0
 	github.com/stretchr/testify v1.8.4
 )
@@ -49,7 +49,7 @@ require (
 	golang.org/x/mod v0.7.0 // indirect
 	golang.org/x/net v0.7.0 // indirect
 	golang.org/x/sync v0.3.0 // indirect
-	golang.org/x/sys v0.11.0 // indirect
+	golang.org/x/sys v0.12.0 // indirect
 	golang.org/x/term v0.5.0 // indirect
 	golang.org/x/text v0.7.0 // indirect
 	golang.org/x/tools v0.4.0 // indirect
