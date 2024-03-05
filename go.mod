@@ -10,7 +10,7 @@ require (
 	github.com/inconshreveable/log15 v3.0.0-testing.5+incompatible
 	github.com/panjf2000/gnet/v2 v2.3.4
 	github.com/pborman/getopt/v2 v2.1.0
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.9.0
 )
 
 require (
