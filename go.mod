@@ -8,7 +8,7 @@ require (
 	github.com/eosswedenorg-go/leapapi v0.2.3
 	github.com/eosswedenorg-go/pid v1.0.1
 	github.com/inconshreveable/log15 v3.0.0-testing.5+incompatible
-	github.com/panjf2000/gnet/v2 v2.3.5
+	github.com/panjf2000/gnet/v2 v2.5.0
 	github.com/pborman/getopt/v2 v2.1.0
 	github.com/stretchr/testify v1.9.0
 )
