@@ -7,12 +7,12 @@ This program implements Antelope healthcheck for HAProxy over TCP.
 
 ## Compiling
 
-You will need go-lang version `1.16` or later to compile the source.
+You will need golang version `1.16` or later to compile the source.
 
 compile with `compile.sh` script
 
 ```sh
-$ ./compile.sh
+./compile.sh
 ```
 
 Execute `./compile.sh --help` to see all available flags to crosscompile for different systems/architectures.

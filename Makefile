@@ -1,14 +1,14 @@
 
-PROGRAM_NAME 	= antelope-api-healthcheck
-export PROGRAM_VERSION = 1.4.6
+PROGRAM_NAME 		= antelope-api-healthcheck
+export PROGRAM_VERSION 	= 1.4.6
 
-GO			= go
+GO		= go
 PREFIX 		= /usr/local
 export GOOS	= $(shell $(GO) env GOOS)
-export GOARCH = $(shell $(GO) env GOARCH)
-GOBUILDFLAGS  = -v -ldflags='-v -s -w -X main.VersionString=$(PROGRAM_VERSION)'
+export GOARCH 	= $(shell $(GO) env GOARCH)
+GOBUILDFLAGS  	= -v -ldflags='-v -s -w -X main.VersionString=$(PROGRAM_VERSION)'
 
-DPKG_BUILDPACKAGE = dpkg-buildpackage
+DPKG_BUILDPACKAGE 	= dpkg-buildpackage
 DPKG_BUILDPACKAGE_FLAGS = -b -uc
 
 .PHONY: all build/$(PROGRAM_NAME) build/antelope-v1-mock-server clean package_debian
