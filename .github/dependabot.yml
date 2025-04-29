@@ -1,8 +1,0 @@
-version: 2
-updates:
-  - package-ecosystem: gomod
-    directory: /
-    target-branch: dev
-    schedule:
-      interval: weekly
-      day: tuesday
